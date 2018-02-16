@@ -7,8 +7,7 @@ from .forms import RoomForm
 
 def home(request):
     if request.method == "POST":
-        rlt = request.POST['room_id']
-        return render(request, 'manager/home.html', {'rlt': rlt})
+        room_id = request.POST['room_id']
+        return render(request, 'manager/home.html', { 'room_id': room_id})
     else:  # 当正常访问时
-        form = RoomForm()
-        return render(request, 'manager/home.html', {'rlt': 'xas'})
+        return render(request, 'manager/home.html', {})

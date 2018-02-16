@@ -6,11 +6,11 @@
         <style>
       .left {
         float: left;
-        width: 50%;
+        width: 30%;
         height: 300px;
       }
       .right {
-        margin-left: 50%;
+        margin-left: 20%;
         height: 300px;
       }
     </style>
@@ -20,8 +20,11 @@
     <hr />
     <div class="left">
         {% if not request.method == 'POST' %}
-            请选择房间
-        {% endif %}
+            您还未选择房间，请选择房间。
+        {% else %}
+            您选择了{{ room_id }}号房间，该房间有人。
+        {% endif %}<br>
+        <h1>这里是该房间的信号</h1>
     </div>
     <div class="right">
         <form action="" method="post">
@@ -29,7 +32,6 @@
             房间号:<input type="text" name="room_id">
             <input type="submit" value="提交">
         </form>
-        <p>{{ rlt }}ni</p>
     </div>
 </body>
 </html>
