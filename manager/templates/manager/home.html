@@ -19,17 +19,17 @@
     <h1>这是管理员界面</h1>
     <hr />
     <div class="left">
-        {% if request %}
-
+        {% if not request.method == 'POST' %}
+            请选择房间
         {% endif %}
     </div>
     <div class="right">
-        <form action="" method="get">
-            a:<input type="text" name="a"><br>
-            b:<input type="text" name="b"><br>
-
+        <form action="" method="post">
+            {% csrf_token %}
+            房间号:<input type="text" name="room_id">
             <input type="submit" value="提交">
         </form>
+        <p>{{ rlt }}ni</p>
     </div>
 </body>
 </html>
