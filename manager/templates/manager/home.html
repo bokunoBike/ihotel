@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员界面</title>
+        <style>
+      .left {
+        float: left;
+        width: 50%;
+        height: 300px;
+      }
+      .right {
+        margin-left: 50%;
+        height: 300px;
+      }
+    </style>
+</head>
+<body>
+    <h1>这是管理员界面</h1>
+    <hr />
+    <div class="left">
+        {% if request %}
+
+        {% endif %}
+    </div>
+    <div class="right">
+        <form action="" method="get">
+            a:<input type="text" name="a"><br>
+            b:<input type="text" name="b"><br>
+
+            <input type="submit" value="提交">
+        </form>
+    </div>
+</body>
+</html>
