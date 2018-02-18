@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>显示数据库的内容</title>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript">//<![CDATA[
+    $(function () {
+        $('#send_message').click(function () {
+            var socket = new WebSocket("ws://" + window.location.host + "/get_dbdata/");
+            socket.onopen = function () {
+                console.log('WebSocket open');//成功连接上Websocket
+            };
+            socket.onmessage = function (e) {
+                console.log('message: ' + e.data);//打印服务端返回的数据
+                $('#messagecontainer').prepend('<p>' + e.data + '</p>');
+            };
+        });
+    });
+    //]]></script>
+</head>
+<body>
+    <table border="1">
+        <tr>
+            <th>room_id</th>
+            <th>status</th>
+        </tr>
+        {% for line in  db_query%}
+            <tr>
+                <td>{{ line.room_id }}</td>
+                <td>{{ line.status }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <button type="button" id="send_message">发送 message</button>
+    <h1>Received Messages</h1>
+    <div id="messagecontainer">
+
+    </div>
+</body>
+</html>

@@ -21,8 +21,16 @@
     <div class="left">
         {% if not request.method == 'POST' %}
             您还未选择房间，请选择房间。
+        {% elif room_status == 2 %}
+            暂无此房间
+        {% elif room_status == 0 %}
+            您选择了<div style="display:inline;color: red">{{ room_id }}</div>号房间，
+            该房间<div style="display:inline;color: red">无</div>人。
+        {% elif room_status == 1 %}
+            您选择了<div style="display:inline;color: red">{{ room_id }}</div>号房间，
+            该房间<div style="display:inline;color: red">有</div>人。
         {% else %}
-            您选择了{{ room_id }}号房间，该房间无/有人。
+            error
         {% endif %}<br>
         <h1>这里是该房间的信号</h1>
     </div>
