@@ -20,5 +20,6 @@ from manager.views import *
 urlpatterns = [
     url(r'^home', home),
     url(r'^show', show),
-    url(r'^get_dbdata', get_dbdata)
+    url(r'^get_dbdata', get_dbdata),
+    url(r'^get_room', get_room),
 ]
