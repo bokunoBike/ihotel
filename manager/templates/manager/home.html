@@ -37,7 +37,7 @@
                  window.s.close()
              }
              /*创建socket连接*/
-             var socket = new WebSocket("ws://" + window.location.host + "/get_room");
+             var socket = new WebSocket("ws://" + window.location.host + "/manager/get_room");
              socket.onopen = function () {
                  console.log('WebSocket open');//成功连接上Websocket
                  socket.send($('#get_room_id').val());
