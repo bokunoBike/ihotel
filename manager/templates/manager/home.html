@@ -25,39 +25,39 @@
         <h1>这里是该房间的信号</h1>
     </div>
     <div class="right">
-        房间号:<input type="text" name="room_id" id="get_room_id">
-        <button id="submit">提交</button>
+        <form action="" method="get">
+            房间号:<input type="text" name="room_id" id="room_id">
+            <input type="submit" value="提交">
+        </form>
     </div>
 
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script type="text/javascript">//<![CDATA[
     $(function () {
-         $('#submit').click(function () {
-             if (window.s) {
-                 window.s.close()
+         if (window.s) {
+             window.s.close()
+         }
+         /*创建socket连接*/
+         var socket = new WebSocket("ws://" + window.location.host + "/manager/get_room?room_id={{ room_id }}");
+         socket.onopen = function () {
+             console.log('WebSocket open');//成功连接上Websocket
+             var div = document.getElementById("room_id");
+             div.innerHTML = "{{ room_id }}";
+         };
+         socket.onmessage = function (e) {
+             /*console.log('message: ' + e.data);//打印出服务端返回过来的数据*/
+             var status = e.data;
+             var div = document.getElementById("room_status");
+             if (status == 1) {
+                 div.innerHTML = "有";
              }
-             /*创建socket连接*/
-             var socket = new WebSocket("ws://" + window.location.host + "/manager/get_room");
-             socket.onopen = function () {
-                 console.log('WebSocket open');//成功连接上Websocket
-                 socket.send($('#get_room_id').val());
-                 $('#room_id').html($('#get_room_id').val());
-             };
-             socket.onmessage = function (e) {
-                 /*console.log('message: ' + e.data);//打印出服务端返回过来的数据*/
-                 var status = e.data;
-                 var div = document.getElementById("room_status");
-                 if (status == 1) {
-                     div.innerHTML = "有";
-                 }
-                 else {
-                     div.innerHTML = "无";
-                 }
-             };
-             // Call onopen directly if socket is already open
-             if (socket.readyState == WebSocket.OPEN) socket.onopen();
-             window.s = socket;
-         });
+             else {
+                 div.innerHTML = "无";
+             }
+         };
+         // Call onopen directly if socket is already open
+         if (socket.readyState == WebSocket.OPEN) socket.onopen();
+         window.s = socket;
     });
     //]]></script>
 </body>

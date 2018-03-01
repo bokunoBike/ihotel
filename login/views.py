@@ -13,7 +13,7 @@ from .models import User
 
 @login_required(login_url='/login/login')
 def home(request):  # 主页，需要登录
-    return render(request, 'home.html', {'username': request.user.username})
+    return render(request, 'login/home.html', {'username': request.user.username})
 
 
 def login(request):  # 登录页面
@@ -28,12 +28,12 @@ def login(request):  # 登录页面
                 auth.login(request, user)
                 return redirect(reverse('login:home'))
             else:
-                return render(request, 'login.html', {'login_form': login_form})
+                return render(request, 'login/login.html', {'login_form': login_form})
         else:
-            return render(request, 'login.html', {'login_form': login_form})
+            return render(request, 'login/login.html', {'login_form': login_form})
     else:  # 正常访问
         login_form = LoginForm
-        return render(request, 'login.html', {'login_form': login_form})
+        return render(request, 'login/login.html', {'login_form': login_form})
 
 
 def logout(request):
@@ -51,9 +51,9 @@ def register(request):  # 注册页面
 
             user = User.objects.create_user(username=username, email=email, password=password)
             auth.login(request, user)
-            return render(request, 'register_successfully.html')
+            return render(request, 'login/register_successfully.html')
         else:  # 未通过
-            return render(request, 'register.html', {'user_create_form': user_create_form})
+            return render(request, 'login/register.html', {'user_create_form': user_create_form})
     else:  # 当正常访问时
         user_create_form = UserCreateForm
-        return render(request, 'register.html', {'user_create_form': user_create_form})
+        return render(request, 'login/register.html', {'user_create_form': user_create_form})

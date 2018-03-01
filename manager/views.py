@@ -27,7 +27,7 @@ def is_in_room(room_id):
 
 @require_websocket
 def get_room(request):
-    room_id = request.websocket.wait()
+    room_id = request.GET.get('room_id', 0)
     room_status = is_in_room(room_id)
     while True:
         room_status = is_in_room(room_id)
@@ -36,7 +36,9 @@ def get_room(request):
 
 
 def home(request):
-    return render(request, 'manager/home.html', {'room_id': 0, 'room_status': 4})
+    room_id = request.GET.get('room_id', 0)
+    room_status = is_in_room(room_id)
+    return render(request, 'manager/home.html', {'room_id': room_id, 'room_status': room_status})
 
 
 @accept_websocket
