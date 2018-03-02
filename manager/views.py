@@ -39,27 +39,3 @@ def home(request):
     room_id = request.GET.get('room_id', 0)
     room_status = is_in_room(room_id)
     return render(request, 'manager/home.html', {'room_id': room_id, 'room_status': room_status})
-
-
-@accept_websocket
-def get_dbdata(request):
-    if not request.is_websocket():  # 判断是不是websocket连接
-        try:  # 如果是普通的http方法
-            message = "http方法"
-            return HttpResponse(message)
-        except:
-            return render(request, 'manager/error.html')
-    else:
-        while True:
-            db_query = Room.objects.all()
-            message = [[l.room_id, l.status] for l in db_query]
-            message = json.dumps(message)
-            message = bytes(message, 'utf-8')
-            # message = bytes(db_query[0].room_id, 'utf-8')
-            request.websocket.send(message)
-            time.sleep(1)
-
-
-def show(request):
-    db_query = Room.objects.all()
-    return render(request, 'manager/show.html', {'db_query': db_query})

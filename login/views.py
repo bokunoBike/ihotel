@@ -26,7 +26,10 @@ def login(request):  # 登录页面
             user = auth.authenticate(request, username=username, password=password)
             if user is not None:  # 登录成功
                 auth.login(request, user)
-                return redirect(reverse('login:home'))
+                if user.is_admin:
+                    return redirect(reverse('manager:home'))
+                else:
+                    return redirect(reverse('login:home'))
             else:
                 return render(request, 'login/login.html', {'login_form': login_form})
         else:
