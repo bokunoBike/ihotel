@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员界面</title>
+    <style>
+      .left {
+        float: left;
+        width: 30%;
+        height: 300px;
+      }
+      .right {
+        margin-left: 20%;
+        height: 300px;
+      }
+    </style>
+
+</head>
+<body>
+    <h1>这是管理员界面</h1>
+    <hr />
+    <div class="left">
+        您选择了<div style="display:inline;color: red" id="room_id"></div>房间，<br>
+        该房间<div style="display:inline;color: red" id="room_status"></div>人。
+        <h1>这里是该房间的信号</h1>
+    </div>
+    <div class="right">
+        <form action="" method="get">
+            房间号:<input type="text" name="room_id" id="room_id">
+            <input type="submit" value="提交">
+        </form>
+    </div>
+
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript">//<![CDATA[
+    $(function () {
+         if (window.s) {
+             window.s.close()
+         }
+         /*创建socket连接*/
+         var socket = new WebSocket("ws://" + window.location.host + "/manager/get_room?room_id={{ room_id }}");
+         socket.onopen = function () {
+             console.log('WebSocket open');//成功连接上Websocket
+             var div = document.getElementById("room_id");
+             div.innerHTML = "{{ room_id }}";
+         };
+         socket.onmessage = function (e) {
+             /*console.log('message: ' + e.data);//打印出服务端返回过来的数据*/
+             var status = e.data;
+             var div = document.getElementById("room_status");
+             if (status == 1) {
+                 div.innerHTML = "有";
+             }
+             else {
+                 div.innerHTML = "无";
+             }
+         };
+         // Call onopen directly if socket is already open
+         if (socket.readyState == WebSocket.OPEN) socket.onopen();
+         window.s = socket;
+    });
+    //]]></script>
+</body>
+</html>
