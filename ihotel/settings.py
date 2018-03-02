@@ -121,14 +121,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
-
-
-# CHANNEL_LAYERS = {
-#     "default": {
-#         "BACKEND": "asgi_redis.RedisChannelLayer",
-#         "CONFIG": {
-#             "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')]
-#         },
-#         "ROUTING": "manager.routing.channel_routing",
-#     }
-# }
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
