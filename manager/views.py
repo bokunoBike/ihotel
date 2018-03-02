@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from dwebsocket import require_websocket, accept_websocket
+from django.contrib.auth.decorators import login_required
 import time
-import json
 from django.shortcuts import render
 from django.http import HttpResponse
+
 from .models import Room
 
 
@@ -35,6 +36,7 @@ def get_room(request):
         time.sleep(1)
 
 
+@login_required
 def home(request):
     room_id = request.GET.get('room_id', 0)
     room_status = is_in_room(room_id)
