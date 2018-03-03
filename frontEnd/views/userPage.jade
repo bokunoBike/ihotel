@@ -1,0 +1,77 @@
+doctype transitional
+html(xmlns='http://www.w3.org/1999/xhtml')
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible',content='IE=edge')
+    meta(name='viewport',content='width=device-with,initial-scale=1')
+    title 客房人体感应系统(TeckMicro)
+    link(href='https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css',rel='stylesheet')
+    // HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries
+    //if lt IE 9
+      script(src='https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js')
+      script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')
+    link(rel='stylesheet',href='http://localhost:3000/stylesheets/userPage.css')
+    link(rel='stylesheet',href='http://localhost:3000/stylesheets/footer.css')
+    link(rel='SHORTCUT ICON', href='http://localhost:3000/images/favicon.ico')
+    link(rel='BOOKMARK', href='http://localhost:3000/images/favicon.ico')
+    script(src='https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js')
+    script(src='https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js')
+
+  body
+    #myModal.modal.fade.clearfix(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true',data-backdrop='static')
+      .modal-dialog#modalDialog
+        .modal-content
+          .modal-header
+            img.pull-left(src='http://localhost:3000/images/important.gif', alt='')
+            h4#myModalLabel.modal-title.pull-left
+              | 警告(Warning)
+          .modal-body#myModalBody
+            | 房间将于您离开后立即断电！
+          .modal-footer
+            button.btn.btn-default(type='button', data-dismiss='modal')
+              | 取消
+            button.btn.btn-primary(type='button', data-dismiss='modal')
+              | 确认
+    .container-fluid
+      //header
+      nav.navbar.navbar-default.navbar-fixed-top#navbarContainer
+        .container
+          .navbar-header
+            button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
+              span.sr-only Toggle navigation
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+            p.navbar-brand TeckMicro
+          #navbar.navbar-collapse.collapse
+            ul.nav.navbar-nav.navbar-right
+              li
+                a(href='http://localhost:3000/') 注销
+              li
+                a.glyphicon.glyphicon-envelope(aria-hidden='true')(href='mailto:bowl_www@163.com') 联系我们
+      //container
+      .body_container.row
+        img.img-responsive(src='http://localhost:3000/images/ab.jpg', alt='Header')
+        .someWords.pull-right.col-sm-7
+          h1.lead Welcome!
+          p Now,you can choose the mode you prefer
+          br
+          |           and enjoy your stay here.
+        #select
+          .pattern.activeMode.col-xs-10.col-sm-3.col-md-3.col-lg-3
+            a(href='http://localhost:3000/userPage/timeOut') 用户设定
+          .pattern.passiveMode.col-xs-10.col-sm-3.col-md-3.col-lg-3(data-toggle='modal', data-target='#myModal')
+            p 托管设定
+      //footer
+      .footer#footer
+        address
+          strong TeckMicro
+          br
+          |           1355 Market Street, Suite 900
+          br
+          |           San Francisco, CA 94103
+          br
+          |           Telephone:(123) 456-7890
+      #none
+      script(type='text/javascript', src='http://localhost:3000/javascripts/footer.js').
+      script(type='text/javascript', src='http://localhost:3000/javascripts/userPage.js').

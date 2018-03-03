@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>显示数据库的内容</title>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript">//<![CDATA[
+    $(function () {
+        $('#connect_websocket').click(function () {
+            if (window.s) {
+                window.s.close()
+            }
+            /*创建socket连接*/
+            var socket = new WebSocket("ws://" + window.location.host + "/manager/get_dbdata");
+            socket.onopen = function () {
+                console.log('WebSocket open');//成功连接上Websocket
+            };
+            socket.onmessage = function (e) {
+                /*console.log('message: ' + e.data);//打印出服务端返回过来的数据*/
+                /*$('#messagecontainer').prepend('<p>' + e.data + '</p>');*/
+                div = document.getElementById("messagecontainer");
+                data = e.data.parseJSON;
+                var table = document.createElement("table");
+                for (line in data){
+                    var tr = document.createElement("tr");
+                    var td = document.createElement("td");
+                    td.innerHTML = line[0];
+                    tr.appendChild(td);
+                    td = document.createElement("td");
+                    td.innerHTML = line[1];
+                    tr.appendChild(td)
+                    table.appendChild(tr)
+                }
+                div.appendChild(table);
+            };
+            socket.onclose = function () {
+                console.log('websocket已关闭,尝试重连');
+                /*alert("websocket关闭");*/
+                reconnect();
+            };
+            socket.onerror = function () {
+                console.log('websocket发生错误,尝试重连');
+                /*alert("websocket错误");*/
+                reconnect();
+            };
+            // Call onopen directly if socket is already open
+            if (socket.readyState == WebSocket.OPEN) socket.onopen();
+            window.s = socket;
+        });
+    });
+    //]]></script>
+</head>
+<body>
+    <table border="1">
+        <tr>
+            <th>room_id</th>
+            <th>status</th>
+        </tr>
+        {% for line in  db_query%}
+            <tr>
+                <td>{{ line.room_id }}</td>
+                <td>{{ line.status }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <button type="button" id="connect_websocket">连接 websocket</button>
+    <h1>Received Messages</h1>
+    <table id="messagecontainer" border="1">
+
+    </table>
+</body>
+</html>

@@ -1,0 +1,96 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    title 客房人体感应系统(TeckMicro)
+    link(href='https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css', rel='stylesheet')
+    // HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries
+    //if lt IE 9
+      script(src='https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js')
+      script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')
+    link(rel='stylesheet', href='http://localhost:3000/stylesheets/firstPage.css')
+    link(rel='stylesheet', href='http://localhost:3000/stylesheets/footer.css')
+    link(rel='SHORTCUT ICON', href='http://localhost:3000/images/favicon.ico')
+    link(rel='BOOKMARK', href='http://localhost:3000/images/favicon.ico')
+    script(src='https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js')
+    script(src='https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js')
+    script(src='https://cdn.bootcss.com/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js')
+  body
+    .container-fluid
+      //header
+      nav.navbar.navbar-default.navbar-fixed-top
+        .container
+          .navbar-header
+            button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
+              span.sr-only Toggle navigation
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+            p.navbar-brand TeckMicro
+          #navbar.navbar-collapse.collapse
+            ul.nav.navbar-nav.navbar-right
+              li
+                a.glyphicon.glyphicon-envelope(aria-hidden='true')(href='mailto:bowl_www@163.com') 联系我们
+      // flash
+      #myCarousel.carousel.slide.carousel-fade(data-ride='carousel', data-pause='none')
+        // Indicators
+        ol.carousel-indicators
+          li.active(data-target='#myCarousel', data-slide-to='0')
+          li(data-target='#myCarousel', data-slide-to='1')
+          li(data-target='#myCarousel', data-slide-to='2')
+        .carousel-inner(role='listbox')
+          // signin
+          form#defaultForm(action='后边改！！！').signin.col-xs-8.col-xs-offset-2.col-sm-4.col-sm-offset-7.col-md-3.col-md-offset-8.col-lg-3.col-lg-offset-8
+            .form-group
+              center
+                label
+                  h3 账号密码登录
+            .form-group#groupNumber
+              label.sr-only
+              input#roomNumber.form-control(name='roomNumber',type='text', placeholder='房号')
+              span#numberStatus.glyphicon.form-control-feedback(aria-hidden='true')
+            .form-group#groupPassword
+              label.sr-only
+              input#thePassword.form-control(name='thePassword',type='password', placeholder='初始密码为身份证后6位')
+              //span#helpBlock 初始密码为身份证后6位
+            center
+              button.btn.btn-primary.btn-lg.btn-block(type='submit',click='login()') 登录
+          .item.active
+            img.first-slide.img-responsive(src='http://localhost:3000/images/outdoors.png', alt='First slide')
+            .container
+              .carousel_caption
+                h1
+                  | "Better
+                  br
+                  h1 environment."
+          .item
+            img.second-slide.img-responsive(src='http://localhost:3000/images/dessert.png', alt='Second slide')
+            .container
+              .carousel_caption
+                h1
+                  | "Better
+                  br
+                  h1 taste."
+          .item
+            img.third-slide.img-responsive(src='http://localhost:3000/images/waitress.png', alt='Third slide')
+            .container
+              .carousel_caption
+                h1
+                  | "Better
+                  br
+                  h1 service."
+      // footer
+      .footer#footer
+        address
+          strong TeckMicro.
+          br
+          |           1355 Market Street, Suite 900
+          br
+          |           San Francisco, CA 94103
+          br
+          |           Telephone:(123) 456-7890
+      #none
+      script(type='text/javascript', src='http://localhost:3000/javascripts/footer.js')
+      script(type='text/javascript', src='http://localhost:3000/javascripts/firstPage.js')

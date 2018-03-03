@@ -1,0 +1,133 @@
+/* GLOBAL STYLES
+-------------------------------------------------- */
+/*BODY AND CONTAINER *
+-------------------------------------------------- */
+body
+{
+  padding:0;
+  margin: 0;
+  color: gray;
+}
+.container-fluid
+{
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+.carousel-logo
+{
+  font-size: 34px;
+  font-weight:bold;
+  font-family: Times, TimesNR, 'New Century Schoolbook',
+     Georgia, 'New York', serif;
+}
+/* CUSTOMIZE THE HEADER
+-------------------------------------------------- */
+.navbar
+{
+  width: 100%;
+  margin-bottom: 0px;
+  border-width: 0px;
+  background-color: #252525 !important;
+}
+
+nav .container
+{
+  margin: 0;
+  width: 100%;
+}
+
+p.navbar-brand
+{
+  font-size: 34px;
+  font-weight:bold;
+  font-family: Times, TimesNR, 'New Century Schoolbook',
+     Georgia, 'New York', serif;
+}
+
+#navbar a
+{
+  color: gray;
+  font-family: Times, TimesNR, 'New Century Schoolbook',
+     Georgia, 'New York', serif;
+  font-weight: bold;
+}
+
+#navbar a:hover
+{
+  color:#aaaaaa;
+}
+
+/* CUSTOMIZE THE CAROUSEL
+-------------------------------------------------- */
+/*Signin part*/
+.signin
+ {
+   max-width: 450px;
+   padding: 15px;
+   position: absolute;
+   top:20%;
+   z-index: 10;
+   background-color: rgba(255, 255, 255, 0.6);
+   padding: 20px 30px;
+}
+ }
+/* Carousel base class */
+.carousel {
+  height: 560px;
+  margin-bottom: 60px;
+  background-color: #777;
+}
+/* Since positioning the image, we need to help out the caption */
+.carousel_caption {
+  position: absolute;
+  left: 10%;
+  top: 50%;
+  z-index: 10;
+}
+@media screen and (max-width: 768px){
+  .carousel_caption{display: none;}
+}
+/* Declare heights because of positioning of img element */
+.carousel .item {
+  height: 560px;
+  background-color: transparent;
+}
+.carousel-fade .carousel-inner .item{
+  opacity:0.8;
+  -webkit-transition:opacity 2s ease-in-out;
+  -moz-transition:opacity 2s ease-in-out;
+  -ms-transition:opacity 2s ease-in-out;
+  -o-transition:opacity 2s ease-in-out;
+  transition:opacity 2s ease-in-out;
+}
+
+.carousel-fade .carousel-inner .active{
+  opacity: 1;
+}
+
+.carousel-fade .carousel-inner .active.left,
+.carousel-fade .carousel-inner .active.right{
+  left: 0;
+  opacity: 0;
+}
+
+.carousel-fade .carousel-inner .next.left,
+.carousel-fade .carousel-inner .prev.right {
+  opacity: 1;
+}
+
+.carousel-inner > .item > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  height: 560px;
+}
+.carousel_caption h1 {
+    margin-bottom: 20px;
+    font-size: 46px;
+    line-height: 1.4;
+    font-weight: bold;
+    color: white;
+  }

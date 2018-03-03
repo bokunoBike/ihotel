@@ -1,0 +1,188 @@
+/* GLOBAL STYLES
+-------------------------------------------------- */
+/*BODY AND CONTAINER *
+-------------------------------------------------- */
+body
+{
+  padding-top:60px;
+  margin: 0;
+  color: white;
+  //overflow-x: hidden;
+}
+.container-fluid
+{
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+.carousel-logo
+{
+  font-size: 34px;
+  font-weight:bold;
+  font-family: Times, TimesNR, 'New Century Schoolbook',
+     Georgia, 'New York', serif;
+}
+/* CUSTOMIZE THE HEADER
+-------------------------------------------------- */
+.navbar
+{
+  width: 100%;
+  margin-bottom: 0px;
+  border-width: 0px;
+  background-color: #202020 !important;
+}
+
+.navbar .container
+{
+  margin: 0;
+  width: 100%;
+}
+
+p.navbar-brand
+{
+  font-size: 34px;
+  font-weight:bold;
+  font-family: Times, TimesNR, 'New Century Schoolbook',
+     Georgia, 'New York', serif;
+}
+
+#navbar a
+{
+  color: gray;
+  font-family: Times, TimesNR, 'New Century Schoolbook',
+     Georgia, 'New York', serif;
+  font-weight: bold;
+}
+
+#navbar a:hover
+{
+  color:#aaaaaa;
+}
+
+/* CUSTOMIZE THE CONTAIANER
+-------------------------------------------------- */
+.body_container
+{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: #252525;
+  border-bottom: 4px solid gray;
+}
+
+.body_container img
+{
+  width: 100%;
+  box-shadow: -10px 10px 5px #202020;
+}
+
+.body_container h2
+{
+  padding: 3% 0;
+}
+
+#myModalLabel,#myModalBody
+{
+  color:gray;
+}
+
+#myModalLabel
+{
+  margin-top: 5px;
+}
+
+#modalDialog
+{
+  border: 3px solid #3B6EB8;
+  border-radius: 9px;
+  padding: 0;
+}
+
+form p
+{
+  display: none;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.form-group
+{
+  margin-top: 2%;
+}
+.form-group h5
+{
+  display: inline-block;
+  padding: 0 10px;
+  font-weight: bold;
+}
+
+.smallScreen
+{
+  display: none;
+}
+
+.row
+{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+form
+{
+  padding: 3%;
+  margin: 0 0 11% 0;
+  background-color: #303030;
+  border-width: 0.5px;
+  border-color: #353535 #202020 #202020 #353535;
+  box-shadow: 10px 5px 5px #202020;
+  border-radius: 5px;
+}
+
+form button
+{
+  margin-top: 10%;
+}
+
+/* CUSTOMIZE THE COUNTDOWN
+-------------------------------------------------- */
+#timeCounter button
+{
+  margin: 20% 0;
+}
+
+#timeCounter
+{
+  display: none;
+  margin-bottom: 230px;
+}
+
+@media screen and (max-width: 767px)
+{
+  .smallScreen
+  {
+    display: inline-block;
+  }
+  .bigScreen
+  {
+    display: none;
+  }
+  .form-group,form button
+  {
+    margin-top: 0;
+  }
+  .body_container img
+  {
+    height: 40px;
+  }
+  form,#timeCounter
+  {
+    position: relative;
+    top:20px;
+  }
+  h2
+  {
+    position: relative;
+    top:20px;
+  }
+}

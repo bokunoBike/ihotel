@@ -1,0 +1,162 @@
+/* GLOBAL STYLES
+-------------------------------------------------- */
+/*BODY AND CONTAINER *
+-------------------------------------------------- */
+body
+{
+  padding-top:60px;
+  margin: 0;
+  color: gray;
+}
+.container-fluid
+{
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+/* CUSTOMIZE THE HEADER
+-------------------------------------------------- */
+.navbar
+{
+  width: 100%;
+  margin-bottom: 0px;
+  border-width: 0px;
+  background-color: #202020 !important;
+}
+
+nav .container
+{
+  margin: 0;
+  width: 100%;
+}
+
+p.navbar-brand
+{
+  font-size: 34px;
+  font-weight:bold;
+  font-family: Times, TimesNR, 'New Century Schoolbook',
+     Georgia, 'New York', serif;
+}
+
+#navbar a
+{
+  color: gray;
+  font-family: Times, TimesNR, 'New Century Schoolbook',
+     Georgia, 'New York', serif;
+  font-weight: bold;
+}
+
+#navbar a:hover
+{
+  color:#aaaaaa;
+}
+
+/* CUSTOMIZE THE CONTAIANER
+-------------------------------------------------- */
+.body_container
+{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: #252525;
+  border-bottom: 4px solid gray;
+}
+.body_container img
+{
+  width: 100%;
+  box-shadow: -10px 10px 20px #202020;
+  z-index: 12;
+}
+
+#myModalLabel
+{
+  margin-top: 5px;
+}
+
+#modalDialog
+{
+  border: 3px solid #3B6EB8;
+  border-radius: 9px;
+  padding: 0;
+}
+.someWords
+{
+  height: 350px;
+  margin:4% 5%;
+  text-align: center;
+  padding: 5%;
+  background-color: #303030;
+  border-width: 0.5px;
+  border-color: #353535 #202020 #202020 #353535;
+  box-shadow: 15px 10px 5px #202020;
+  border-radius: 8px;
+}
+
+.someWords h1
+{
+  font:italic bold 46px/50px Georgia,serif;
+  padding:0 5% 5% 5%;
+}
+
+.someWords p
+{
+  font-weight: bold;
+}
+
+.pattern
+{
+  cursor: pointer;
+  margin-left: 5%;
+  margin-top: 5%;
+  border-left:5px inset  #ffaa66;
+  box-shadow: 10px 5px 5px #202020;
+  //border-radius: 5px;
+  background-color: rgba(255 , 255, 255, 0.4);
+  background: -webkit-linear-gradient(right, rgba(255,255,255, 0) 0%, rgba(255,255,255, 0.1) 100%);
+  background: -moz-linear-gradient(right, rgba(255,255,255, 0) 0%, rgba(255,255,255, 0.1) 100%);
+  background: -o-linear-gradient(right, rgba(255,255,255, 0) 0%, rgba(255,255,255, 0.1) 100%);
+  background: linear-gradient(right, rgba(255,255,255, 0) 0%, rgba(255,255,255, 0.1) 100%);
+  /*ie10及其以上版本*/
+  background:-ms-linear-gradient(right,rgba(255,255,255, 0) 5%, rgba(255,255,255, 0.1) 100%);
+  /*ie9及其以下版本*/
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#036e1a', endColorstr='#01036e1a',GradientType=1);
+}
+
+.pattern:hover
+{
+  background-color: rgba(255 , 255, 255, 0.4);
+  background: -webkit-linear-gradient(right, rgba(255,255,255, 0) 0%, rgba(255,255,255, 0.2) 100%);
+  background: -moz-linear-gradient(right, rgba(255,255,255, 0) 0%, rgba(255,255,255, 0.2) 100%);
+  background: -o-linear-gradient(right, rgba(255,255,255, 0) 0%, rgba(255,255,255, 0.2) 100%);
+  background: linear-gradient(right, rgba(255,255,255, 0) 0%, rgba(255,255,255, 0.2) 100%);
+  /*ie10及其以上版本*/
+  background:-ms-linear-gradient(right,rgba(255,255,255, 0) 5%, rgba(255,255,255, 0.2) 100%);
+  /*ie9及其以下版本*/
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#036e1a', endColorstr='#01036e1a',GradientType=1);
+}
+
+.pattern a,.pattern p
+{
+  display: block;
+  color: white;
+  font-size: 30px;
+  padding: 20px 0px;
+  position: relative;
+  z-index: 10;
+  text-decoration: none;
+  text-align: center;
+}
+
+@media screen and (max-width: 767px)
+{
+  .someWords{display: none;}
+  .pattern{
+    margin-top: 20%;
+    border: 0px solid gray;
+  }
+  .body_container img
+  {
+    height: 40px;
+  }
+  .passiveMode{margin-bottom: 30%;}
+}
