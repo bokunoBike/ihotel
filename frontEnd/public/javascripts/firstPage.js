@@ -20,7 +20,7 @@ $(document).ready(function()
             {
                 roomNumber:
                 {
-                    threshold: 4,
+                    //threshold: 4,
                     message: 'The username is not valid',
                     validators:
                     {
@@ -28,55 +28,30 @@ $(document).ready(function()
                         {/*非空提示*/
                             message: '房号不能为空'
                         },
-                        regexp:
-                        {/* 正则表达式*/
-                           regexp: /^[0-9]*[1-9][0-9]*$/,
+                       // regexp:
+                        //{/* 正则表达式*/
+                        /*   regexp: /^[0-9]*[1-9][0-9]*$/,
                            message: '房号不存在'
-                       },
+                       },*/
                         stringLength:
                         {/*长度提示*/
-                            min: 3,
-                            max: 4,
+                            min: 6,
+                            max: 14,
                             message: '房号不存在'
                         },
-                        remote:
-                        {
-                          url:'localhost:8000/login/login',
-                          message: '房号不存在',
-                          delay: 1000,
-                          type:'POST',
-                          data: {"roomNumber": document.getElementById('roomNumber').value},
-                          dataType: 'json',
-                          // 下面两个参数解决跨域问题
-                          xhrFields: {
-                             withCredentials: true
-                        },
-                          crossDomain: true,
-                          complete: function(XMLHttpRequest, textStatus) {},
-                        }
+                        
                     }
                 },
                 thePassword:
                 {
                     //trigger: 'blur',
-                    threshold: 6,
+                    //threshold: 6,
                     message:'密码无效',
                     validators:
                     {
                         notEmpty:
                         {
                             message: '密码不能为空'
-                        },
-                        regexp:
-                        {/* 正则表达式*/
-                           regexp: /(^\d{5}(\d|X|x)$)/,
-                           message: '密码错误'
-                       },
-                        stringLength:
-                        {
-                            min: 6,
-                            max: 6,
-                            message: '密码错误'
                         }
                     }
                 }
@@ -95,10 +70,10 @@ $(document).ready(function()
         {
           e.preventDefault();//避免重复提交
           var $form = $(e.target);
-          var bv = $form.data('bootstrapValidator');
+          var bootstrapValidator = $form.data('bootstrapValidator');
           $.ajax({
             type: 'POST',
-            url:'localhost:8000/login/login',
+            url:'http://localhost:8000/login/login',
             dataType: 'json',
             data: {"roomNumber": document.getElementById('roomNumber').value,
                    "thePassword": document.getElementById('thePassword').value},
