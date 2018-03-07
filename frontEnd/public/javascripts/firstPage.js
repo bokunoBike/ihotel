@@ -39,7 +39,7 @@ $(document).ready(function()
                             max: 4,
                             message: '房号不存在'
                         },
-                        remote:
+                        /*remote:
                         {
                           url:'localhost:8000/login/login',
                           message: '房号不存在',
@@ -50,10 +50,10 @@ $(document).ready(function()
                           // 下面两个参数解决跨域问题
                           xhrFields: {
                              withCredentials: true
-                        },
+                           },
                           crossDomain: true,
                           complete: function(XMLHttpRequest, textStatus) {},
-                        }
+                        }*/
                     }
                 },
                 thePassword:
@@ -95,7 +95,7 @@ $(document).ready(function()
         {
           e.preventDefault();//避免重复提交
           var $form = $(e.target);
-          var bv = $form.data('bootstrapValidator');
+          var bootstrapValidator = $form.data('bootstrapValidator');
           $.ajax({
             type: 'POST',
             url:'localhost:8000/login/login',
