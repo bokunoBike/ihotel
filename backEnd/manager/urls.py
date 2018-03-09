@@ -4,8 +4,6 @@ from .views import *
 
 app_name = 'manager'
 urlpatterns = [
-    url(r'^home', home),
-    url(r'^show', show),
-    url(r'^get_dbdata', get_dbdata),
+    url(r'^home', home, name="home"),
     url(r'^get_room', get_room),
 ]

@@ -21,7 +21,9 @@
     <hr />
     <div class="left">
         您选择了<div style="display:inline;color: red" id="room_id"></div>房间，<br>
-        该房间<div style="display:inline;color: red" id="room_status"></div>人。
+        <div id="has_room">
+            该房间<div style="display:inline;color: red" id="room_status"></div>人。
+        </div>
         <h1>这里是该房间的信号</h1>
     </div>
     <div class="right">
@@ -31,7 +33,7 @@
         </form>
     </div>
 
-    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="/static/js/jquery.js"></script>
     <script type="text/javascript">//<![CDATA[
     $(function () {
          if (window.s) {
@@ -47,12 +49,16 @@
          socket.onmessage = function (e) {
              /*console.log('message: ' + e.data);//打印出服务端返回过来的数据*/
              var status = e.data;
-             var div = document.getElementById("room_status");
+             var div_room_status = document.getElementById("room_status");
              if (status == 1) {
-                 div.innerHTML = "有";
+                 div_room_status.innerHTML = "有";
              }
-             else {
-                 div.innerHTML = "无";
+             else if(status == 0) {
+                 div_room_status.innerHTML = "无";
+             }
+             else{
+                 var div_has_room = document.getElementById("has_room");
+                 div_has_room.innerHTML = "暂无此房间。";
              }
          };
          // Call onopen directly if socket is already open
