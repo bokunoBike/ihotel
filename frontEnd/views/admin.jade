@@ -5,6 +5,8 @@ html
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width')
     title 客房人体感应系统(TeckMicro)
+    //url登录拦截器
+    script(type='text/javascript', src='http://localhost:3000/javascripts/filter.js')
     link(href='https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css', rel='stylesheet')
     // HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries
     //if lt IE 9
@@ -31,7 +33,7 @@ html
           #navbar.navbar-collapse.collapse
             ul.nav.navbar-nav.navbar-right
               li
-                a(href='http://localhost:3000/') 注销
+                a#logout(href='http://localhost:3000/') 注销
               li
                 a#changeRoom 切换房间
               li

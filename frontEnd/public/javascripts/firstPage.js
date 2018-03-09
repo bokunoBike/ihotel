@@ -1,9 +1,20 @@
-function login()
-{
-  var roomNumber=document.getElementById('roomNumber');
-  var password=document.getElementById('password');
-  var xmlhttp;
+//获取sessionStorage
+var localStorage = window.sessionStorage;
+
+window.onclick = function(){
+  var now = new Date();
+  localStorage.setItem("lastClick",now.getTime());
 }
+function hidePNotice()
+{
+  document.getElementById('passwordNotice').innerHTML='';
+}
+
+function hideNNotice()
+{
+  document.getElementById('numberNotice').innerHTML='';
+}
+
 $(document).ready(function()
 {
     $('#defaultForm')
@@ -20,39 +31,9 @@ $(document).ready(function()
             {
                 roomNumber:
                 {
-                    //threshold: 4,
-                    message: 'The username is not valid',
-                    validators:
-                    {
-                        notEmpty:
-                        {/*非空提示*/
-                            message: '房号不能为空'
-                        },
-                       // regexp:
-                        //{/* 正则表达式*/
-                        /*   regexp: /^[0-9]*[1-9][0-9]*$/,
-                           message: '房号不存在'
-                       },*/
-                        stringLength:
-                        {/*长度提示*/
-                            min: 6,
-                            max: 14,
-                            message: '房号不存在'
-                        }
-                    }
                 },
                 thePassword:
                 {
-                    //trigger: 'blur',
-                    //threshold: 6,
-                    message:'密码无效',
-                    validators:
-                    {
-                        notEmpty:
-                        {
-                            message: '密码不能为空'
-                        }
-                    }
                 }
             }
         })
@@ -83,33 +64,45 @@ $(document).ready(function()
             crossDomain: true,
             complete: function(XMLHttpRequest, textStatus) {},
             success: function(data) {
-              if(data.valid==true)
+              document.getElementById('numberNotice').innerHTML='';
+              document.getElementById('passwordNotice').innerHTML='';
+              if(document.getElementById('roomNumber').value == '')
               {
-                window.location.href='http://localhost:3000/userPage';
+                bootstrapValidator.updateStatus('roomNumber', 'INVALID','');
+                document.getElementById('numberNotice').innerHTML="请输入账号";
               }
-              else
+              if(document.getElementById('thePassword').value == '')
               {
-                bootstrapValidator.updateStatus('thePassword', 'INVALID').validateField('username');
-                //$('#defaultForm').data(“bootstrapValidator”).updateStatus("thePassword",  "NOT_VALIDATED",  null );
-                bootstrapValidator.updateMessage('thePassword',null,'密码错误');
+                bootstrapValidator.updateStatus('thePassword', 'INVALID','');
+                document.getElementById('passwordNotice').innerHTML="请输入密码";
+              }
+              if(document.getElementById('thePassword').value != ''&&document.getElementById('roomNumber').value != '')
+              {
+                var now = new Date();
+                if(data.login_result == 1)
+                {
+                  window.location.href = 'http://localhost:3000/userPage';
+                  localStorage.setItem("user","commonUser");
+                  localStorage.setItem("loginTime",now.getTime())
+                }
+                else if(data.login_result == 0)
+                {
+                  window.location.href = 'http://localhost:3000/admin';
+                  localStorage.setItem("user","admin");
+                  localStorage.setItem("loginTime",now.getTime())
+                }
+                else if(data.login_result == 2)
+                {
+                  //bootstrapValidator.updateStatus('thePassword', 'INVALID','');
+                  document.getElementById('passwordNotice').innerHTML="用户名和密码不匹配";
+                  //bootstrapValidator.updateMessage('thePassword','notEmpty','密码错误');
+                  console.log("passwordincorrect");
+                }
               }
             },
             error: function(err) {
                 console.log(err);
             }
           });
-
-          /*$.post($form.attr('action'),$form.serialize(),function(result){
-            if(result.valid==true)
-            {
-              window.location.href='http://localhost:3000/userPage';
-            }
-            else
-            {
-              bootstrapValidator.updateStatus('thePassword', 'INVALID').validateField('username');
-              //$('#defaultForm').data(“bootstrapValidator”).updateStatus("thePassword",  "NOT_VALIDATED",  null );
-              bootstrapValidator.updateMessage('thePassword',null,'密码错误');
-            }
-          },'json');*/
         });
 });

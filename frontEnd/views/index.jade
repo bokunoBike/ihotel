@@ -42,21 +42,21 @@ html
           li(data-target='#myCarousel', data-slide-to='2')
         .carousel-inner(role='listbox')
           // signin
-          form#defaultForm(action='后边改！！！').signin.col-xs-8.col-xs-offset-2.col-sm-4.col-sm-offset-7.col-md-3.col-md-offset-8.col-lg-3.col-lg-offset-8
+          form#defaultForm.signin.col-xs-8.col-xs-offset-2.col-sm-4.col-sm-offset-7.col-md-3.col-md-offset-8.col-lg-3.col-lg-offset-8
             .form-group
               center
                 label
                   h3 账号密码登录
             .form-group#groupNumber
               label.sr-only
-              input#roomNumber.form-control(name='roomNumber',type='text', placeholder='房号')
-              span#numberStatus.glyphicon.form-control-feedback(aria-hidden='true')
+              input#roomNumber.form-control(name='roomNumber',type='text', placeholder='房号',oninput='hideNNotice()')
+              span.helpBlock#numberNotice
             .form-group#groupPassword
               label.sr-only
-              input#thePassword.form-control(name='thePassword',type='password', placeholder='初始密码为身份证后6位')
-              //span#helpBlock 初始密码为身份证后6位
+              input#thePassword.form-control(name='thePassword',type='password', placeholder='初始密码为身份证后6位',oninput='hidePNotice()')
+              span.helpBlock#passwordNotice
             center
-              button.btn.btn-primary.btn-lg.btn-block(type='submit',click='login()') 登录
+              button.btn.btn-primary.btn-lg.btn-block(type='submit') 登录
           .item.active
             img.first-slide.img-responsive(src='http://localhost:3000/images/outdoors.png', alt='First slide')
             .container
