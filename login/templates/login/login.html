@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户登录</title>
+</head>
+<body>
+    <h1>这是登录页面</h1>
+    <hr />
+    <form action="{% url 'login:login' %}" method="post">
+        {% csrf_token %}
+        {% for field in login_form %}
+            <p>{{ field.label_tag }} {{ field }}{% if request.method == "POST" %}{{ field.errors.0 }}{% endif %}</p>
+        {% endfor %}
+        <input type="submit" value="登录">
+    </form>
+    还没有账号？<a href={% url 'login:register' %}>立即注册</a>
+</body>
+</html>
