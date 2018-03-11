@@ -21,7 +21,7 @@ document.addEventListener('mozvisibilitychange',function()
 			 })
 
  //长轮询参数获取房间状态是否改变
- var getting =
+ /*var getting =
  {
  	url:'!!!',//后边再改!!!
  	dataType:'json',
@@ -32,15 +32,15 @@ document.addEventListener('mozvisibilitychange',function()
     var noticeWords=document.getElementById('noticesWord');
     if(noticeWords=='当前房间内有人')
     {
-      document.getElementById('noticesImg').src='http://localhost:3000/images/homeOut.png';
+      document.getElementById('noticesImg').src='/images/homeOut.png';
       document.getElementById('noticesWord').innerHTML='当前房间内无人';
-      document.getElementById('notice').innerHTML='<p id="noticeWord"><img id="noticeImg" src="http://localhost:3000/images/homeOut.png" alt="" class="pull-left"/>当前房间内无人</p>'
+      document.getElementById('notice').innerHTML='<p id="noticeWord"><img id="noticeImg" src="/images/homeOut.png" alt="" class="pull-left"/>当前房间内无人</p>'
     }
     else
     {
-      document.getElementById('noticesImg').src='http://localhost:3000/images/home.png';
+      document.getElementById('noticesImg').src='/images/home.png';
       document.getElementById('noticesWord').innerHTML='当前房间内有人';
-      document.getElementById('notice').innerHTML='<p id="noticeWord"><img id="noticeImg" src="http://localhost:3000/images/home.png" alt="" class="pull-left"/>当前房间内有人</p>'
+      document.getElementById('notice').innerHTML='<p id="noticeWord"><img id="noticeImg" src="/images/home.png" alt="" class="pull-left"/>当前房间内有人</p>'
     }
     $.ajax(getting);
  	},
@@ -48,7 +48,7 @@ document.addEventListener('mozvisibilitychange',function()
  	{
  		$.ajax(getting);
  	}
- }
+}*/
 
 //获取随机数据
 function randomData() {
