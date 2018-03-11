@@ -15,6 +15,10 @@ function checkLogin()
   var now = new Date();
   var lastClick = localStorage.getItem("lastClick");
   var loginTime = localStorage.getItem("loginTime");
+  if(loginTime == null)
+  {
+    loginTime = now.getTime();
+  }
   if((now.getTime() - lastClick) >= 1800000||(now.getTime() - loginTime) >= 864000000)
   {
     localStorage.removeItem("user");
