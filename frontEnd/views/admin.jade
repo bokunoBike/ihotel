@@ -4,52 +4,66 @@ html
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width')
+    script(type='application/x-javascript').
+      addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+      function hideURLbar(){ window.scrollTo(0,1); }
     title 客房人体感应系统(TeckMicro)
     //url登录拦截器
-    script(type='text/javascript', src='http://localhost:3000/javascripts/filter.js')
+    script(type='text/javascript', src='/javascripts/filter.js')
+    link(rel='stylesheet', type='text/css', href='stylesheets/style.css')
+    link(href='stylesheets/font-awesome.css', rel='stylesheet')
     link(href='https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css', rel='stylesheet')
     // HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries
     //if lt IE 9
       script(src='https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js')
       script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')
-    link(rel='stylesheet', href='http://localhost:3000/stylesheets/admin.css')
-    link(rel='stylesheet', href='http://localhost:3000/stylesheets/footer.css')
-    link(rel='SHORTCUT ICON', href='http://localhost:3000/images/favicon.ico')
-    link(rel='BOOKMARK', href='http://localhost:3000/images/favicon.ico')
+    link(rel='stylesheet', href='/stylesheets/admin.css')
+    link(rel='stylesheet', href='/stylesheets/footer.css')
+    link(rel='SHORTCUT ICON', href='/images/favicon.ico')
+    link(rel='BOOKMARK', href='/images/favicon.ico')
     script(src='https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js')
     script(src='https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js')
   body
     .container-fluid
       //header
-      nav.navbar.navbar-default.navbar-fixed-top
-        .container
-          .navbar-header
-            button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
-              span.sr-only Toggle navigation
-              span.icon-bar
-              span.icon-bar
-              span.icon-bar
-            p.navbar-brand TeckMicro
-          #navbar.navbar-collapse.collapse
-            ul.nav.navbar-nav.navbar-right
-              li
-                a#logout(href='http://localhost:3000/') 注销
-              li
-                a#changeRoom 切换房间
-              li
-                a.glyphicon.glyphicon-envelope(aria-hidden='true')(href='mailto:bowl_www@163.com') 联系我们
+      // main-header
+      .w3layouts-top-strip#home
+        .top-srip-agileinfo#info
+        nav.pull-left.navbar.navbar-inverse.navbar-default.navbar-fixed-top#navbarContainer
+          .container#container
+            .navbar-header
+              button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
+                span.sr-only Toggle navigation
+                span.icon-bar
+                span.icon-bar
+                span.icon-bar
+              .w3ls-social-icons.text-left
+                h2
+                    span T
+                    | eck
+                    span M
+                    | icro
+                    p.s-log System
+            #navbar.navbar-collapse.collapse
+              ul.nav.navbar-nav.navbar-right
+                li
+                  a.glyphicon.glyphicon-log-out(aria-hidden='true')(href='/',onclick = 'logout()') 注销
+                li
+                  a.glyphicon.glyphicon-transfer#changeRoom(aria-hidden='true') 切换房间
+                li
+                  a.glyphicon.glyphicon-envelope(aria-hidden='true')(href='mailto:bowl_www@163.com') 联系我们
       //container
       .body_container.row.clearfix
-        img#headerImg(src='http://localhost:3000/images/ab.jpg', alt='Header')
+        img#headerImg(src='/images/ab.jpg', alt='Header')
         #notices
-          img#noticeaImg.pull-left(src='http://localhost:3000/images/home.png',alt='')
+          img#noticeaImg.pull-left(src='/images/home.png',alt='')
           h2#noticesWord.pull-right　当前房间内有人
         #showChart.col-xs-12.col-sm-6
         .form#form.col-xs-8.col-xs-offset-2.col-sm-3.col-sm-offset-1
           center
             #notice
               p#noticeWord
-                img#noticeImg.pull-left(src='http://localhost:3000/images/home.png',alt='')
+                img#noticeImg.pull-left(src='/images/home.png',alt='')
                 | 当前房间内有人
           .form-group
             center
@@ -60,16 +74,65 @@ html
             label.sr-only
             button.btn.btn-primary.btn-lg.btn-block(type='submit') 确认
       // footer
-      .footer#footer
-        address
-          strong TeckMicro.
-          br
-          |           1355 Market Street, Suite 900
-          br
-          |           San Francisco, CA 94103
-          br
-          |           Telephone:(123) 456-7890
+      .w3l-footer#footer
+        .container
+          .footer-info-agile
+            .col-md-3.footer-info-grid.address
+              h4 Address
+              address
+                ul
+                  li Jiangsu Nanjing
+                  li Hohai University
+                  li Telephone : +0746 2867300
+                  li
+                    | Email :
+                    a.mail(href='mailto:bowl_www@163.com') bowl_www@163.com
+            .col-md-4.footer-info-grid
+              .connect-social
+                h4 Connect with us
+                section.social
+                  ul
+                    li
+                      a.icon.fb(href='#')
+                        i.fa.fa-facebook
+                    li
+                      a.icon.tw(href='#')
+                        i.fa.fa-twitter
+                    li
+                      a.icon.pin(href='#')
+                        i.fa.fa-pinterest
+                    li
+                      a.icon.db(href='#')
+                        i.fa.fa-dribbble
+                    li
+                      a.icon.gp(href='#')
+                        i.fa.fa-google-plus
+            .clearfix
+          .connect-agileits.newsletter
+            h4 Newsletter
+            p
+              | Subscribe to our newsletter and we will inform you about newest projects and promotions.
+            form.newsletter(action='#', method='post')
+              input.email(type='email', placeholder='Your email address...', required='')
+              input.submit(type='submit', value='Subscribe')
+      a#toTop.scroll(href='#home', style='display: block;')
+        span#toTopHover(style='opacity: 1;')
       #none
-      script(type='text/javascript', src='http://localhost:3000/javascripts/footer.js').
-      script(type='text/javascript', src='http://localhost:3000/javascripts/echarts.js').
-      script(type='text/javascript', src='http://localhost:3000/javascripts/showChart.js').
+      script(type='text/javascript', src='/javascripts/footer.js').
+      script(type='text/javascript', src='/javascripts/echarts.js').
+      script(type='text/javascript', src='/javascripts/showChart.js').
+      script(src='/javascripts/main.js')
+      script(type='text/javascript', src='/javascripts/move-top.js')
+      script(type='text/javascript', src='/javascripts/easing.js')
+      script(type='text/javascript').
+        jQuery(document).ready(function($) {
+        $(".scroll").click(function(event){
+        event.preventDefault();
+        $('html,body').animate({scrollTop:$(this.hash).offset().top},900);
+        });
+        });
+      script(type='text/javascript').
+        $(document).ready(function() {
+        $().UItoTop({ easingType: 'easeOutQuart' });
+        });
+      // end-smooth-scrolling

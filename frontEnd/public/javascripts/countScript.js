@@ -47,7 +47,7 @@ $('#myModal').on('show.bs.modal', function () {
 	document.getElementById('container').style.zIndex='0';
 })
 $('#myModal').on('hidden.bs.modal', function () {
-	document.getElementsByTagName('body')[0].style.paddingTop='60px';
+	document.getElementsByTagName('body')[0].style.paddingTop='75px';
   document.getElementById('navbarContainer').style.position='fixed';
 })
 function rotate()

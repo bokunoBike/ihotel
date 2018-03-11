@@ -1,5 +1,6 @@
 windowsHeight = document.documentElement.clientHeight;
 totalHeight=document.getElementById("none").offsetTop;
+
 if(totalHeight<windowsHeight)
 {
   colHeight = windowsHeight-document.getElementById("footer").offsetTop;
