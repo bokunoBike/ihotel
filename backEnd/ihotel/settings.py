@@ -33,6 +33,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'login',
     'manager',
+    'common',
+    'user',
     'corsheaders',
 ]
 
@@ -76,7 +78,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ihotel',
         'USER': 'root',
-        'PASSWORD': '123456',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '3306',
         'TEST_CHARSET': 'utf8',
@@ -143,3 +145,6 @@ CORS_ALLOW_HEADERS = (
     'x-requested-with',
     'Pragma',
 )
+
+CORS_ALLOW_HOST = "127.0.0.1"
+# CORS_ALLOW_HOST = "115.159.77.150"

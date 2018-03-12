@@ -53,14 +53,14 @@ class User(AbstractBaseUser):
     class Meta:
         ordering = ('-created_at',)
 
-    def __unicode__(self):
-        return self.username
+    def __str__(self):
+        return str(self.username)
 
     def get_full_name(self):
-        return self.email
+        return str(self.username)
 
     def get_short_name(self):
-        return self.username
+        return str(self.username)
 
     def has_perm(self, perm, obj=None):
         return True

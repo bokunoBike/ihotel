@@ -10,6 +10,7 @@ from django.views.decorators.http import require_http_methods
 from .admin import UserCreateForm
 from .forms import LoginForm
 from .models import User
+from common.views import add_cors_headers
 
 
 @login_required(login_url='/login/login')
@@ -40,16 +41,7 @@ def home(request):  # 主页，需要登录
 #         return render(request, 'login/login.html', {'login_form': login_form})
 
 
-def add_cors_headers(response):
-    response["Access-Control-Allow-Origin"] = "http://127.0.0.1:3000"
-    response["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"
-    response["Access-Control-Max-Age"] = "1000"
-    response["Access-Control-Allow-Headers"] = " * "
-    response['Access-Control-Allow-Credentials'] = 'true'
-    return response
-
-
-#@require_http_methods(["POST"])
+@require_http_methods(["POST"])
 def login(request):  # 登录页面
     username = request.POST.get('roomNumber')
     password = request.POST.get('thePassword')

@@ -85,7 +85,7 @@ class UserChangeForm(forms.ModelForm):
 
 # 注册用户
 class MyUserAdmin(UserAdmin):
-    form = UserChangeForm
+    form = UserCreateForm
     add_form = UserCreateForm
 
     list_display = ('username', 'created_at', 'email', 'is_delete', 'is_admin')
