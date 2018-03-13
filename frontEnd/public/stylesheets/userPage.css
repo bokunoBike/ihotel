@@ -58,23 +58,39 @@ body
   border-radius: 8px;
 }
 
-.someWords h1
-{
-  font:italic bold 46px/50px Georgia,serif;
-  padding:0 5% 5% 5%;
+@mixin centmid {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
-.someWords p
-{
-  font-weight: bold;
+svg {
+	width: 50px;
+	height: 100px;
+	@include centmid;
+	padding: 15px;
 }
+
+svg.blur {
+	filter: blur(5px);
+}
+
+path {
+	stroke: #57A0F1;
+	stroke-width: 0.5em;
+	fill: none;
+	animation: morph 15s infinite $easing;
+}
+
+
 
 .pattern
 {
   cursor: pointer;
   margin-left: 5%;
   margin-top: 5%;
-  border-left:5px inset  #ffaa66;
+  border-left:5px solid #57A0F1;
   box-shadow: 10px 5px 5px #202020;
   //border-radius: 5px;
   background-color: rgba(255 , 255, 255, 0.4);
