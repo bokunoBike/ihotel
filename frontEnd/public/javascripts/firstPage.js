@@ -84,13 +84,13 @@ $(document).ready(function()
                 var now = new Date();
                 if(data.login_result == 1)
                 {
-                  window.location.href = 'http://localhost:3000/userPage';
+                  window.location.href = '/userPage';
                   localStorage.setItem("user","commonUser");
                   localStorage.setItem("loginTime",now.getTime())
                 }
                 else if(data.login_result == 0)
                 {
-                  window.location.href = 'http://localhost:3000/admin';
+                  window.location.href = '/admin';
                   localStorage.setItem("user","admin");
                   localStorage.setItem("loginTime",now.getTime())
                 }

@@ -4,10 +4,9 @@
 -------------------------------------------------- */
 body
 {
-  padding-top:60px;
+  padding-top:75px;
   margin: 0;
   color: white;
-  //overflow-x: hidden;
 }
 .container-fluid
 {
@@ -15,50 +14,8 @@ body
   margin: 0;
   width: 100%;
 }
-.carousel-logo
-{
-  font-size: 34px;
-  font-weight:bold;
-  font-family: Times, TimesNR, 'New Century Schoolbook',
-     Georgia, 'New York', serif;
-}
 /* CUSTOMIZE THE HEADER
 -------------------------------------------------- */
-.navbar
-{
-  width: 100%;
-  margin-bottom: 0px;
-  border-width: 0px;
-  background-color: #202020 !important;
-}
-
-.navbar .container
-{
-  margin: 0;
-  width: 100%;
-}
-
-p.navbar-brand
-{
-  font-size: 34px;
-  font-weight:bold;
-  font-family: Times, TimesNR, 'New Century Schoolbook',
-     Georgia, 'New York', serif;
-}
-
-#navbar a
-{
-  color: gray;
-  font-family: Times, TimesNR, 'New Century Schoolbook',
-     Georgia, 'New York', serif;
-  font-weight: bold;
-}
-
-#navbar a:hover
-{
-  color:#aaaaaa;
-}
-
 /* CUSTOMIZE THE CONTAIANER
 -------------------------------------------------- */
 .body_container
@@ -67,7 +24,6 @@ p.navbar-brand
   padding: 0;
   width: 100%;
   background-color: #252525;
-  border-bottom: 4px solid gray;
 }
 
 .body_container img
@@ -180,7 +136,7 @@ form button
     position: relative;
     top:20px;
   }
-  h2
+  #container center h2
   {
     position: relative;
     top:20px;
