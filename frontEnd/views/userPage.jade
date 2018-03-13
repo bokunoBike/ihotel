@@ -69,10 +69,8 @@ html(xmlns='http://www.w3.org/1999/xhtml')
       .body_container.row#body_container
         img#img.img-responsive(src='/images/ab.jpg', alt='Header')
         .someWords.pull-right.col-sm-7
-          h1.lead Welcome!
-          p Now,you can choose the mode you prefer
-          br
-          |           and enjoy your stay here.
+          svg#svg(xmlns='http://www.w3.org/svg/2000', viewbox='0 0 50 100')
+            path(d='M0,0 L50,0 L50,50 L50,100 L0,100 L0,25 L0,0')
         #select
           .pattern.activeMode.col-xs-10.col-sm-3.col-md-3.col-lg-3
             a(href='/userPage/timeOut') 用户设定
