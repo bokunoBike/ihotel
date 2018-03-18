@@ -1,0 +1,32 @@
+/*-------------------------
+	Simple reset
+--------------------------*/
+
+
+*{
+	margin:0;
+	padding:0;
+}
+
+
+/*-------------------------
+	General Styles
+--------------------------*/
+
+
+section, footer{
+	display: block;
+}
+
+
+/*----------------------------
+	Main Section
+-----------------------------*/
+
+#note{
+	color: lightgray;
+	font-size: 14px;
+        font-weight: bold;
+	padding: 4px;
+	text-align: center;
+}

@@ -1,0 +1,34 @@
+/*-------------------------
+	Simple reset
+--------------------------*/
+
+
+*{
+	margin:0;
+	padding:0;
+}
+
+
+/*-------------------------
+	General Styles
+--------------------------*/
+
+
+section, footer{
+	display: block;
+}
+
+
+/*----------------------------
+	Main Section
+-----------------------------*/
+
+#note{
+	color: #666666;
+	font-size: 12px;
+	margin: 0 auto;
+	padding: 4px;
+	text-align: center;
+	text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
+	width: 400px;
+}

@@ -1,0 +1,133 @@
+/* GLOBAL STYLES
+-------------------------------------------------- */
+/*BODY AND CONTAINER *
+-------------------------------------------------- */
+body
+{
+  padding-top:60px;
+  margin: 0;
+  color: white;
+}
+.container-fluid
+{
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+/* CUSTOMIZE THE HEADER
+-------------------------------------------------- */
+#changeRoom
+{
+  display: none;
+}
+/* CUSTOMIZE THE CONTAIANER
+-------------------------------------------------- */
+.body_container
+{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: #252525;
+  border-bottom: 1px solid gray;
+}
+
+#headerImg
+{
+  width: 100%;
+  box-shadow: 10px 10px 5px #202020;
+}
+
+.body_container #notices
+{
+  position: relative;
+  top:10px;
+  margin: auto;
+  display: none;
+}
+
+#notices img
+{
+  height: 2em;
+  width: 2em;
+  position: relative;
+  top:20px;
+  left: 10px;
+  display: inline-block;
+}
+
+#notices h2
+{
+  font-size: 2em;
+}
+
+#notice img
+{
+  padding: 0;
+  margin-right: 2px;
+  height: 1em;
+  width: 1em;
+  display: inline-block;
+  position: relative;
+  top:0.1em;
+}
+#showChart
+{
+  margin: 5%;
+  height: 400px;
+  background-color: #303030;
+  border-width: 0.5px;
+  border-color: #353535 #202020 #202020 #353535;
+  box-shadow: 10px 5px 5px #202020;
+  border-radius: 5px;
+}
+
+.form
+{
+  margin-top: 5%;
+}
+
+.form #notice
+{
+  display: inline-block;
+  text-align: center;
+  margin-bottom: 15%;
+}
+
+.form button
+{
+  width: 80%;
+  margin: auto;
+}
+
+.form p
+{
+  font-size: 2em;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  position: relative;
+}
+
+@media screen and (max-width: 767px) {
+  .body_container #notices
+  {
+    display: inline-block;
+  }
+  #changeRoom
+  {
+    display: block;
+  }
+  .body_container>img
+  {
+    height: 40px;
+  }
+  .form #notice,.form
+  {
+    display: none;
+    margin-bottom: 20%;
+  }
+  #showChart
+  {
+    margin: 10px 0 0 0;
+  }
+}

@@ -1,0 +1,14 @@
+/* CUSTOMIZE THE CAROUSEL
+-------------------------------------------------- */
+.footer
+{
+  height:100%;
+  background-color: #252525;
+  box-shadow: 0 -10px 20px #202020;
+}
+.footer address
+{
+  padding:50px;
+  text-align: right;
+  color: gray;
+}
