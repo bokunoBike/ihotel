@@ -76,7 +76,6 @@ def get_expire_time(request):  # 登录页面
 
 
 # @require_http_methods(["GET"])
-# def get_people_counts(request):  # 登录页面
 #     user = auth.get_user(request)
 #     if user is None:  # 用户未登录
 #         data = {"people_counts": 0, 'feedback': 'user does not login'}
@@ -96,7 +95,6 @@ def get_expire_time(request):  # 登录页面
 
 # @require_http_methods(["GET"])
 @require_websocket
-def get_room_info(request):  # 登录页面
     # print('start')
     user = auth.get_user(request)
     current_time = datetime.datetime.now()
