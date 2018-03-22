@@ -17,7 +17,10 @@ body
 }
 /* CUSTOMIZE THE HEADER
 -------------------------------------------------- */
-
+#roomStatus
+{
+  display: none;
+}
 /* CUSTOMIZE THE CONTAIANER
 -------------------------------------------------- */
 .body_container
@@ -33,7 +36,8 @@ body
   box-shadow: -10px 10px 20px #202020;
   z-index: 12;
 }
-
+/* 警告框
+-------------------------------------------------- */
 #myModalLabel
 {
   margin-top: 5px;
@@ -45,46 +49,90 @@ body
   border-radius: 9px;
   padding: 0;
 }
-.someWords
+
+/* 人数核验
+-------------------------------------------------- */
+#main-window h1
 {
-  height: 350px;
-  margin:4% 5%;
+  text-align:center;
+  display: inline-block;
+  font-family: 'Tangerine', serif;
+  text-shadow: 5px 5px 5px #111111;
+  margin: 0 auto;
+  font-size: 4em;
+  color: #57A0F1;
+}
+
+center .container
+{
   text-align: center;
-  padding: 5%;
-  background-color: #303030;
-  border-width: 0.5px;
-  border-color: #353535 #202020 #202020 #353535;
+  margin: auto;
+}
+
+#main-window {
+  background-color: inherit;
+  border: 1px inset lightgray;
+  margin: 5% 7%;
+  //border-color: lightgray #202020 #202020 lightgray;
   box-shadow: 15px 10px 5px #202020;
   border-radius: 8px;
 }
 
-@mixin centmid {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+#main-window span
+{
+  color: #ffffff;
+  font-size: 3em;
+}
+#main-window #back
+{
+  display: none;
 }
 
-svg {
-	width: 50px;
-	height: 100px;
-	@include centmid;
-	padding: 15px;
+#main-window .blue
+{
+    width:110px;
+    height:30px;
+    margin-bottom: 20px;
 }
 
-svg.blur {
-	filter: blur(5px);
+#main-window .red
+ {
+   width:10%;
+   height:30px;
+ };
+
+#porlContainer
+{
+  display: inline-block;
+  width: 40%;
 }
 
-path {
-	stroke: #57A0F1;
-	stroke-width: 0.5em;
-	fill: none;
-	animation: morph 15s infinite $easing;
+#plusAndSub
+{
+  display: inline-block;
+  margin-left: 35%;
+  margin-bottom: 20px;
+}
+#plusAndSub .label:hover
+{
+  cursor:pointer;
 }
 
-
-
+#main-window .btn
+{
+  margin: 5px;
+  height: 30px;
+  padding: 0 10px;
+  position: relative;
+  top: -10px;
+  font-weight: bold;
+}
+/* 模式选择
+-------------------------------------------------- */
+#select
+{
+  margin-top:2%;
+}
 .pattern
 {
   cursor: pointer;
@@ -104,8 +152,10 @@ path {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#036e1a', endColorstr='#01036e1a',GradientType=1);
 }
 
-.pattern:hover
+.pattern:hover,.pattern:active
 {
+  box-shadow: 0px 5px 5px #57A0F1;
+  transform: translateY(-0.25em);
   background-color: rgba(255 , 255, 255, 0.4);
   background: -webkit-linear-gradient(right, rgba(255,255,255, 0) 0%, rgba(255,255,255, 0.2) 100%);
   background: -moz-linear-gradient(right, rgba(255,255,255, 0) 0%, rgba(255,255,255, 0.2) 100%);
@@ -121,7 +171,7 @@ path {
 {
   display: block;
   color: white;
-  font-size: 30px;
+  font-size: 2em;
   padding: 20px 0px;
   position: relative;
   z-index: 10;
@@ -131,10 +181,18 @@ path {
 
 @media screen and (max-width: 767px)
 {
-  .someWords{display: none;}
+  #main-window{display: none;}
+  #roomStatus,#main-window #back
+  {
+    display: block;
+  }
+  #porlContainer button
+  {
+    margin-top: 10px;
+    float: right;
+  }
   .pattern{
     margin-top: 20%;
-    border: 0px solid gray;
   }
   .body_container img
   {

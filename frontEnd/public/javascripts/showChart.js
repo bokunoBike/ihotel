@@ -1,4 +1,54 @@
-var myChart = echarts.init(document.getElementById('showChart'),'dark');
+var myChart = null;
+var node = null;
+var url = window.location.href.split('/');
+
+if(url[4] != 'adminCertainRoom')
+{
+	myChart = echarts.init(document.getElementById('showChart'),'dark');
+}
+//点击显示大图表
+$("canvas").click(function()
+{
+	console.log('hhh');
+});
+function showBigChart()
+{
+	window.location.href = "/admin/adminCertainRoom";
+	/*var initialCharts = document.getElementById('main-window');
+	node = initialCharts.cloneNode(true);
+	document.getElementById('changePersonNumber').style.display = "block";
+	document.getElementById('backtoBigChart').style.display = "block";
+	document.getElementById('showChart').style.visibility = 'hidden';
+	document.getElementById('loading1').style. visibility = 'hidden';
+	document.getElementById('loading2').style.visibility = 'hidden';
+	document.getElementById('loading3').style.visibility = 'hidden';
+	document.getElementById('input').style.visibility = 'hidden';
+	document.getElementById('specialNotice').style.display = 'block';
+	document.getElementById('submitButton').style.display = 'none';
+	document.getElementById('changeFloor').style.display = 'none';
+	myChart = echarts.init(document.getElementById('main-window'),'dark');*/
+}
+//返回多图表界面
+function returntoCharts()
+{
+	document.getElementById('feedback').style.display = 'none';
+	var width =  window.screen.width;
+	console.log(width);
+	if(width < 768)
+	{
+		window.location.href = "/admin/adminCertainRoom";
+	}
+	else
+	{
+		window.location.href = "/admin";
+	}
+	/*var oldNode = document.getElementById("main-window");
+  oldNode.parentNode.replaceChild(node, oldNode);
+	myChart = echarts.init(document.getElementById('showChart'),'dark');
+	document.getElementById('input').style.visibility = 'visible';
+	document.getElementById('submitButton').style.display = 'block';
+	document.getElementById('specialNotice').style.display = 'none';*/
+}
 
 //监控标签页的打开和隐藏
 document.addEventListener('webkitvisibilitychange',function()
@@ -7,7 +57,7 @@ document.addEventListener('webkitvisibilitychange',function()
 					 {}
 					 else
 					 {
-							 $.ajax(getting);
+							 //$.ajax(getting);
 					 }
 			 })
 document.addEventListener('mozvisibilitychange',function()
@@ -19,36 +69,6 @@ document.addEventListener('mozvisibilitychange',function()
 							 $.ajax(getting);
 					 }
 			 })
-
- //长轮询参数获取房间状态是否改变
- /*var getting =
- {
- 	url:'!!!',//后边再改!!!
- 	dataType:'json',
- 	success:function(res)
- 	{
- 		console.log(res);
- 		//修改提示信息
-    var noticeWords=document.getElementById('noticesWord');
-    if(noticeWords=='当前房间内有人')
-    {
-      document.getElementById('noticesImg').src='/images/homeOut.png';
-      document.getElementById('noticesWord').innerHTML='当前房间内无人';
-      document.getElementById('notice').innerHTML='<p id="noticeWord"><img id="noticeImg" src="/images/homeOut.png" alt="" class="pull-left"/>当前房间内无人</p>'
-    }
-    else
-    {
-      document.getElementById('noticesImg').src='/images/home.png';
-      document.getElementById('noticesWord').innerHTML='当前房间内有人';
-      document.getElementById('notice').innerHTML='<p id="noticeWord"><img id="noticeImg" src="/images/home.png" alt="" class="pull-left"/>当前房间内有人</p>'
-    }
-    $.ajax(getting);
- 	},
- 	error:function(res)
- 	{
- 		$.ajax(getting);
- 	}
-}*/
 
 //获取随机数据
 function randomData() {
@@ -130,25 +150,24 @@ setInterval(function () {
 
     myChart.setOption(option);
 }, 1000);
-
+//显示楼层号输入
+function showForm()
+{
+	var windowWidth=document.documentElement.clientWidth;
+	if(windowWidth<768)
+	{
+		document.getElementById('form').style.display="block";
+		document.getElementById('main-window').style.display="none";
+		document.getElementById('changeFloor').style.display="none";
+	}
+}
 $(document).ready(function(){
-  $('#changeRoom').click(function(){
-    document.getElementById('form').style.display="block";
-    document.getElementById('showChart').style.display="none";
-    windowsHeight = document.documentElement.clientHeight;
-    totalHeight=document.getElementById("none").offsetTop;
-    if(totalHeight<windowsHeight)
-    {
-      colHeight = windowsHeight-document.getElementById("footer").offsetTop;
-      document.getElementById("footer").style.height=colHeight+"px";
-    }
-  });
-  $('.form button').click(function(){
+  $('#submitButton').click(function(){
     var windowWidth=document.documentElement.clientWidth;
     if(windowWidth<768)
     {
       document.getElementById('form').style.display="none";
-      document.getElementById('showChart').style.display="block";
+      document.getElementById('main-window').style.display="block";
     }
   });
 });

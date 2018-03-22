@@ -12,6 +12,7 @@ html(xmlns='http://www.w3.org/1999/xhtml')
     script(type='text/javascript', src='/javascripts/filter.js')
     link(rel='stylesheet', type='text/css', href='/stylesheets/style.css')
     link(href='/stylesheets/font-awesome.css', rel='stylesheet')
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css')
     link(href='https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css', rel='stylesheet')
     // HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries
     //if lt IE 9
@@ -28,6 +29,7 @@ html(xmlns='http://www.w3.org/1999/xhtml')
     script(src='/plugin/popup/scripts/popup_layer.js', type='text/javascript', language='javascript')
     script(src='https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js')
     script(src='https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js')
     script(language='javascript').
       $(document).ready(function()
       {
@@ -59,7 +61,7 @@ html(xmlns='http://www.w3.org/1999/xhtml')
           .modal-footer
             button.btn.btn-default(type='button', data-dismiss='modal')
               | 取消
-            button.btn.btn-primary(type='button', data-dismiss='modal', onclick='return initCounter()')
+            button.btn.btn-primary(type='button', data-dismiss='modal', onclick='getPersonNumber()')
               | 确认
     .container-fluid
       //header
@@ -94,47 +96,56 @@ html(xmlns='http://www.w3.org/1999/xhtml')
         img(src='/images/ab.jpg', alt='Header')
         center
           h2 通电时长
-          form#forms.form-inline.smallScreen.col-xs-10.col-xs-offset-1
-            p#notices 提示:无人状态下房间至多保持通电2小时
-            .form-group.col-xs-10.col-xs-offset-1
-              label 小时
-              input#inputs1.form-control(type='text',value=0)
-            .form-group.col-xs-10.col-xs-offset-1
-              label 分钟
-              input#inputs2.form-control(type='text',value=0)
-            .form-group.col-xs-10.col-xs-offset-1
-              label 秒
-              input#inputs3.form-control(type='text',value=0)
-            center.col-xs-8.col-xs-offset-2
-              button#confirms.btn.btn-primary.btn-lg.btn-block(data-toggle='modal', data-target='#myModal',type='button', onclick='setText()') 确认
-          form#form.form-inline.bigScreen.col-xs-8.col-xs-offset-2
-            p#notice 提示:无人状态下房间至多保持通电2小时
-            .form-group
-              label.sr-only
-              input#input1.form-control(type='text',value='00')
-              h5 时
-            .form-group
-              label.sr-only
-              input#input2.form-control(type='text',value='00')
-              h5 分
-            .form-group
-              label.sr-only
-              input#input3.form-control(type='text',value='00')
-              h5 秒
-            center.col-xs-4.col-xs-offset-4
-              //之前onclick=return initCounter()调出倒计时页面并避免页面刷新
-              button#confirm.btn.btn-primary.btn-lg.btn-block(data-toggle='modal', data-target='#myModal',type='button',onclick='setText()') 确认
-          #timeCounter
-            #countdown
-            p#note
-            center.col-xs-10.col-xs-offset-1.col-sm-2.col-sm-offset-5
-              button.btn.btn-primary.btn-lg.btn-block(type='submit', onclick='return endCounter()') 取消
+          #main-window.ui.segment.col-xs-10.col-xs-offset-1.col-sm-8.col-sm-offset-2
+            center
+              form#forms.form-inline.smallScreen.clearfix
+                p#notices 提示:无人状态下房间至多保持通电2小时
+                .form-group.col-xs-10.col-xs-offset-1
+                  label 小时
+                  input#inputs1.form-control(type='text',value=0)
+                .form-group.col-xs-10.col-xs-offset-1
+                  label 分钟
+                  input#inputs2.form-control(type='text',value=0)
+                .form-group.col-xs-10.col-xs-offset-1
+                  label 秒
+                  input#inputs3.form-control(type='text',value=0)
+                center.col-xs-8.col-xs-offset-2
+                  button#confirms.btn.btn-primary.btn-lg.btn-block(data-toggle='modal', data-target='#myModal',type='button', onclick='setText()') 确认
+              form#form.form-inline.bigScreen.clearfix
+                p#notice 提示:无人状态下房间至多保持通电2小时
+                .form-group
+                  label.sr-only
+                  input#input1.form-control(type='text',value='00')
+                  h5 时
+                .form-group
+                  label.sr-only
+                  input#input2.form-control(type='text',value='00')
+                  h5 分
+                .form-group
+                  label.sr-only
+                  input#input3.form-control(type='text',value='00')
+                  h5 秒
+                center.col-xs-4.col-xs-offset-4
+                  //之前onclick=return initCounter()调出倒计时页面并避免页面刷新
+                  button#confirm.btn.btn-primary.btn-lg.btn-block(data-toggle='modal', data-target='#myModal',type='button',onclick='setText()') 确认
+              #timeCounter
+                #countdown
+                p#note
+                center.col-xs-10.col-xs-offset-1.col-sm-4.col-sm-offset-4.col-md-2.col-md-offset-5
+                  button.btn.btn-primary.btn-lg.btn-block(type='submit', onclick='return endCounter()') 取消
+            .ui.two.column.grid
+              a.ui.red.ribbon.label Overview
+              span Account Details
+              p
+              a.ui.blue.ribbon.label Community
+              |  User Reviews
+              p
         #emample1.example
           #blk1.blk.col-xs-9.col-xs-offset-5.col-sm-6.col-sm-offset-0.col-md-5(style='display:none;')
             .head
               .head-right
             .main
-              ul
+              ul#ul
                 li
                   p 00
                 li
