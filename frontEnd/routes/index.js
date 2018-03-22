@@ -25,4 +25,10 @@ router.get('/admin',function(req,res,next)
   res.render('admin',{title: 'admin'});
 });
 
+/* GET adminCertainRoom page. */
+router.get('/admin/adminCertainRoom',function(req,res,next)
+{
+  res.render('adminCertainRoom',{title: 'adminCertainRoom'});
+});
+
 module.exports = router;

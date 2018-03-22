@@ -4,7 +4,7 @@ window.onload = checkLogin();
 window.onclick = function(){
   //alert("hhh");
   var now = new Date();
-  console.log(now.getTime());
+  //console.log(now.getTime());
   localStorage.setItem("lastClick",now.getTime());
 }
 
@@ -48,4 +48,22 @@ function logout()
 {
   localStorage.removeItem("user");
   console.log(localStorage.getItem("user"));
+  $.ajax({
+    type: 'POST',
+    url:'http://' + host + ':8000/user/get_expire_time',
+    dataType: 'json',
+    // 下面两个参数解决跨域问题
+    xhrFields: {
+        withCredentials: true
+    },
+    crossDomain: true,
+    complete: function(XMLHttpRequest, textStatus) {},
+    success: function(data)
+    {
+      console.log(data);
+    },
+    error: function(err) {
+        console.log(err);
+    }
+  });
 }

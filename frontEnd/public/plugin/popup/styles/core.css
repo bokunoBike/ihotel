@@ -17,6 +17,7 @@ a
 .blk
 {
 	position:relative;
+  width: 100%;
 }
 
 .blk .head, .blk .head-right, .blk .foot, .blk .foot-right
@@ -71,6 +72,7 @@ a
 	text-align:center;
 	line-height:30px;
 	display:inline;
+  padding: 5px 0px;
 }
 
 .blk .main ul li p

@@ -12,6 +12,8 @@ html(xmlns='http://www.w3.org/1999/xhtml')
     script(type='text/javascript', src='/javascripts/filter.js')
     link(rel='stylesheet', type='text/css', href='stylesheets/style.css')
     link(href='stylesheets/font-awesome.css', rel='stylesheet')
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css')
+    link(href='https://fonts.googleapis.com/css?family=Cardo:400,400italic|Radley|Tangerine', rel='stylesheet')
     link(href='https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css',rel='stylesheet')
     // HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries
     //if lt IE 9
@@ -23,6 +25,7 @@ html(xmlns='http://www.w3.org/1999/xhtml')
     link(rel='BOOKMARK', href='/images/favicon.ico')
     script(src='https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js')
     script(src='https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js')
 
   body
     #myModal.modal.fade.clearfix(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true',data-backdrop='static')
@@ -35,7 +38,7 @@ html(xmlns='http://www.w3.org/1999/xhtml')
           .modal-body#myModalBody
             | 房间将于您离开后立即断电！
           .modal-footer
-            button.btn.btn-default(type='button', data-dismiss='modal')
+            button#cancel.btn.btn-default(type='button', data-dismiss='modal')
               | 取消
             button.btn.btn-primary(type='button', data-dismiss='modal')
               | 确认
@@ -65,16 +68,33 @@ html(xmlns='http://www.w3.org/1999/xhtml')
                   a.glyphicon.glyphicon-log-out(aria-hidden='true')(href='/',onclick = 'logout()') 注销
                 li
                   a.glyphicon.glyphicon-envelope(aria-hidden='true')(href='mailto:bowl_www@163.com') 联系我们
+                li
+                  a#roomStatus(onclick='showStatus()') 查看房间状态
       //container
       .body_container.row#body_container
         img#img.img-responsive(src='/images/ab.jpg', alt='Header')
-        .someWords.pull-right.col-sm-7
-          svg#svg(xmlns='http://www.w3.org/svg/2000', viewbox='0 0 50 100')
-            path(d='M0,0 L50,0 L50,50 L50,100 L0,100 L0,25 L0,0')
+        #main-window.ui.segment.pull-right.col-xs-10.col-sm-6
+          center
+            span 当前房间内有
+              h1#number 3
+            span 人
+          #porlContainer
+            #plusAndSub
+              span#add.label(onclick='addPerson()') +
+              span#sub.label(onclick='subPerson()') –
+            button#back.btn.btn-primary(type='submit',onclick='backSelect()') 返回
+            button.btn.btn-danger(type='submit',onclick='sendCorrect()',data-toggle='modal', data-target='#myModal') 报告错误
+          .ui.two.column.grid
+            a.ui.red.ribbon.label Overview
+            span Account Details
+            p
+            a.ui.blue.ribbon.label Community
+            |  User Reviews
+            p
         #select
           .pattern.activeMode.col-xs-10.col-sm-3.col-md-3.col-lg-3
             a(href='/userPage/timeOut') 用户设定
-          .pattern.passiveMode.col-xs-10.col-sm-3.col-md-3.col-lg-3(data-toggle='modal', data-target='#myModal')
+          .pattern.passiveMode.col-xs-10.col-sm-3.col-md-3.col-lg-3(data-toggle='modal', data-target='#myModal',onclick='setModalText()')
             p 托管设定
       // Footer
       .w3l-footer#footer

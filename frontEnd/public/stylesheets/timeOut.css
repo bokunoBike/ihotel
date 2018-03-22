@@ -53,6 +53,18 @@ body
   border-radius: 9px;
   padding: 0;
 }
+#main-window {
+  background-color: inherit;
+  border: 1px inset lightgray;
+  display: block;
+  margin-bottom: 5%;
+  box-shadow: 15px 10px 5px #202020;
+  border-radius: 8px;
+}
+#main-window .blue
+{
+    margin-bottom: 20px;
+}
 
 form p
 {
@@ -87,12 +99,8 @@ form p
 form
 {
   padding: 3%;
-  margin: 0 0 11% 0;
-  background-color: #303030;
-  border-width: 0.5px;
-  border-color: #353535 #202020 #202020 #353535;
-  box-shadow: 10px 5px 5px #202020;
-  border-radius: 5px;
+  margin: 2% 0 0 0;
+  background-color: inherit;
 }
 
 form button
@@ -100,21 +108,30 @@ form button
   margin-top: 10%;
 }
 
+#blk1
+{
+  width: 200px;
+}
+
 /* CUSTOMIZE THE COUNTDOWN
 -------------------------------------------------- */
 #timeCounter button
 {
-  margin: 20% 0;
+  margin: 10% 0;
 }
 
 #timeCounter
 {
   display: none;
-  margin-bottom: 230px;
+  margin:5% 0 100px 0;
 }
 
 @media screen and (max-width: 767px)
 {
+  .col-xs-offset-1
+  {
+    margin-left: 8.33333333%!important;
+  }
   .smallScreen
   {
     display: inline-block;
@@ -140,5 +157,13 @@ form button
   {
     position: relative;
     top:20px;
+  }
+}
+
+@media (min-width: 768px)
+{
+  .col-sm-offset-2
+  {
+      margin-left: 16.66666667%!important;
   }
 }
