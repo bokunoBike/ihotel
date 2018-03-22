@@ -15,7 +15,7 @@ function getPersonNumber()
 {
 	var host = window.location.hostname;
 	console.log(host);
-	var ws = new WebSocket("ws://"+host+":8000/user/get_people_counts");
+	var ws = new WebSocket("wss://"+host+":8000/user/get_room_info");
 	var systemPersonNumber;
 	ws.onmessage = function (data)
 	{
@@ -26,10 +26,10 @@ function getPersonNumber()
 	if(storage.getItem("alreadySetTime") != true)
 	{
 		$.ajax({
-			type: 'POST',
+			type: 'GET',
 			url:'http://' + host + ':8000/user/get_expire_time',
 			dataType: 'json',
-			data:{"time",String(setHour)+String(setMinute)+String(setSecond)},
+			data:{"time":String(setHour)+String(setMinute)+String(setSecond)},
 			// 下面两个参数解决跨域问题
 			xhrFields: {
 					withCredentials: true
