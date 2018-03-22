@@ -3,6 +3,79 @@ var storage = window.localStorage;
 var setHour;
 var setMinute;
 var setSecond;
+var expireHour;
+var expireMinute;
+var expireSecond;
+if(storage.getItem("alreadySetTime") == true)
+{
+	window.onload = getPersonNumber();
+}
+//通过webSocket获取系统判定人数
+function getPersonNumber()
+{
+	var host = window.location.hostname;
+	console.log(host);
+	var ws = new WebSocket("ws://"+host+":8000/user/get_people_counts");
+	var systemPersonNumber;
+	ws.onmessage = function (data)
+	{
+		systemPersonNumber = data.people_counts;
+		console.log(systemPersonNumber);
+	}
+	//若为初次设定或上次设定已完成
+	if(storage.getItem("alreadySetTime") != true)
+	{
+		$.ajax({
+			type: 'POST',
+			url:'http://' + host + ':8000/user/get_expire_time',
+			dataType: 'json',
+			data:{"time",String(setHour)+String(setMinute)+String(setSecond)},
+			// 下面两个参数解决跨域问题
+			xhrFields: {
+					withCredentials: true
+			},
+			crossDomain: true,
+			complete: function(XMLHttpRequest, textStatus) {},
+			success: function(data)
+			{
+				console.log(data);
+			},
+			error: function(err) {
+					console.log(err);
+			}
+		});
+	}
+	//房内无人则获取过期时间初始化计时器
+	if(systemPersonNumber == 0)
+	{
+		$.ajax({
+			type: 'GET',
+			url:'http://' + host + ':8000/user/get_expire_time',
+			dataType: 'json',
+			// 下面两个参数解决跨域问题
+			xhrFields: {
+					withCredentials: true
+			},
+			crossDomain: true,
+			complete: function(XMLHttpRequest, textStatus) {},
+			success: function(data)
+			{
+				var expireTime = data.expire_time.split(' ');
+				var now = new Date();
+				var nowHour = now.getHours();
+				var nowMinute = now.getMinutes();
+				var nowSecond = now.getSeconds();
+				expireHour = expireTime[0]-nowHour;
+				expireMinute = expireTime[1]-nowMinute;
+				expireSecond = expireTime[2]-nowSecond;
+				initCounter();
+			},
+			error: function(err) {
+					console.log(err);
+			}
+		});
+	}
+}
 
 //获取用户设定时间
 function getTimeSet()
@@ -50,27 +123,7 @@ $('#myModal').on('hidden.bs.modal', function () {
 	document.getElementsByTagName('body')[0].style.paddingTop='75px';
   document.getElementById('navbarContainer').style.position='fixed';
 })
-function rotate()
-{
-	console.log(Math.random());
-}
-//setInterval('rotate()',1000);
-//每隔2s获取一次当前房间是否有人的状态
-//长轮询参数
-var getting =
-{
-	url:'!!!',//后边再改!!!
-	dataType:'json',
-	success:function(res)
-	{
-		console.log(res);
-		endCounter();
-	},
-	error:function(res)
-	{
-		$.ajax(getting);
-	}
-}
+
 
 //点击模态框确定或标签页打开触发事件
 function loadResult()
@@ -114,7 +167,7 @@ document.addEventListener('webkitvisibilitychange',function()
 					 {}
 					 else
 					 {
-							 loadResult();
+							 //loadResult();
 					 }
 			 })
 document.addEventListener('mozvisibilitychange',function()
@@ -124,7 +177,7 @@ document.addEventListener('mozvisibilitychange',function()
 					 }
 					 else
 					 {
-							 loadResult();
+							 //loadResult();
 					 }
 			 })
 
@@ -137,14 +190,15 @@ function initCounter()
 	document.getElementById("forms").style.display="none";
 	document.getElementById("timeCounter").style.display="block";
 	$(function startTime(){
-
-		var note = $('#note'),
+			var note = $('#note'),
 			ts = new Date(2012, 0, 1),
 			newYear = true;
 			getTimeSet();
-		if((new Date()) > ts){
-			ts = (new Date()).getTime() + setHour*60*60*1000+setMinute*60*1000+setSecond*1000-1;
+			if((new Date()) > ts){
+			//修改倒计时时间
+			ts = (new Date()).getTime() + expireHour*60*60*1000 + expireMinute*60*1000 + expireSecond*1000-1;
 			newYear = false;
+			storage.setItem("alreadySetTime",true);
 		}
 
 		$('#countdown').countdown({
