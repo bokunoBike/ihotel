@@ -8,7 +8,7 @@ window.onload = getPersonNumber();
 function getPersonNumber()
 {
 	var host = window.location.hostname;
-	var ws = new WebSocket("ws://"+host+":8000/user/get_people_counts");
+	var ws = new WebSocket("ws://"+host+":8000/user/get_room_info");
 	ws.onmessage = function (data)
 	{
 		systemPersonNumber = data.people_counts;
