@@ -76,6 +76,7 @@ def get_expire_time(request):  # 登录页面
 
 
 # @require_http_methods(["GET"])
+# def get_people_counts(request):
 #     user = auth.get_user(request)
 #     if user is None:  # 用户未登录
 #         data = {"people_counts": 0, 'feedback': 'user does not login'}
@@ -95,12 +96,14 @@ def get_expire_time(request):  # 登录页面
 
 # @require_http_methods(["GET"])
 @require_websocket
+def get_room_info(request):
     # print('start')
     user = auth.get_user(request)
+    # print(user.username)
     current_time = datetime.datetime.now()
     if user is None:  # 用户未登录
         # print('not login')
-        data = {"people_counts": 0, "last_nobody_time": str(current_time), 'feedback': 'user does not login'}
+        data = {"people_counts": 0, "last_nobody_time": str(current_time)}
         data = json.dumps(data).encode()
         request.websocket.send(data)
     else:
@@ -109,20 +112,19 @@ def get_expire_time(request):  # 登录页面
         except Room.DoesNotExist:
             room = None
         if room is None:  # 该用户没有使用房间
-            # print('no using room')
-            data = {"people_counts": 0, "last_nobody_time": str(current_time),
-                    'feedback': "The user doesn't use a room."}
+            # print("The user doesn't use a room.")
+            data = {"people_counts": 0, "last_nobody_time": str(current_time)}
             data = json.dumps(data).encode()
             request.websocket.send(data)
         else:
-            # print('get it')
+            # print('get it %s' % room.room_id)
             while True:
+                room = Room.objects.get(user=user)
                 people_counts = room.people_counts
                 last_nobody_time = room.last_nobody_time
                 if last_nobody_time is None:
                     last_nobody_time = current_time
-                data = {"people_counts": people_counts, "last_nobody_time": str(last_nobody_time),
-                        "feedback": "the people_counts"}
+                data = {"people_counts": people_counts, "last_nobody_time": str(last_nobody_time)}
                 data = json.dumps(data).encode()
                 # request.websocket.send(bytes(str(data), "utf-8"))
                 request.websocket.send(data)

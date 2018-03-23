@@ -55,7 +55,6 @@ $(document).ready(function()
           $.ajax({
             type: 'POST',
             url:'http://' + host + ':8000/login/login',
-            url:'http://localhost:8000/login/login',
             dataType: 'json',
             data: {"roomNumber": document.getElementById('roomNumber').value,
                    "thePassword": document.getElementById('thePassword').value},
