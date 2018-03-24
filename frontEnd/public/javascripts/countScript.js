@@ -14,7 +14,6 @@ if(storage.getItem("alreadySetTime") == 'true')
 function getPersonNumber()
 {
 	var host = window.location.hostname;
-	console.log(host);
 	//若为初次设定或上次设定已完成
 	if(storage.getItem("alreadySetTime") != 'true')
 	{
@@ -22,7 +21,10 @@ function getPersonNumber()
 			type: 'POST',
 			url:'http://' + host + ':8000/user/set_expire_time',
 			dataType: 'json',
-			data:{"time":String(setHour)+String(setMinute)+String(setSecond)},
+			data:{"hours":setHour,
+				  "minutes":setMinute,
+				  "seconds":setSecond
+			},
 			// 下面两个参数解决跨域问题
 			xhrFields: {
 					withCredentials: true
@@ -51,18 +53,18 @@ function getPersonNumber()
 		complete: function(XMLHttpRequest, textStatus) {},
 		success: function(data)
 		{
-			var expireTime = data.expire_time.split(' ');
+			var expireTime = new Date(data.expire_time);
 			var now = new Date();
 			var nowHour = now.getHours();
 			var nowMinute = now.getMinutes();
 			var nowSecond = now.getSeconds();
-			expireHour = expireTime[0]-nowHour;
-			expireMinute = expireTime[1]-nowMinute;
-			expireSecond = expireTime[2]-nowSecond;
+			expireHour = expireTime.getHours()-nowHour;
+			expireMinute = expireTime.getMinutes()-nowMinute;
+			expireSecond = expireTime.getSeconds()-nowSecond;
 			initCounter();
 		},
 		error: function(err) {
-				console.log(err);
+			console.log(err);
 		}
 	});
 }
