@@ -10,8 +10,6 @@ function getPersonNumber()
 	var host = window.location.hostname;
 	var ws = new WebSocket("ws://"+host+":8000/user/get_room_info");
 	window.ws = ws;
-	ws.onopen = function () {
-    }
 	ws.onmessage = function (e)
 	{
 		var data = JSON.parse(e.data);
@@ -20,6 +18,9 @@ function getPersonNumber()
 		//console.log(systemPersonNumber);
 	}
 	ws.onclose = function () {
+		ws.send(0);
+    }
+	ws.onerror = function (e) {
 		ws.send(0);
     }
 }

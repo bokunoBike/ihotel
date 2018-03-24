@@ -22,9 +22,12 @@ def set_expire_time(request):  # 登录页面
         data = {"set_expired_time_result": 2}
     else:
         hours = int(request.POST.get('hours'))
+        # print(hours)
         if 0 <= int(hours) <= 2:  # 设置的时间在2小时之内
             minutes = int(request.POST.get('minutes'))
             seconds = int(request.POST.get('seconds'))
+            # print(minutes)
+            # print(seconds)
             current_time = datetime.datetime.now()
             expired_time = current_time + datetime.timedelta(hours=hours, minutes=minutes, seconds=seconds)
             try:
@@ -43,10 +46,6 @@ def set_expire_time(request):  # 登录页面
     response = JsonResponse(data)
     response = add_cors_headers(response)
     return response
-
-
-def set_expire_time_test(request):
-    return render(request, 'user/set_expire.html', {})
 
 
 @require_http_methods(["GET"])
@@ -75,35 +74,14 @@ def get_expire_time(request):  # 登录页面
     return response
 
 
-# @require_http_methods(["GET"])
-# def get_people_counts(request):
-#     user = auth.get_user(request)
-#     if user is None:  # 用户未登录
-#         data = {"people_counts": 0, 'feedback': 'user does not login'}
-#     else:
-#         try:
-#             room = Room.objects.get(user=user)
-#         except Room.DoesNotExist:
-#             room = None
-#         if room is None:  # 该用户没有使用房间
-#             data = {"people_counts": 0, 'feedback': "The user doesn't use a room."}
-#         else:
-#             people_counts = room.people_counts
-#             data = {"people_counts": people_counts, 'feedback': 'the people_counts'}
-#     response = JsonResponse(data)
-#     response = add_cors_headers(response)
-#     return response
-
-# @require_http_methods(["GET"])
 @require_websocket
 def get_room_info(request):
     # print('start')
     user = auth.get_user(request)
     # print(user.username)
-    current_time = datetime.datetime.now()
     if user is None:  # 用户未登录
         # print('not login')
-        data = {"people_counts": 0, "last_nobody_time": str(current_time)}
+        data = {"people_counts": 0}
         data = json.dumps(data).encode()
         request.websocket.send(data)
     else:
@@ -113,7 +91,7 @@ def get_room_info(request):
             room = None
         if room is None:  # 该用户没有使用房间
             # print("The user doesn't use a room.")
-            data = {"people_counts": 0, "last_nobody_time": str(current_time)}
+            data = {"people_counts": 0}
             data = json.dumps(data).encode()
             request.websocket.send(data)
         else:
@@ -122,14 +100,11 @@ def get_room_info(request):
             while socket_status:
                 room = Room.objects.get(user=user)
                 people_counts = room.people_counts
-                last_nobody_time = room.last_nobody_time
-                if last_nobody_time is None:
-                    last_nobody_time = current_time
-                data = {"people_counts": people_counts, "last_nobody_time": str(last_nobody_time)}
+                data = {"people_counts": people_counts}
                 data = json.dumps(data).encode()
                 # request.websocket.send(bytes(str(data), "utf-8"))
                 request.websocket.send(data)
                 time.sleep(1)
                 # print(datetime.datetime.now())
-                socket_status = request.websocket.read('1')
+                socket_status = request.websocket.read(1)
             # print('end')

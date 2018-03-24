@@ -26,7 +26,6 @@ function checkLogin()
   }
   else
   {
-    console.log("user"+user);
     //未登录则直接返回登录界面
     if(user == null)
     {
