@@ -33,6 +33,7 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser):
     '''用户表'''
 
+    user_id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=30, unique=True)
     email = models.EmailField(max_length=30, unique=True)
     avatar = models.URLField(blank=True)

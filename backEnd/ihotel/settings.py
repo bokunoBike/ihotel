@@ -20,7 +20,7 @@ SECRET_KEY = '9$%8z(lk*z(!q@y8qu0i!sjpu4d2zih$n%xu1gyd2n($ypc=p9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1","localhost"]
 
 # Application definition
 
@@ -35,13 +35,13 @@ INSTALLED_APPS = [
     'manager',
     'common',
     'user',
-    'corsheaders',
+    # 'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    # 'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -89,6 +89,7 @@ DATABASES = {
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
 AUTH_USER_MODEL = 'login.User'
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -146,5 +147,6 @@ CORS_ALLOW_HEADERS = (
     'Pragma',
 )
 
-CORS_ALLOW_HOST = "127.0.0.1"
+CORS_ALLOW_HOST = "localhost"
+#CORS_ALLOW_HOST = "127.0.0.1"
 # CORS_ALLOW_HOST = "115.159.77.150"

@@ -6,7 +6,7 @@ var setSecond;
 var expireHour;
 var expireMinute;
 var expireSecond;
-if(storage.getItem("alreadySetTime") == true)
+if(storage.getItem("alreadySetTime") == 'true')
 {
 	window.onload = getPersonNumber();
 }
@@ -16,7 +16,7 @@ function getPersonNumber()
 	var host = window.location.hostname;
 	console.log(host);
 	//若为初次设定或上次设定已完成
-	if(storage.getItem("alreadySetTime") != true)
+	if(storage.getItem("alreadySetTime") != 'true')
 	{
 		$.ajax({
 			type: 'POST',

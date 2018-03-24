@@ -23,6 +23,10 @@ function getPersonNumber()
 	{
 		ws.send(0);
 	}
+	ws.onerror = function(e)
+	{
+		ws.send(0);
+	}
 }
 //小屏幕点击显示房间状态按钮
 function showStatus()
@@ -63,8 +67,6 @@ function subPerson()
 function sendCorrect()
 {
 	document.getElementById('cancel').style.display = 'none';
-	console.log(nowPerson);
-	console.log(changeNumber);
 	if((systemPersonNumber == changeNumber)||(clickChange == false))
 	{
 		document.getElementById('myModalBody').innerHTML = '您报告的人数与系统检测人数一致!';
@@ -74,6 +76,7 @@ function sendCorrect()
 		document.getElementById('myModalBody').innerHTML = '信息已发送，请等待审核!';
 	}
 	document.getElementById('number').innerHTML = systemPersonNumber;
+	getPersonNumber();
 }
 //设置为被动模式
 function setModalText()
