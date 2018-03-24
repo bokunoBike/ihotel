@@ -67,6 +67,12 @@
         padding-bottom: 150px;
 }
 /*-- /responsive --*/
+@media (min-width:1441px){
+	#demo-1 {
+	 min-height:630px;
+	}
+
+}
 @media (max-width:1440px){
 	#demo-1 {
 

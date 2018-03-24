@@ -1,45 +1,53 @@
 //获取localstorage对象
 var storage = window.localStorage;
+var host = window.location.hostname;
 var setHour;
 var setMinute;
 var setSecond;
 var expireHour;
 var expireMinute;
 var expireSecond;
-if(storage.getItem("alreadySetTime") == 'true')
-{
-	window.onload = getPersonNumber();
-}
+window.onload = getPersonNumber();
 //通过webSocket获取系统判定人数
 function getPersonNumber()
 {
-	var host = window.location.hostname;
 	//若为初次设定或上次设定已完成
-	if(storage.getItem("alreadySetTime") != 'true')
-	{
-		$.ajax({
-			type: 'POST',
-			url:'http://' + host + ':8000/user/set_expire_time',
-			dataType: 'json',
-			data:{"hours":setHour,
-				  "minutes":setMinute,
-				  "seconds":setSecond
-			},
-			// 下面两个参数解决跨域问题
-			xhrFields: {
-					withCredentials: true
-			},
-			crossDomain: true,
-			complete: function(XMLHttpRequest, textStatus) {},
-			success: function(data)
-			{
-				console.log(data);
-			},
-			error: function(err) {
-					console.log(err);
-			}
-		});
+	getExpireTime();
+	console.log("expiredTime"+expireHour*60*60+expireMinute*60+expireSecond);
+	if((expireHour*60*60+expireMinute*60+expireSecond) <= 0){
+		setExpireTime(setHour,setMinute,setSecond);
+		getExpireTime();
 	}
+}
+//设置过期时间
+function setExpireTime(setHour,setMinute,setSecond)
+{
+	$.ajax({
+		type: 'POST',
+		url:'http://' + host + ':8000/user/set_expire_time',
+		dataType: 'json',
+		data:{"hours":setHour,
+				"minutes":setMinute,
+				"seconds":setSecond
+		},
+		// 下面两个参数解决跨域问题
+		xhrFields: {
+				withCredentials: true
+		},
+		crossDomain: true,
+		complete: function(XMLHttpRequest, textStatus) {},
+		success: function(data)
+		{
+			console.log(data);
+		},
+		error: function(err) {
+				console.log("error"+err);
+		}
+	});
+}
+//获得过期时间
+function getExpireTime()
+{
 	//获取过期时间初始化计时器
 	$.ajax({
 		type: 'GET',
@@ -61,14 +69,16 @@ function getPersonNumber()
 			expireHour = expireTime.getHours()-nowHour;
 			expireMinute = expireTime.getMinutes()-nowMinute;
 			expireSecond = expireTime.getSeconds()-nowSecond;
-			initCounter();
+			if((expireHour*60*60+expireMinute*60+expireSecond) > 0)
+			{
+				initCounter();
+			}
 		},
 		error: function(err) {
 			console.log(err);
 		}
 	});
 }
-
 //获取用户设定时间
 function getTimeSet()
 {
@@ -190,7 +200,7 @@ function initCounter()
 			//修改倒计时时间
 			ts = (new Date()).getTime() + expireHour*60*60*1000 + expireMinute*60*1000 + expireSecond*1000-1;
 			newYear = false;
-			storage.setItem("alreadySetTime",true);
+			//storage.setItem("alreadySetTime",true);
 		}
 
 		$('#countdown').countdown({
@@ -221,6 +231,8 @@ function initCounter()
 //返回输入页面并恢复计时器初始状态
 function endCounter()
 {
+	setExpireTime(0,0,0);
+	//storage.setItem("alreadySetTime",'false')
 	var oldNode = document.getElementById("timeCounter");
   oldNode.parentNode.replaceChild(node, oldNode);
 	var winWide = window.screen.width;
