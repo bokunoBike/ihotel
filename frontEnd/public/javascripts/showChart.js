@@ -14,19 +14,6 @@ $("canvas").click(function()
 function showBigChart()
 {
 	window.location.href = "/admin/adminCertainRoom";
-	/*var initialCharts = document.getElementById('main-window');
-	node = initialCharts.cloneNode(true);
-	document.getElementById('changePersonNumber').style.display = "block";
-	document.getElementById('backtoBigChart').style.display = "block";
-	document.getElementById('showChart').style.visibility = 'hidden';
-	document.getElementById('loading1').style. visibility = 'hidden';
-	document.getElementById('loading2').style.visibility = 'hidden';
-	document.getElementById('loading3').style.visibility = 'hidden';
-	document.getElementById('input').style.visibility = 'hidden';
-	document.getElementById('specialNotice').style.display = 'block';
-	document.getElementById('submitButton').style.display = 'none';
-	document.getElementById('changeFloor').style.display = 'none';
-	myChart = echarts.init(document.getElementById('main-window'),'dark');*/
 }
 //返回多图表界面
 function returntoCharts()
@@ -42,12 +29,6 @@ function returntoCharts()
 	{
 		window.location.href = "/admin";
 	}
-	/*var oldNode = document.getElementById("main-window");
-  oldNode.parentNode.replaceChild(node, oldNode);
-	myChart = echarts.init(document.getElementById('showChart'),'dark');
-	document.getElementById('input').style.visibility = 'visible';
-	document.getElementById('submitButton').style.display = 'block';
-	document.getElementById('specialNotice').style.display = 'none';*/
 }
 
 //监控标签页的打开和隐藏
@@ -66,7 +47,7 @@ document.addEventListener('mozvisibilitychange',function()
 					 {}
 					 else
 					 {
-							 $.ajax(getting);
+							 //$.ajax(getting);
 					 }
 			 })
 
@@ -93,7 +74,7 @@ var data = [];
 var now = new Date()-17*60*1000;
 var oneDay = 24 * 3600 * 1000;
 var value = Math.random() * 1000;
-for (var i = 0; i < 1000; i++) {
+for (var i = 0; i < 30; i++) {
     data.push(randomData());
 }
 
