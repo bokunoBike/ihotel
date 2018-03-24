@@ -22,12 +22,12 @@ def set_expire_time(request):  # 登录页面
         data = {"set_expired_time_result": 2}
     else:
         hours = int(request.POST.get('hours'))
-        # print(hours)
+        #print(hours)
         if 0 <= int(hours) <= 2:  # 设置的时间在2小时之内
             minutes = int(request.POST.get('minutes'))
             seconds = int(request.POST.get('seconds'))
-            # print(minutes)
-            # print(seconds)
+            #print(minutes)
+            #print(seconds)
             current_time = datetime.datetime.now()
             expired_time = current_time + datetime.timedelta(hours=hours, minutes=minutes, seconds=seconds)
             try:
@@ -35,11 +35,13 @@ def set_expire_time(request):  # 登录页面
             except Room.DoesNotExist:
                 room = None
             if room is None:  # 该用户没有使用房间
-                data = {"set_expired_time_result": 3}
+                data = {"set_expired_time_result": 3}       
             else:
                 room.expired_time = expired_time
                 room.pattern = True
                 room.save()
+                #print(user.username)
+                #print(room.room_id)
                 data = {"set_expired_time_result": 0}
         else:  # 设置的时间超出范围
             data = {"set_expired_time_result": 1}
@@ -50,6 +52,7 @@ def set_expire_time(request):  # 登录页面
 
 @require_http_methods(["GET"])
 def get_expire_time(request):  # 登录页面
+    #print('start')
     user = auth.get_user(request)
     if user is None:  # 用户未登录
         data = {"expire_time": datetime.datetime.now(), 'feedback': 'user does not login'}
@@ -58,13 +61,17 @@ def get_expire_time(request):  # 登录页面
             room = Room.objects.get(user=user)
         except Room.DoesNotExist:
             room = None
-        current_time = datetime.datetime.now()
+        current_time = datetime.datetime.now() 
         if room is None:  # 该用户没有使用房间
             data = {"expire_time": current_time, 'feedback': "The user doesn't use a room."}
         else:
             expired_time = room.expired_time
+            if expired_time is None:
+                expired_time = current_time
             expired_time = expired_time.replace(tzinfo=None)
-            if expired_time is None or expired_time < current_time:
+            # print(current_time)
+            # print(expired_time)
+            if expired_time <= current_time:
                 data = {"expire_time": current_time,
                         'feedback': 'not set expire_time or has expired'}
             else:

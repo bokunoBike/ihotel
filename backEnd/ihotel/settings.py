@@ -20,7 +20,7 @@ SECRET_KEY = '9$%8z(lk*z(!q@y8qu0i!sjpu4d2zih$n%xu1gyd2n($ypc=p9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1","localhost"]
 
 # Application definition
 
@@ -40,7 +40,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    # 'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -76,7 +76,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ihotel',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': '123456',
         'HOST': 'localhost',
         'PORT': '3306',
         'TEST_CHARSET': 'utf8',
@@ -87,6 +87,7 @@ DATABASES = {
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
 AUTH_USER_MODEL = 'login.User'
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -108,13 +109,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
@@ -144,5 +145,6 @@ CORS_ALLOW_HEADERS = (
     'Pragma',
 )
 
-CORS_ALLOW_HOST = "127.0.0.1"
+CORS_ALLOW_HOST = "localhost"
+#CORS_ALLOW_HOST = "127.0.0.1"
 # CORS_ALLOW_HOST = "115.159.77.150"

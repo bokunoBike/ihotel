@@ -16,6 +16,10 @@ function getPersonNumber()
 		document.getElementById('number').innerHTML = systemPersonNumber;
 		console.log(systemPersonNumber);
 	}
+	ws.onclose = function()
+	{
+		ws.send(0);
+	}
 }
 function addPerson()
 {

@@ -36,7 +36,7 @@
 			if(left < 0){
 				left = 0;
 				var storage = window.localStorage;
-				storage.setItem("alreadySetTime",false);
+				//storage.setItem("alreadySetTime",false);
 			}
 
 			// Number of hours left
