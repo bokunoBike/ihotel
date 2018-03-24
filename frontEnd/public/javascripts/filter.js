@@ -26,6 +26,7 @@ function checkLogin()
   }
   else
   {
+    console.log("user"+user);
     //未登录则直接返回登录界面
     if(user == null)
     {
@@ -46,11 +47,12 @@ function checkLogin()
 
 function logout()
 {
+  var host = window.location.hostname;
   localStorage.removeItem("user");
   console.log(localStorage.getItem("user"));
   $.ajax({
-    type: 'POST',
-    url:'http://' + host + ':8000/user/get_expire_time',
+    type: 'GET',
+    url:'http://' + host + ':8000/login/logout',
     dataType: 'json',
     // 下面两个参数解决跨域问题
     xhrFields: {
@@ -63,7 +65,8 @@ function logout()
       console.log(data);
     },
     error: function(err) {
-        console.log(err);
+        console.log("error"+err);
     }
   });
+  window.location.href = '/';
 }

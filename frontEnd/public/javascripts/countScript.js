@@ -15,19 +15,12 @@ function getPersonNumber()
 {
 	var host = window.location.hostname;
 	console.log(host);
-	var ws = new WebSocket("wss://"+host+":8000/user/get_room_info");
-	var systemPersonNumber;
-	ws.onmessage = function (data)
-	{
-		systemPersonNumber = data.people_counts;
-		console.log(systemPersonNumber);
-	}
 	//若为初次设定或上次设定已完成
 	if(storage.getItem("alreadySetTime") != true)
 	{
 		$.ajax({
-			type: 'GET',
-			url:'http://' + host + ':8000/user/get_expire_time',
+			type: 'POST',
+			url:'http://' + host + ':8000/user/set_expire_time',
 			dataType: 'json',
 			data:{"time":String(setHour)+String(setMinute)+String(setSecond)},
 			// 下面两个参数解决跨域问题
@@ -45,36 +38,33 @@ function getPersonNumber()
 			}
 		});
 	}
-	//房内无人则获取过期时间初始化计时器
-	if(systemPersonNumber == 0)
-	{
-		$.ajax({
-			type: 'GET',
-			url:'http://' + host + ':8000/user/get_expire_time',
-			dataType: 'json',
-			// 下面两个参数解决跨域问题
-			xhrFields: {
-					withCredentials: true
-			},
-			crossDomain: true,
-			complete: function(XMLHttpRequest, textStatus) {},
-			success: function(data)
-			{
-				var expireTime = data.expire_time.split(' ');
-				var now = new Date();
-				var nowHour = now.getHours();
-				var nowMinute = now.getMinutes();
-				var nowSecond = now.getSeconds();
-				expireHour = expireTime[0]-nowHour;
-				expireMinute = expireTime[1]-nowMinute;
-				expireSecond = expireTime[2]-nowSecond;
-				initCounter();
-			},
-			error: function(err) {
-					console.log(err);
-			}
-		});
-	}
+	//获取过期时间初始化计时器
+	$.ajax({
+		type: 'GET',
+		url:'http://' + host + ':8000/user/get_expire_time',
+		dataType: 'json',
+		// 下面两个参数解决跨域问题
+		xhrFields: {
+				withCredentials: true
+		},
+		crossDomain: true,
+		complete: function(XMLHttpRequest, textStatus) {},
+		success: function(data)
+		{
+			var expireTime = data.expire_time.split(' ');
+			var now = new Date();
+			var nowHour = now.getHours();
+			var nowMinute = now.getMinutes();
+			var nowSecond = now.getSeconds();
+			expireHour = expireTime[0]-nowHour;
+			expireMinute = expireTime[1]-nowMinute;
+			expireSecond = expireTime[2]-nowSecond;
+			initCounter();
+		},
+		error: function(err) {
+				console.log(err);
+		}
+	});
 }
 
 //获取用户设定时间
@@ -110,7 +100,7 @@ function setText()
 		var defiedTime=setHour*60*60*1000+setMinute*60*1000+setSecond*1000;
 		storage.setItem("defiedTime",defiedTime);
 	}
-	document.getElementById('myModalBody').innerHTML='房间将于您离开后'+setHour+'小时'+setMinute+'分'+setSecond+'秒断电！';
+	document.getElementById('myModalBody').innerHTML='房间将于'+setHour+'小时'+setMinute+'分'+setSecond+'秒后断电！';
 }
 
 $('#myModal').on('show.bs.modal', function () {
