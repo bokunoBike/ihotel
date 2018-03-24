@@ -75,7 +75,7 @@ def logout(request):
     response = JsonResponse(data)
     response = add_cors_headers(response)
     return response
-    #return redirect('http://127.0.0.1:3000')
+    # return redirect('http://127.0.0.1:3000')
 
 
 def register(request):  # 注册页面
