@@ -10,6 +10,7 @@ router.get('/', function(req, res, next)
 /* GET user page. */
 router.get('/userPage',function(req,res,next)
 {
+  //res.redirect('/userPage');
   res.render('userPage',{title: 'UserPage' });
 });
 

@@ -50,10 +50,13 @@ function logout()
   var host = window.location.hostname;
   localStorage.removeItem("user");
   console.log(localStorage.getItem("user"));
+  var host = window.location.hostname;
+  console.log('try to logout');
   $.ajax({
     type: 'GET',
     url:'http://' + host + ':8000/login/logout',
     dataType: 'json',
+    data:{},
     // 下面两个参数解决跨域问题
     xhrFields: {
         withCredentials: true
@@ -62,7 +65,7 @@ function logout()
     complete: function(XMLHttpRequest, textStatus) {},
     success: function(data)
     {
-      console.log(data);
+      console.log('logout');
     },
     error: function(err) {
         console.log("error"+err);
