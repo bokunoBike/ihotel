@@ -10,6 +10,7 @@ router.get('/', function(req, res, next)
 /* GET user page. */
 router.get('/userPage',function(req,res,next)
 {
+  //res.redirect('/userPage');
   res.render('userPage',{title: 'UserPage' });
 });
 
@@ -23,6 +24,12 @@ router.get('/userPage/timeOut',function(req,res,next)
 router.get('/admin',function(req,res,next)
 {
   res.render('admin',{title: 'admin'});
+});
+
+/* GET adminCertainRoom page. */
+router.get('/admin/adminCertainRoom',function(req,res,next)
+{
+  res.render('adminCertainRoom',{title: 'adminCertainRoom'});
 });
 
 module.exports = router;

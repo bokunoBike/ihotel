@@ -8551,7 +8551,7 @@ ZImage.prototype = {
         // Draw rect text
         if (style.text != null) {
             // Only restore transform when needs draw text.
-            this.restoreTransform(ctx);    
+            this.restoreTransform(ctx);
             this.drawRectText(ctx, this.getBoundingRect());
         }
     },
@@ -13925,7 +13925,7 @@ Path.prototype = {
         // Draw rect text
         if (style.text != null) {
             // Only restore transform when needs draw text.
-            this.restoreTransform(ctx);    
+            this.restoreTransform(ctx);
             this.drawRectText(ctx, this.getBoundingRect());
         }
     },
@@ -25455,14 +25455,14 @@ function init(dom, theme$$1, opts) {
             throw new Error('Initialize failed: invalid dom.');
         }
     }
-
-    var existInstance = getInstanceByDom(dom);
+//此处修改！！！新对象可覆盖原有对象
+    /*var existInstance = getInstanceByDom(dom);
     if (existInstance) {
         if (__DEV__) {
             console.warn('There is a chart instance already initialized on the dom.');
         }
         return existInstance;
-    }
+    }*/
 
     if (__DEV__) {
         if (isDom(dom)
@@ -60000,10 +60000,10 @@ var sunburstLayout = function (seriesType, ecModel, api, payload) {
                     ? unitRadian : (value * unitRadian);
                 if (angle < minAngle) {
                     angle = minAngle;
-                    
+
                 }
                 else {
-                    
+
                 }
 
                 endAngle = startAngle + dir * angle;

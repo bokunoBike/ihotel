@@ -49,6 +49,7 @@ def login(request):  # 登录页面
     user = auth.authenticate(request, username=username, password=password)
     if user is not None:  # 登录成功
         auth.login(request, user)
+        # print('%s login successfully' % user.username)
         if user.is_admin:  # 管理员登录
             data = {"login_result": 0}
             response = JsonResponse(data)
@@ -63,12 +64,17 @@ def login(request):  # 登录页面
         data = {"login_result": 2}
         response = JsonResponse(data)
         response = add_cors_headers(response)
+        # return redirect('http:127.0.0.1:3000/userPage')
         return response
 
 
 def logout(request):
     auth.logout(request)  # 注销用户
-    return redirect(reverse('login:home'))
+    print('logout')
+    data = {"result": 1}
+    response = JsonResponse(data)
+    response = add_cors_headers(response)
+    return response
 
 
 def register(request):  # 注册页面

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>web_test</title>
+</head>
+<body>
+<div style="display:inline;color: red" id="people_counts"></div><br>
+<div style="display:inline;color: red" id="last_nobody_time"></div><br>
+<div style="display:inline;color: red" id="feedback"></div><br>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript">//<![CDATA[
+    $(function () {
+         if (window.s) {
+             window.s.close()
+         }
+         /*创建socket连接*/
+         var socket = new WebSocket("ws://" + "127.0.0.1:8000" + "/user/get_room_info");
+         socket.onopen = function () {
+             console.log('WebSocket open');//成功连接上Websocket
+         };
+         socket.onmessage = function (e) {
+             /*console.log('message: ' + e.data);//打印出服务端返回过来的数据*/
+             var js_data = JSON.parse(e.data);
+             //var data = e.data
+             var div_people_counts = document.getElementById("people_counts");
+             var div_last_nobody_time = document.getElementById("last_nobody_time");
+             var div_feedback = document.getElementById("feedback");
+             div_people_counts.innerHTML = js_data["people_counts"];
+             div_last_nobody_time.innerHTML = js_data["last_nobody_time"];
+             div_feedback.innerHTML = js_data["feedback"];
+         };
+         // Call onopen directly if socket is already open
+         if (socket.readyState == WebSocket.OPEN) socket.onopen();
+         window.s = socket;
+    });
+    //]]></script>
+</body>
+</html>

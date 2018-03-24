@@ -10,8 +10,8 @@ html
     title 客房人体感应系统(TeckMicro)
     //url登录拦截器
     script(type='text/javascript', src='/javascripts/filter.js')
-    link(rel='stylesheet', type='text/css', href='stylesheets/style.css')
-    link(href='stylesheets/font-awesome.css', rel='stylesheet')
+    link(rel='stylesheet', type='text/css', href='/stylesheets/style.css')
+    link(href='/stylesheets/font-awesome.css', rel='stylesheet')
     link(href='https://fonts.googleapis.com/css?family=Cardo:400,400italic|Radley|Tangerine', rel='stylesheet')
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css')
     link(href='https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css', rel='stylesheet')
@@ -52,46 +52,36 @@ html
                 li
                   a.glyphicon.glyphicon-log-out(aria-hidden='true')(href='/',onclick = 'logout()') 注销
                 li
-                  a.glyphicon.glyphicon-envelope(aria-hidden='true')(href='mailto:bowl_www@163.com') 联系我们
-                li
                   a.glyphicon.glyphicon-transfer#changeRoom(aria-hidden='true') 切换楼层
+                li
+                  a.glyphicon.glyphicon-envelope(aria-hidden='true')(href='mailto:bowl_www@163.com') 联系我们
       //container
       .body_container.row.clearfix
         img#headerImg(src='/images/ab.jpg', alt='Header')
-        button#changeFloor.btn.btn-primary.pull-right(type='submit',onclick='showForm()') 切换楼层
+        button#changePersonNumber.btn.btn-primary.pull-right(type='submit',onclick='showPersonNumber()') 核验人数
         //#notices
         //  img#noticeaImg.pull-left(src='/images/home.png',alt='')
           //h2#noticesWord.pull-right　当前房间内有人
         #main-window.ui.segment.col-xs-11.col-sm-6
-          #showChart.showChart.pull-left(onclick='showBigChart()')
-          .showChart.pull-left#loading1(onclick='showBigChart()')
-            .loading-container
-              #loading-text 待接入
-              .loading
-          .showChart.pull-left#loading2(onclick='showBigChart()')
-            .loading-container
-              #loading-text 待接入
-              .loading
-          .showChart.pull-left#loading3(onclick='showBigChart()')
-            .loading-container
-              #loading-text 待接入
-              .loading
-          a.ui.red.ribbon.label Overview
-          p
-          a.ui.blue.ribbon.label Community
-          p
-          //.ui.two.column.grid
-
         .form#form.col-xs-8.col-xs-offset-2.col-sm-5.col-sm-offset-0
-          #realForm
-            .form-group#input
-              center
-                h3 切换楼层
-              label.sr-only
-              input.form-control(type='text',placeholder='房号')
-            .form-group#submitButton
-              label.sr-only
-              button.btn.btn-primary.btn-lg.btn-block(type='submit') 确认
+          #specialNotice
+            center
+              span 当前房间内有
+                h1#number 3
+              span 人
+            #porlContainer
+              #plusAndSub
+                span#add.label(onclick='addPerson()') +
+                span#sub.label(onclick='subPerson()') –
+                br
+                button.btn.btn-danger(type='submit',onclick='sendModify()') 确认修改
+                button#back.btn.btn-primary(type='submit',onclick='returntoCharts()') 返回
+                br
+                p#feedback 修改成功！
+            //#notice
+            //  p#noticeWord
+              //  img#noticeImg.pull-left(src='/images/home.png',alt='')
+              //  | 当前房间内有人*/
       // footer
       .w3l-footer#footer
         .container
@@ -139,7 +129,8 @@ html
       #none
       script(type='text/javascript', src='/javascripts/footer.js').
       script(type='text/javascript', src='/javascripts/echarts.js').
-      script(type='text/javascript', src='/javascripts/showChart.js').
+      script(type='text/javascript', src='/javascripts/showChart.js')
+      script(type='text/javascript', src='/javascripts/adminCertainRoom.js')
       script(src='/javascripts/main.js')
       script(type='text/javascript', src='/javascripts/move-top.js')
       script(type='text/javascript', src='/javascripts/easing.js')

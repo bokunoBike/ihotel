@@ -51,12 +51,10 @@ $(document).ready(function()
           e.preventDefault();//避免重复提交
           var $form = $(e.target);
           var bootstrapValidator = $form.data('bootstrapValidator');
-          //host = '115.159.77.150'
-            host = '127.0.0.1'
+          var host = window.location.hostname;
           $.ajax({
             type: 'POST',
             url:'http://' + host + ':8000/login/login',
-            url:'http://localhost:8000/login/login',
             dataType: 'json',
             data: {"roomNumber": document.getElementById('roomNumber').value,
                    "thePassword": document.getElementById('thePassword').value},

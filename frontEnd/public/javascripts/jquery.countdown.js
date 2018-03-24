@@ -32,9 +32,11 @@
 
 			// Time left
 			left = Math.floor((options.timestamp - (new Date())) / 1000);
-
+			//剩余时间为0
 			if(left < 0){
 				left = 0;
+				var storage = window.localStorage;
+				storage.setItem("alreadySetTime",false);
 			}
 
 			// Number of hours left
