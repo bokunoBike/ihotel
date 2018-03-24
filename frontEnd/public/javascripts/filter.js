@@ -26,6 +26,7 @@ function checkLogin()
   }
   else
   {
+    console.log("user"+user);
     //未登录则直接返回登录界面
     if(user == null)
     {
@@ -46,6 +47,7 @@ function checkLogin()
 
 function logout()
 {
+  var host = window.location.hostname;
   localStorage.removeItem("user");
   console.log(localStorage.getItem("user"));
   var host = window.location.hostname;
@@ -66,7 +68,8 @@ function logout()
       console.log('logout');
     },
     error: function(err) {
-        console.log(err);
+        console.log("error"+err);
     }
   });
+  window.location.href = '/';
 }
