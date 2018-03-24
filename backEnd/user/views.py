@@ -118,7 +118,8 @@ def get_room_info(request):
             request.websocket.send(data)
         else:
             # print('get it %s' % room.room_id)
-            while True:
+            socket_status = 1
+            while socket_status:
                 room = Room.objects.get(user=user)
                 people_counts = room.people_counts
                 last_nobody_time = room.last_nobody_time
@@ -129,3 +130,6 @@ def get_room_info(request):
                 # request.websocket.send(bytes(str(data), "utf-8"))
                 request.websocket.send(data)
                 time.sleep(1)
+                # print(datetime.datetime.now())
+                socket_status = request.websocket.read('1')
+            # print('end')
