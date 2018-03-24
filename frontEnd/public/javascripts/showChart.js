@@ -74,7 +74,7 @@ var data = [];
 var now = new Date()-17*60*1000;
 var oneDay = 24 * 3600 * 1000;
 var value = Math.random() * 1000;
-for (var i = 0; i < 30; i++) {
+for (var i = 0; i < 50; i++) {
     data.push(randomData());
 }
 
