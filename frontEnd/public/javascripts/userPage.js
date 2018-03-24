@@ -9,12 +9,15 @@ function getPersonNumber()
 {
 	var host = window.location.hostname;
 	var ws = new WebSocket("ws://"+host+":8000/user/get_room_info");
+	window.ws = ws;
+	ws.onopen = function () {
+    }
 	ws.onmessage = function (e)
 	{
 		var data = JSON.parse(e.data);
 		systemPersonNumber = data.people_counts;
 		document.getElementById('number').innerHTML = systemPersonNumber;
-		console.log(systemPersonNumber);
+		//console.log(systemPersonNumber);
 	}
 	ws.onclose = function()
 	{
@@ -39,6 +42,7 @@ function backSelect()
 function addPerson()
 {
 	clickChange = true;
+	window.ws.close();
 	nowPerson = document.getElementById('number').innerHTML;
 	changeNumber = Number(nowPerson)+1;
 	document.getElementById('number').innerHTML = changeNumber;
@@ -47,6 +51,7 @@ function addPerson()
 function subPerson()
 {
 	clickChange = true;
+	window.ws.close();
 	nowPerson = document.getElementById('number').innerHTML;
 	changeNumber = Number(nowPerson)-1;
 	if(changeNumber >=0)

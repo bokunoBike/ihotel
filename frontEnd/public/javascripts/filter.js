@@ -51,11 +51,12 @@ function logout()
   localStorage.removeItem("user");
   console.log(localStorage.getItem("user"));
   var host = window.location.hostname;
-  console.log('try to logout');
+  //console.log('try to logout');
   $.ajax({
     type: 'GET',
     url:'http://' + host + ':8000/login/logout',
-    dataType: 'json',
+    dataType: 'text',
+    async: true,
     data:{},
     // 下面两个参数解决跨域问题
     xhrFields: {
