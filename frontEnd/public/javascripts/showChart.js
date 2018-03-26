@@ -1,10 +1,85 @@
 var myChart = null;
 var node = null;
 var url = window.location.href.split('/');
-
+var host = window.location.hostname;
+var expireHour;
+var expireMinute;
+var expireSecond;
 if(url[4] != 'adminCertainRoom')
 {
 	myChart = echarts.init(document.getElementById('showChart'),'dark');
+}
+window.onload = initWindow();
+function initWindow()
+{
+	getPersonNumber();
+	getExpireTime();
+}
+//通过webSocket获取系统判定人数
+function getPersonNumber()
+{
+	var ws = new WebSocket("ws://"+host+":8000/user/get_room_info");
+	window.ws = ws;
+	ws.onmessage = function (e)
+	{
+		var data = JSON.parse(e.data);
+		systemPersonNumber = data.people_counts;
+		console.log(systemPersonNumber);
+		if(url[4] == 'adminCertainRoom')
+		{
+			document.getElementById('number').innerHTML = systemPersonNumber;
+		}
+		console.log("onmessage");
+		var now = new Date();
+		var nowHour = now.getHours();
+		var nowMinute = now.getMinutes();
+		var nowSecond = now.getSeconds();
+		if(((expireHour-nowHour)*60*60+(expireMinute-nowMinute)*60+expireSecond-nowSecond) <= 0&&systemPersonNumber == 0&&url[4] != 'adminCertainRoom')
+		{
+			document.getElementById('showChart').style.boxShadow = 'none';
+		}
+		//console.log(systemPersonNumber);
+	}
+	ws.onopen = function()
+	{
+		console.log("onopen");
+	}
+	ws.onclose = function()
+	{
+		getPersonNumber();
+		ws.send(0);
+	}
+	ws.onerror = function(e)
+	{
+		ws.send(0);
+	}
+}
+//获得过期时间
+function getExpireTime()
+{
+	//获取过期时间初始化计时器
+	$.ajax({
+		type: 'GET',
+		url:'http://' + host + ':8000/user/get_expire_time',
+		dataType: 'json',
+		// 下面两个参数解决跨域问题
+		xhrFields: {
+				withCredentials: true
+		},
+		crossDomain: true,
+		complete: function(XMLHttpRequest, textStatus) {},
+		success: function(data)
+		{
+			var expireTime = new Date(data.expire_time);
+			expireHour = expireTime.getHours();
+			expireMinute = expireTime.getMinutes();
+			expireSecond = expireTime.getSeconds();
+			console.log(expireHour*60*60+expireMinute*60+expireSecond);
+		},
+		error: function(err) {
+			console.log(err);
+		}
+	});
 }
 //点击显示大图表
 $("canvas").click(function()
@@ -18,7 +93,6 @@ function showBigChart()
 //返回多图表界面
 function returntoCharts()
 {
-	document.getElementById('feedback').style.display = 'none';
 	var width =  window.screen.width;
 	console.log(width);
 	if(width < 768)
@@ -30,26 +104,29 @@ function returntoCharts()
 		window.location.href = "/admin";
 	}
 }
-
-//监控标签页的打开和隐藏
-document.addEventListener('webkitvisibilitychange',function()
-			 {
-					 if(document.webkitVisibilityState=='hidden')
-					 {}
-					 else
-					 {
-							 //$.ajax(getting);
-					 }
-			 })
-document.addEventListener('mozvisibilitychange',function()
-			 {
-					 if(document.mozVisibilityState=='hidden')
-					 {}
-					 else
-					 {
-							 //$.ajax(getting);
-					 }
-			 })
+function addPerson()
+{
+	clickChange = true;
+	nowPerson = document.getElementById('number').innerHTML;
+	changeNumber = Number(nowPerson)+1;
+	document.getElementById('number').innerHTML = changeNumber;
+}
+//点击减少人数
+function subPerson()
+{
+	clickChange = true;
+	nowPerson = document.getElementById('number').innerHTML;
+	changeNumber = Number(nowPerson)-1;
+	if(changeNumber >=0)
+	{
+		document.getElementById('number').innerHTML = changeNumber;
+	}
+}
+//修改人数
+function sendModify()
+{
+	document.getElementById('feedback').style.display = 'block';
+}
 
 //获取随机数据
 function randomData() {
@@ -74,7 +151,7 @@ var data = [];
 var now = new Date()-17*60*1000;
 var oneDay = 24 * 3600 * 1000;
 var value = Math.random() * 1000;
-for (var i = 0; i < 50; i++) {
+for (var i = 0; i < 60; i++) {
     data.push(randomData());
 }
 

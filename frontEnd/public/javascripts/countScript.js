@@ -7,42 +7,54 @@ var setSecond;
 var expireHour;
 var expireMinute;
 var expireSecond;
-window.onload = getPersonNumber();
-//通过webSocket获取系统判定人数
-function getPersonNumber()
+window.onload = getExpireTime();
+//点击模态框确认键触发事件
+function makeSureSet()
 {
-	//若为初次设定或上次设定已完成
-	getExpireTime();
-	console.log("expiredTime"+expireHour*60*60+expireMinute*60+expireSecond);
-	if((expireHour*60*60+expireMinute*60+expireSecond) <= 0){
-		setExpireTime(setHour,setMinute,setSecond);
-		getExpireTime();
+	function step1(resolve, reject)
+	{
+		$.ajax({
+			type: 'POST',
+			url:'http://' + host + ':8000/user/set_expire_time',
+			dataType: 'json',
+			data:{"hours":setHour,
+					"minutes":setMinute,
+					"seconds":setSecond
+			},
+			// 下面两个参数解决跨域问题
+			xhrFields: {
+					withCredentials: true
+			},
+			crossDomain: true,
+			complete: function(XMLHttpRequest, textStatus) {},
+			success: function(data)
+			{
+				console.log("set"+data);
+				resolve('Hello I am No.1');
+			},
+			error: function(err) {
+					console.log("error"+err);
+			}
+		});
+		console.log('步骤一：执行');
 	}
-}
-//设置过期时间
-function setExpireTime(setHour,setMinute,setSecond)
-{
-	$.ajax({
-		type: 'POST',
-		url:'http://' + host + ':8000/user/set_expire_time',
-		dataType: 'json',
-		data:{"hours":setHour,
-				"minutes":setMinute,
-				"seconds":setSecond
-		},
-		// 下面两个参数解决跨域问题
-		xhrFields: {
-				withCredentials: true
-		},
-		crossDomain: true,
-		complete: function(XMLHttpRequest, textStatus) {},
-		success: function(data)
-		{
-			console.log(data);
-		},
-		error: function(err) {
-				console.log("error"+err);
-		}
+
+	function step2(resolve, reject)
+	{
+		getExpireTime();
+		console.log('步骤二：执行');
+		resolve('Hello I am No.2');
+	}
+	//promise确保ajax顺序执行
+	new Promise(step1).then(function(val){
+    console.info(val);
+    return new Promise(step2);
+	}).then(function(val){
+    console.info(val);
+    return val;
+	}).then(function(val){
+    console.info(val);
+    return val;
 	});
 }
 //获得过期时间
@@ -69,6 +81,7 @@ function getExpireTime()
 			expireHour = expireTime.getHours()-nowHour;
 			expireMinute = expireTime.getMinutes()-nowMinute;
 			expireSecond = expireTime.getSeconds()-nowSecond;
+			console.log(expireHour*60*60+expireMinute*60+expireSecond);
 			if((expireHour*60*60+expireMinute*60+expireSecond) > 0)
 			{
 				initCounter();
@@ -79,6 +92,33 @@ function getExpireTime()
 		}
 	});
 }
+//设置过期时间
+function setExpireTime(setHours,setMinutes,setSeconds)
+{
+	$.ajax({
+		type: 'POST',
+		url:'http://' + host + ':8000/user/set_expire_time',
+		dataType: 'json',
+		data:{"hours":setHours,
+				"minutes":setMinutes,
+				"seconds":setSeconds
+		},
+		// 下面两个参数解决跨域问题
+		xhrFields: {
+				withCredentials: true
+		},
+		crossDomain: true,
+		complete: function(XMLHttpRequest, textStatus) {},
+		success: function(data)
+		{
+			console.log("set"+data);
+		},
+		error: function(err) {
+				console.log("error"+err);
+		}
+	});
+}
+
 //获取用户设定时间
 function getTimeSet()
 {
