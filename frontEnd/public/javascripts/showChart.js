@@ -24,29 +24,30 @@ function getPersonNumber()
 	{
 		var data = JSON.parse(e.data);
 		systemPersonNumber = data.people_counts;
-		console.log(systemPersonNumber);
-		if(url[4] == 'adminCertainRoom')
-		{
-			document.getElementById('number').innerHTML = systemPersonNumber;
-		}
-		console.log("onmessage");
+		//console.log(systemPersonNumber);
+		getExpireTime();
 		var now = new Date();
 		var nowHour = now.getHours();
 		var nowMinute = now.getMinutes();
 		var nowSecond = now.getSeconds();
+		//console.log((expireHour-nowHour)*60*60+(expireMinute-nowMinute)*60+expireSecond-nowSecond);
 		if(((expireHour-nowHour)*60*60+(expireMinute-nowMinute)*60+expireSecond-nowSecond) <= 0&&systemPersonNumber == 0&&url[4] != 'adminCertainRoom')
 		{
+			//console.log("lightOff");
 			document.getElementById('showChart').style.boxShadow = 'none';
+		}
+		else
+		{
+			//console.log("lightOn");
+			if(url[4] != 'adminCertainRoom')
+			{
+				document.getElementById('showChart').style.boxShadow = '0 0 20px #E2C08D';
+			}
 		}
 		//console.log(systemPersonNumber);
 	}
-	ws.onopen = function()
-	{
-		console.log("onopen");
-	}
 	ws.onclose = function()
 	{
-		getPersonNumber();
 		ws.send(0);
 	}
 	ws.onerror = function(e)
@@ -74,7 +75,6 @@ function getExpireTime()
 			expireHour = expireTime.getHours();
 			expireMinute = expireTime.getMinutes();
 			expireSecond = expireTime.getSeconds();
-			console.log(expireHour*60*60+expireMinute*60+expireSecond);
 		},
 		error: function(err) {
 			console.log(err);
@@ -151,7 +151,7 @@ var data = [];
 var now = new Date()-17*60*1000;
 var oneDay = 24 * 3600 * 1000;
 var value = Math.random() * 1000;
-for (var i = 0; i < 60; i++) {
+for (var i = 0; i < 30; i++) {
     data.push(randomData());
 }
 
@@ -207,6 +207,7 @@ setInterval(function () {
     }
 
     myChart.setOption(option);
+		window.onresize = myChart.resize;
 }, 1000);
 //显示楼层号输入
 function showForm()
