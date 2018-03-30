@@ -131,12 +131,12 @@ function sendModify()
 //获取随机数据
 function randomData() {
     now = new Date(+now + 1000);
-    var year = now.getFullYear();
-    var month = now.getMonth()+1;
-    var day = now.getDate();
-    var hour = now.getHours();
-    var minute = now.getMinutes();
-    var second = now.getSeconds();
+    var year=now.getFullYear();
+    var month=now.getMonth()+1;
+    var day=now.getDate();
+    var hour=now.getHours();
+    var minute=now.getMinutes();
+    var second=now.getSeconds();
     value = value + Math.random() * 21 - 10;
     return {
         name: now.toString(),
@@ -146,31 +146,9 @@ function randomData() {
         ]
     }
 }
-//获取画图数据
-function getSources()
-{
-	var host = window.location.hostname;
-	var ws = new WebSocket("ws://"+host+":8000/user/get_room_info");
-	window.ws = ws;
-	ws.onmessage = function (e)
-	{
-		var data = JSON.parse(e.data);
-		systemPersonNumber = data.people_counts;
-		document.getElementById('number').innerHTML = systemPersonNumber;
-		//console.log(systemPersonNumber);
-	}
-	ws.onclose = function()
-	{
-		ws.send(0);
-	}
-	ws.onerror = function(e)
-	{
-		ws.send(0);
-	}
-}
 
 var data = [];
-var now = new Date();
+var now = new Date()-17*60*1000;
 var oneDay = 24 * 3600 * 1000;
 var value = Math.random() * 1000;
 for (var i = 0; i < 30; i++) {
@@ -186,7 +164,7 @@ option = {
            },
     },
     tooltip: {
-        trigger: 'item',
+        trigger: 'axis',
         formatter: function (params) {
             params = params[0];
             var date = new Date(params.name);
@@ -197,11 +175,11 @@ option = {
         }
     },
 		legend: {
-							data:[{'超声1'},{'超声2'}],
-							orient: 'vertical',
-							right: 20,
-			 				top: 10,
-					},
+							 data:['超声1','超声2','红外1','红外2'],
+							 right:20,
+							 top:10,
+							 orient: 'vertical',
+					 },
     xAxis: {
         type: 'time',
         splitLine: {
@@ -227,6 +205,22 @@ option = {
 		{
 			smooth:true,
 			name: '超声2',
+			type: 'line',
+			showSymbol: false,
+			hoverAnimation: false,
+			data: data
+		},
+		{
+			smooth:true,
+			name: '红外1',
+			type: 'line',
+			showSymbol: false,
+			hoverAnimation: false,
+			data: data
+		},
+		{
+			smooth:true,
+			name: '红外2',
 			type: 'line',
 			showSymbol: false,
 			hoverAnimation: false,
