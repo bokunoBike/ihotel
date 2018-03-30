@@ -2,6 +2,7 @@ myChart = echarts.init(document.getElementById('main-window'),'dark');
 document.getElementById('changePersonNumber').style.display = 'block';
 var systemPersonNumber;//系统检测的人数，从后端获取！！！
 var changeNumber;
+var nowPerson;
 var clickChange = false;
 
 window.onload = getPersonNumber();
@@ -10,20 +11,31 @@ function getPersonNumber()
 {
 	var host = window.location.hostname;
 	var ws = new WebSocket("ws://"+host+":8000/user/get_room_info");
-	ws.onmessage = function (data)
+	window.ws = ws;
+	ws.onmessage = function (e)
 	{
+		var data = JSON.parse(e.data);
 		systemPersonNumber = data.people_counts;
 		document.getElementById('number').innerHTML = systemPersonNumber;
-		console.log(systemPersonNumber);
+	}
+	ws.onopen = function()
+	{
+		console.log("wsopens");
 	}
 	ws.onclose = function()
 	{
 		ws.send(0);
 	}
+	ws.onerror = function(e)
+	{
+		ws.send(0);
+	}
 }
+//点击增加人数
 function addPerson()
 {
 	clickChange = true;
+	window.ws.close();
 	nowPerson = document.getElementById('number').innerHTML;
 	changeNumber = Number(nowPerson)+1;
 	document.getElementById('number').innerHTML = changeNumber;
@@ -32,6 +44,7 @@ function addPerson()
 function subPerson()
 {
 	clickChange = true;
+	window.ws.close();
 	nowPerson = document.getElementById('number').innerHTML;
 	changeNumber = Number(nowPerson)-1;
 	if(changeNumber >=0)
@@ -50,6 +63,10 @@ function sendModify()
 	else
 	{
 		document.getElementById('feedback').innerHTML = '修改成功!';
+	}
+	if(clickChange == true)
+	{
+		getPersonNumber();
 	}
 }
 function showPersonNumber()
