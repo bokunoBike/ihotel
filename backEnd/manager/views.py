@@ -4,7 +4,7 @@ from dwebsocket import require_websocket, accept_websocket
 from django.contrib.auth.decorators import login_required
 import django.contrib.auth as auth
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.views.decorators.http import require_http_methods
 
 from common.views import *
@@ -72,6 +72,23 @@ def get_floor_rooms(request):
             data = json.dumps(room_data).encode()
             request.websocket.send(data)
             time.sleep(1)
+
+
+@require_http_methods(["GET"])
+def get_floor_rooms_id(request):
+    user = auth.get_user(request)
+    floor = int(request.GET.get('floor', '1'))
+    rooms_id = []
+    if user is None or not user.is_admin:  # 管理员未登录或非管理员
+        pass
+    else:
+        rooms = get_rooms_by_floor(floor)
+        for room in rooms:
+            rooms_id.append(rooms_id)
+    data = {"rooms_id": rooms_id}
+    response = JsonResponse(data)
+    response = add_cors_headers(response)
+    return response
 
 
 @require_http_methods(["POST"])
