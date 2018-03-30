@@ -7,8 +7,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.decorators.http import require_http_methods
 
-from common.models import Room
-from ..ihotel_functions import *
+from common.views import *
 
 import time
 import datetime
