@@ -174,6 +174,12 @@ option = {
             animation: false
         }
     },
+		legend: {
+							 data:['超声1','超声2','红外1','红外2'],
+							 right:0,
+							 top:10,
+							 orient: 'vertical',
+					 },
     xAxis: {
         type: 'time',
         splitLine: {
@@ -190,12 +196,37 @@ option = {
     backgroundColor:'#303030',
     series: [{
         smooth:true,
-        name: '模拟数据',
+        name: '超声1',
         type: 'line',
         showSymbol: false,
         hoverAnimation: false,
         data: data
-    }]
+    },
+		{
+			smooth:true,
+			name: '超声2',
+			type: 'line',
+			showSymbol: false,
+			hoverAnimation: false,
+			data: data
+		},
+		{
+			smooth:true,
+			name: '红外1',
+			type: 'line',
+			showSymbol: false,
+			hoverAnimation: false,
+			data: data
+		},
+		{
+			smooth:true,
+			name: '红外2',
+			type: 'line',
+			showSymbol: false,
+			hoverAnimation: false,
+			data: data
+		}
+	]
 };
 
 setInterval(function () {
