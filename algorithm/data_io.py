@@ -1,7 +1,10 @@
+#!/usr/bin/python
+# --coding:utf-8--
 import queue
 import threading
 import serial
 from influxdb import InfluxDBClient
+import re
 
 
 class Producer(threading.Thread):
@@ -16,10 +19,9 @@ class Producer(threading.Thread):
     def run(self):
 
         # 硬件端口号com3，波特率9600
-        ser = serial.Serial('com3', 9600)
+        ser = serial.Serial('/dev/ttyACM0', 9600)
 
-        # 读取数据99999个
-        for j in range(0, 99999):
+        while 1:
             resource = ser.readline()
 
             try:
@@ -33,7 +35,7 @@ class Producer(threading.Thread):
             print('%s: resource %s in queue' % (self.name, resource))
 
         # 硬件端口关闭
-        ser.close()
+        # ser.close()
 
 
 class Consumer(threading.Thread):
@@ -46,14 +48,27 @@ class Consumer(threading.Thread):
         print('consumer %s start' % name)
 
     def run(self):
-        # 写入数据99999个
-        for j in range(0, 99999):
+
+        n = 0
+        # 初始化
+        client = InfluxDBClient()
+        # 删除冗余数据
+        client.drop_database('test_db')
+        # 创建数据库test_db
+        client.create_database('test_db')
+        # 创建数据保留策略为1h
+        client.query('CREATE RETENTION POLICY "1_hours" ON "test_db" DURATION 1h REPLICATION 1 DEFAULT')
+        # 连接并使用数据库test_db
+        client = InfluxDBClient('localhost', 8086, 'root', '', 'test_db')
+
+        while 1:
+            n += 1
             try:
                 # 获取队列中的数据
                 res = self.q.get(block=True, timeout=3)
 
                 # 数据保存到influxdb当中
-                data_out(res)
+                data_out(res, n, client)
 
                 self.q.task_done()
 
@@ -66,25 +81,27 @@ class Consumer(threading.Thread):
                 print('%s:resource %s out queue' % (self.name, str(res)))
 
 
-def data_out(d):
-    # 初始化
-    client = InfluxDBClient()
-
-    # 创建数据库test_db
-    client.create_database('test_db')
-
-    # 连接并使用数据库test_db
-    client = InfluxDBClient('localhost', 8086, 'root', '', 'test_db')
+def data_out(res, n, client):
+    pattern = re.compile(r".*(\d):(\d*)")
+    try:
+        res_t = re.match(pattern, str(res))
+        if res_t is None:
+            return
+    except TypeError:
+        return
+    # print(res_t.group(1), res_t.group(2))
+    print(str(res))
 
     # 写入数据格式如下
     data = [
         {
             "measurement": "Z101",  # 表名
             "tags": {
-                "sensor": "num"  # 标签（属性）
+                "sensor": "num%s" % res_t.group(1),  # 标签（属性）
+                "n": str(n),
             },
             "fields": {
-                "value": d  # 值
+                "value": res_t.group(2),  # 值
             }
         }
     ]
@@ -94,7 +111,7 @@ def data_out(d):
 
 
 # 设置队列最长长度
-testQueue = queue.Queue(4096)
+testQueue = queue.Queue(1024)
 
 # 一个生产者一个消费者
 for i in range(0, 1):

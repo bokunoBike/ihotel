@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^manager/', include('manager.urls', namespace="manager")),
     url(r'^login/', include('login.urls', namespace='login')),
     url(r'^user/', include('user.urls', namespace='user')),
+    url(r'^common/', include('common.urls', namespace='common')),
 ]

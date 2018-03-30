@@ -1,9 +1,11 @@
+#!/usr/bin/python
+# --coding:utf-8--
 import time
 from influxdb import InfluxDBClient
 import pymysql
 
 
-def _my_tree(room_num=None):
+def _my_tree(room_id=None):
     people_num = 0  # 人数
     sensor1 = 0  # 超声波1号
     sensor2 = 0  # 超声波2号
@@ -13,7 +15,7 @@ def _my_tree(room_num=None):
     sensor2_temp = 0  # 暂存sensor2改变后的信号
     sensor1_stat = 0  # 判断sensor1信号是否改变
     sensor2_stat = 0  # 判断sensor2信号是否改变
-    max_distance = 200  # 传感器有效测量距离
+    max_distance = 170  # 传感器有效测量距离
 
     # 初始化
     client = InfluxDBClient()
@@ -27,43 +29,52 @@ def _my_tree(room_num=None):
     db = pymysql.connect("localhost", "root", "", "ihotel")
     cursor = db.cursor()
 
-    n = 1
+    # 舍弃前几组不稳定数据
+    n = 10
+
     while 1:
         # 实时时间
         t = time.time()
 
         # 实时读取influxdb中的sensor1数据
-        result = client.query("select*from " + room_num + " where n = '" + str(n) + "' ;")
+        result = client.query("SELECT*FROM " + room_id + " WHERE n = '" + str(n) + "' ;")
         if len(result) == 0:
             continue
-        # print(ki, result.raw['series'][0]['values'][0])
+        # print(n, result.raw['series'][0]['values'][0]) # 数据库存储的传感器信息
+
         n += 1
+
         # 分割数据
         sensor = result.raw['series'][0]['values'][0][2]  # 传感器号码
-        distance = result.raw['series'][0]['values'][0][3]  # 距离
+        distance = result.raw['series'][0]['values'][0][3]  # 超声距离或者红外信号
 
-        # 传感器信号判断
-        if max_distance - distance > 40:
+        # 超声传感器信号判断
+        if max_distance - int(distance) > 40:
             stat = 1
         else:
             stat = 0
 
-        # 传感器判断
+        # 超声传感器判断
         if sensor == 'num1':
             sensor1 = stat
         elif sensor == 'num2':
             sensor2 = stat
+        # 红外传感器判断
+        elif sensor == 'num3':
+            sensor3 = distance
+        elif sensor == 'num4':
+            sensor4 = distance
 
         # sensor1_temp暂存sensor1改变后的信号，sensor1信号改变时sensor1_stat记为1
         if sensor1_temp != sensor1:
             sensor1_temp = sensor1
             sensor1_stat = 1
-
         # sensor2_temp暂存sensor2改变后的信号，sensor2信号改变时sensor2_stat记为1
         if sensor2_temp != sensor2:
             sensor2_temp = sensor2
             sensor2_stat = 1
 
+        # 判断人数是否变化
         people_stat = 0
 
         # 如果sensor1发生改变，且改变后的信号为1，sensor2实时信号为0，人数加1
@@ -71,7 +82,6 @@ def _my_tree(room_num=None):
             people_num += 1
             people_stat = 1
             sensor1_stat = 0
-
         # 如果房间人数不为0，sensor2发生改变，且改变后的信号为1，sensor1实时信号为0，人数减1
         elif people_num != 0 and sensor2_stat == 1 and sensor2_temp == 1 and sensor1 == 0:
             people_num -= 1
@@ -86,9 +96,9 @@ def _my_tree(room_num=None):
 
         # 人数发生变化时，将time和people_num写入数据库
         if people_stat == 1:
-            print('time:%s people num:%i' % (t, people_num))
-            # sql = "INSERT INTO peo_stat(time_stamp, peo_num) VALUE ('%s','%i')" % (t, people_num)
-            sql = "UPDATE room set people_counts='%i' WHERE room_id='%s'" % (people_num, room_num)
+            print('%itime:%s people num:%i' % (n, t, people_num))
+            n += 40  # 人数变化后舍弃后40组数据降低CPU使用率
+            sql = "UPDATE room SET people_counts='%i' WHERE room_id='%s'" % (people_num, room_id)
             # 执行sql语句
             cursor.execute(sql)
             # 提交到数据库执行
@@ -96,4 +106,4 @@ def _my_tree(room_num=None):
 
 
 if __name__ == "__main__":
-    _my_tree('Z101')
+    _my_tree('test_m')
