@@ -174,7 +174,7 @@ def get_room_people_counts_and_pattern(request):  # 获取房间内的房间人�
                 room = get_room_by_id(room_id)
                 people_counts = room.people_counts
                 pattern = room.pattern
-                data = {"people_counts": people_counts, "pattern": 0}
+                data = {"people_counts": people_counts, "pattern": pattern}
                 data = json.dumps(data).encode()
                 request.websocket.send(data)
                 time.sleep(1)
