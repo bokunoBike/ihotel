@@ -252,7 +252,14 @@ body
   font-size: 4em;
   color: #57A0F1;
 }
-
+#floorNotice span
+{
+  font-size: 2.5em;
+}
+#floorNotice
+{
+  margin-bottom: 10%;
+}
 #specialNotice span
 {
   color: #ffffff;
@@ -261,11 +268,11 @@ body
 
 .form
 {
-  margin-top: 5%;
+  margin-top: 50px;
 }
 #realForm
 {
-  margin: 20% auto;
+  margin: 2% auto;
   width: 50%;
 }
 #realForm h3,#realForm #input,#realForm #submitButton
@@ -327,6 +334,11 @@ body
   padding: 0;
   margin: 0;
   position: relative;
+}
+
+#justifyNotice
+{
+  display: none;
 }
 
 @media screen and (max-width: 767px) {

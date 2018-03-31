@@ -10,7 +10,7 @@ window.onload = getPersonNumber();
 function getPersonNumber()
 {
 	var host = window.location.hostname;
-	var ws = new WebSocket("ws://"+host+":8000/manager/get_room_people_counts?room_id=Z101");
+	var ws = new WebSocket("ws://"+host+":8000/manager/get_room_people_counts_and_pattern?room_id=Z101");
 	window.ws = ws;
 	ws.onmessage = function (e)
 	{

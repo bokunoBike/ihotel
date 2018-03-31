@@ -2,9 +2,6 @@ var myChart = null;
 var node = null;
 var url = window.location.href.split('/');
 var host = window.location.hostname;
-var expireHour;
-var expireMinute;
-var expireSecond;
 var senor;//传感器信号list
 if(url[4] != 'adminCertainRoom')
 {
@@ -15,28 +12,30 @@ function initWindow()
 {
 	getPersonNumber();
 	getExpireTime();
-	getSenor();
+	//getSenor();
 }
 //通过webSocket获取系统判定人数
 function getPersonNumber()
 {
-	var ws = new WebSocket("ws://"+host+":8000/manager/get_room_people_counts?room_id=Z101");
+	var ws = new WebSocket("ws://"+host+":8000/manager/get_room_people_counts_and_pattern?room_id=Z101");
 	window.ws = ws;
 	ws.onmessage = function (e)
 	{
 		var data = JSON.parse(e.data);
 		systemPersonNumber = data.people_counts;
-		//console.log(systemPersonNumber);
-		//getExpireTime();
-		var now = new Date();
-		var nowHour = now.getHours();
-		var nowMinute = now.getMinutes();
-		var nowSecond = now.getSeconds();
-		//console.log((expireHour-nowHour)*60*60+(expireMinute-nowMinute)*60+expireSecond-nowSecond);
-		if(((expireHour-nowHour)*60*60+(expireMinute-nowMinute)*60+expireSecond-nowSecond) <= 0&&systemPersonNumber == 0&&url[4] != 'adminCertainRoom')
+		var pattern = data.pattern;
+		//console.log("pattern"+pattern);
+		if(pattern == false&&systemPersonNumber == 0)
 		{
 			//console.log("lightOff");
-			document.getElementById('showChart').style.boxShadow = 'none';
+			if(url[4] != 'adminCertainRoom')
+			{
+				document.getElementById('showChart').style.boxShadow = 'none';
+			}
+			else
+			{
+				document.getElementById('main-window').style.boxShadow = 'none';
+			}
 		}
 		else
 		{
@@ -44,6 +43,10 @@ function getPersonNumber()
 			if(url[4] != 'adminCertainRoom')
 			{
 				document.getElementById('showChart').style.boxShadow = '0 0 20px #E2C08D';
+			}
+			else
+			{
+				document.getElementById('main-window').style.boxShadow = '0 0 20px #E2C08D';
 			}
 		}
 		//console.log(systemPersonNumber);
@@ -82,6 +85,20 @@ function getExpireTime()
 			console.log(err);
 		}
 	});
+}
+//设置楼层提示信息
+function changeFloorClick()
+{
+	var floorNumber = document.getElementById('inputFloor').value;
+	if(!isNaN(floorNumber)&&floorNumber <= 10&&floorNumber != '')
+	{
+		document.getElementById('floorNumber').innerHTML = floorNumber;
+		document.getElementById('justifyNotice').style.display = "none";
+	}
+	else
+	{
+		document.getElementById('justifyNotice').style.display = "block";
+	}
 }
 //点击显示大图表
 $("canvas").click(function()
