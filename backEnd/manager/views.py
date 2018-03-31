@@ -7,7 +7,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.http import require_http_methods
 
-from common.views import *
+from common.views import add_cors_headers, get_room_by_id, get_rooms_by_floor
 
 import time
 import datetime
@@ -41,37 +41,6 @@ from influxdb import InfluxDBClient
 #                 # request.websocket.send(bytes(str(data), "utf-8"))
 #                 request.websocket.send(data)
 #                 time.sleep(1)
-
-@require_websocket
-def get_floor_rooms(request):
-    user = auth.get_user(request)
-    floor = int(request.GET.get('floor', '1'))
-    if user is None or not user.is_admin:  # 管理员未登录或非管理员
-        rooms = None
-    else:
-        rooms = get_rooms_by_floor(floor)
-    if rooms is None:  # 没有该楼层的房间
-        while True:
-            room_data = {'room_counts': 0}
-            data = json.dumps(room_data).encode()
-            request.websocket.send(data)
-            time.sleep(1)
-    else:
-        rooms_id =[]
-        for room in rooms:
-            rooms_id.append(room.room_id)
-        client = InfluxDBClient('localhost', 8086, 'root', '', 'test_db')
-        while True:
-            room_data = {}
-            for room_id in rooms_id:
-                signal = []
-                result = client.query("select * from " + room_id + ";")
-                for raw in result[room_id]:
-                    signal.append((raw['time'], raw['sensor'], raw['value']))
-                room_data[room_id] = signal
-            data = json.dumps(room_data).encode()
-            request.websocket.send(data)
-            time.sleep(1)
 
 
 @require_http_methods(["GET"])
@@ -111,3 +80,66 @@ def set_room_people_counts(request):  # 登录页面
     response = JsonResponse(data)
     response = add_cors_headers(response)
     return response
+
+
+@require_websocket
+def get_room_signal(request):
+    user = auth.get_user(request)
+    room_id = request.GET.get('room_id')
+    if user is None or not user.is_admin:  # 管理员未登录或非管理员
+        room = None
+    else:
+        room = get_room_by_id('Z101')
+    if room is None:  # 没有该房间
+        room_data = {'signal1': [], 'signal2': []}
+        data = json.dumps(room_data).encode()
+        request.websocket.send(data)
+    else:
+        client = InfluxDBClient('localhost', 8086, 'root', '', 'test_db')
+        while True:
+            signal1 = []
+            result = client.query("select * from " + room_id + " where sensor='num1';")
+            for raw in result[room_id]:
+                signal1.append(raw['sensor'], raw['value'])
+            signal2 = []
+            result = client.query("select * from " + room_id + " where sensor='num2';")
+            for raw in result[room_id]:
+                signal2.append(raw['sensor'], raw['value'])
+
+            room_data = {'signal1': signal1, 'signal2': signal2}
+            data = json.dumps(room_data).encode()
+            request.websocket.send(data)
+            time.sleep(5)
+
+
+@require_websocket
+def get_room_people_counts(request):  # 获取房间内的房间人数
+    # print('start')
+    user = auth.get_user(request)
+    room_id = request.GET.get('room_id')
+    if user is None or not user.is_admin:  # 管理员未登录或非管理员
+        # print('not login')
+        data = {"people_counts": 0}
+        data = json.dumps(data).encode()
+        request.websocket.send(data)
+    else:
+        room = get_room_by_id(room_id)
+        if room is None:  # 没有该房间
+            # print("The user doesn't use a room.")
+            data = {"people_counts": 0}
+            data = json.dumps(data).encode()
+            request.websocket.send(data)
+        else:
+            # print('get it %s' % room.room_id)
+            socket_status = 1
+            while socket_status:
+                room = get_room_by_id(room_id)
+                people_counts = room.people_counts
+                data = {"people_counts": people_counts}
+                data = json.dumps(data).encode()
+                # request.websocket.send(bytes(str(data), "utf-8"))
+                request.websocket.send(data)
+                time.sleep(1)
+                # print(datetime.datetime.now())
+                socket_status = request.websocket.read(1)
+            # print('end')

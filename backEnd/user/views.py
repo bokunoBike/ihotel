@@ -8,7 +8,7 @@ from django.shortcuts import render
 from dwebsocket import require_websocket, accept_websocket
 
 from common.models import Room
-from common.views import add_cors_headers
+from common.views import add_cors_headers, get_room_by_user
 
 import datetime
 import time
@@ -30,10 +30,7 @@ def set_expire_time(request):  # 登录页面
             #print(seconds)
             current_time = datetime.datetime.now()
             expired_time = current_time + datetime.timedelta(hours=hours, minutes=minutes, seconds=seconds)
-            try:
-                room = Room.objects.get(user=user)
-            except Room.DoesNotExist:
-                room = None
+            room = get_room_by_user(user)
             if room is None:  # 该用户没有使用房间
                 data = {"set_expired_time_result": 3}       
             else:
@@ -57,10 +54,7 @@ def get_expire_time(request):  # 登录页面
     if user is None:  # 用户未登录
         data = {"expire_time": datetime.datetime.now(), 'feedback': 'user does not login'}
     else:
-        try:
-            room = Room.objects.get(user=user)
-        except Room.DoesNotExist:
-            room = None
+        room = get_room_by_user(user)
         current_time = datetime.datetime.now() 
         if room is None:  # 该用户没有使用房间
             data = {"expire_time": current_time, 'feedback': "The user doesn't use a room."}
@@ -82,7 +76,7 @@ def get_expire_time(request):  # 登录页面
 
 
 @require_websocket
-def get_room_info(request):
+def get_room_info(request):  # 返回房间人数
     # print('start')
     user = auth.get_user(request)
     # print(user.username)
@@ -92,10 +86,7 @@ def get_room_info(request):
         data = json.dumps(data).encode()
         request.websocket.send(data)
     else:
-        try:
-            room = Room.objects.get(user=user)
-        except Room.DoesNotExist:
-            room = None
+        room = get_room_by_user(user)
         if room is None:  # 该用户没有使用房间
             # print("The user doesn't use a room.")
             data = {"people_counts": 0}
