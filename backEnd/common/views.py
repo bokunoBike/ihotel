@@ -29,10 +29,24 @@ def get_available_rooms(request):
 
 
 def get_room_by_id(room_id):
-    try:
-        room = Room.objects.get(room_id=room_id)
-    except Room.DoesNotExist:
+    if room_id is None:
         room = None
+    else:
+        try:
+            room = Room.objects.get(room_id=room_id)
+        except Room.DoesNotExist:
+            room = None
+    return room
+
+
+def get_room_by_user(user):
+    if user is None:
+        room = None
+    else:
+        try:
+            room = Room.objects.get(user=user)
+        except Room.DoesNotExist:
+            room = None
     return room
 
 
