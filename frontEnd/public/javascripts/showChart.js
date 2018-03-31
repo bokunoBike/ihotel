@@ -5,6 +5,7 @@ var host = window.location.hostname;
 var expireHour;
 var expireMinute;
 var expireSecond;
+var senor;//传感器信号list
 if(url[4] != 'adminCertainRoom')
 {
 	myChart = echarts.init(document.getElementById('showChart'),'dark');
@@ -14,6 +15,7 @@ function initWindow()
 {
 	getPersonNumber();
 	getExpireTime();
+	getSenor();
 }
 //通过webSocket获取系统判定人数
 function getPersonNumber()
@@ -129,7 +131,7 @@ function sendModify()
 }
 
 //获取随机数据
-function randomData() {
+/*function randomData() {
     now = new Date(+now + 1000);
     var year=now.getFullYear();
     var month=now.getMonth()+1;
@@ -139,21 +141,68 @@ function randomData() {
     var second=now.getSeconds();
     value = value + Math.random() * 21 - 10;
     return {
-        name: now.toString(),
+        //name: now.toString(),
         value: [
             year+'/'+month+'/'+day+' '+hour+':'+minute+':'+second,
             Math.round(value)
         ]
     }
+}*/
+//获取传感器信号
+function getSenor()
+{
+	var ws = new WebSocket("ws://"+host+":8000/manager/get_floor_rooms?floor=1");
+	window.ws = ws;
+	ws.onmessage = function (e)
+	{
+		var data = JSON.parse(e.data);
+		senor = data.value;
+		//假设一批送30个数据
+		for (var i = 0; i < 30; i++)
+		{
+			var senorValue = {
+					//name: now.toString(),
+					value: [
+							year+'/'+month+'/'+day+' '+hour+':'+minute+':'+second,
+							senor[i][2]
+					]
+			}
+			if(senor[i][1] == '超声1')
+			{
+				dataUltrasound1.push(senorValue);
+			}
+			else if(senor[i][1] == '超声2')
+			{
+				dataUltrasound2.push(senorValue);
+			}
+			else if(senor[i][1] == '红外1')
+			{
+				dataInfared1.push(senorValue);
+			}
+			else if(senor[i][1] == '红外2')
+			{
+				dataInfared2.push(senorValue);
+			}
+			myChart.setOption(option);
+			window.onresize = myChart.resize;
+		    //data.push(randomData())
+		}
+	}
+	ws.onclose = function()
+	{
+		ws.send(0);
+	}
+	ws.onerror = function(e)
+	{
+		ws.send(0);
+	}
 }
 
-var data = [];
-var now = new Date()-17*60*1000;
-var oneDay = 24 * 3600 * 1000;
-var value = Math.random() * 1000;
-for (var i = 0; i < 30; i++) {
-    data.push(randomData());
-}
+var dataUltrasound1 = [];
+var dataUltrasound2 = [];
+var dataInfared1 = [];
+var dataInfared2 = [];
+
 
 option = {
     title: {
@@ -200,7 +249,7 @@ option = {
         type: 'line',
         showSymbol: false,
         hoverAnimation: false,
-        data: data
+        data: dataUltrasound1
     },
 		{
 			smooth:true,
@@ -208,7 +257,7 @@ option = {
 			type: 'line',
 			showSymbol: false,
 			hoverAnimation: false,
-			data: data
+			data: dataUltrasound2
 		},
 		{
 			smooth:true,
@@ -216,7 +265,7 @@ option = {
 			type: 'line',
 			showSymbol: false,
 			hoverAnimation: false,
-			data: data
+			data: dataInfared1
 		},
 		{
 			smooth:true,
@@ -224,12 +273,12 @@ option = {
 			type: 'line',
 			showSymbol: false,
 			hoverAnimation: false,
-			data: data
+			data: dataInfared2
 		}
 	]
 };
 
-setInterval(function () {
+/*setInterval(function () {
 
     for (var i = 0; i < 1; i++) {
       //myChart.clear();
@@ -239,7 +288,7 @@ setInterval(function () {
 
     myChart.setOption(option);
 		window.onresize = myChart.resize;
-}, 1000);
+}, 1000);*/
 //显示楼层号输入
 function showForm()
 {
