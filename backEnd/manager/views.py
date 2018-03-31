@@ -99,14 +99,19 @@ def get_room_signal(request):
     else:
         client = InfluxDBClient('localhost', 8086, 'root', '', 'test_db')
         while True:
+            current_time = datetime.datetime.now()
+            over_time = current_time - datetime.timedelta(seconds=5)
             signal1 = []
-            result = client.query("select * from " + room_id + " where sensor='num1';")
+            result = client.query("select mean(value) from %s WHERE sensor='num1' AND time <= %d AND time >= %d GROUP BY TIME(100ms);" % (
+                room_id, current_time.timestamp() * 1000000000, over_time.timestamp() * 1000000000))
             for raw in result[room_id]:
-                signal1.append(raw['sensor'], raw['value'])
+                signal1.append(raw['mean'])
             signal2 = []
-            result = client.query("select * from " + room_id + " where sensor='num2';")
+            result = client.query(
+                "select mean(value) from %s WHERE sensor='num2' AND time <= %d AND time >= %d GROUP BY TIME(100ms);" % (
+                    room_id, current_time.timestamp() * 1000000000, over_time.timestamp() * 1000000000))
             for raw in result[room_id]:
-                signal2.append(raw['sensor'], raw['value'])
+                signal2.append(raw['mean'])
 
             room_data = {'signal1': signal1, 'signal2': signal2}
             data = json.dumps(room_data).encode()
