@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b437801e-52de-413a-803c-0bbd2afa7ea2" name="默认" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backEnd/common/views.py" afterPath="$PROJECT_DIR$/backEnd/common/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backEnd/manager/admin.py" afterPath="$PROJECT_DIR$/backEnd/manager/admin.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backEnd/manager/urls.py" afterPath="$PROJECT_DIR$/backEnd/manager/urls.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backEnd/manager/views.py" afterPath="$PROJECT_DIR$/backEnd/manager/views.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -32,11 +31,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/backEnd/manager/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="7" column="62" lean-forward="true" selection-start-line="7" selection-start-column="62" selection-end-line="7" selection-end-column="62" />
+            <state relative-caret-position="296">
+              <caret line="8" column="76" lean-forward="false" selection-start-line="8" selection-start-column="76" selection-end-line="8" selection-end-column="76" />
               <folding>
                 <element signature="e#24#56#0" expanded="true" />
               </folding>
@@ -45,21 +44,13 @@
         </entry>
       </file>
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backEnd/user/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="370">
-              <caret line="10" column="41" lean-forward="true" selection-start-line="10" selection-start-column="41" selection-end-line="10" selection-end-column="41" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/backEnd/manager/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="298">
-              <caret line="9" column="26" lean-forward="true" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
-              <folding />
+            <state relative-caret-position="185">
+              <caret line="77" column="22" lean-forward="false" selection-start-line="77" selection-start-column="4" selection-end-line="77" selection-end-column="22" />
+              <folding>
+                <element signature="e#24#63#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -771,7 +762,14 @@
       <option name="project" value="LOCAL" />
       <updated>1522410948690</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="330-3">
+      <created>1522411905326</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1522411905326</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -837,7 +835,8 @@
     <MESSAGE value="加入算法了" />
     <MESSAGE value="324-1" />
     <MESSAGE value="330-2" />
-    <option name="LAST_COMMIT_MESSAGE" value="330-2" />
+    <MESSAGE value="330-3" />
+    <option name="LAST_COMMIT_MESSAGE" value="330-3" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1207,19 +1206,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backEnd/manager/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="7" column="62" lean-forward="true" selection-start-line="7" selection-start-column="62" selection-end-line="7" selection-end-column="62" />
-          <folding>
-            <element signature="e#24#56#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/backEnd/user/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="370">
+        <state relative-caret-position="-296">
           <caret line="10" column="41" lean-forward="true" selection-start-line="10" selection-start-column="41" selection-end-line="10" selection-end-column="41" />
           <folding />
         </state>
@@ -1227,9 +1216,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/backEnd/manager/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="9" column="26" lean-forward="true" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
-          <folding />
+        <state relative-caret-position="185">
+          <caret line="77" column="22" lean-forward="false" selection-start-line="77" selection-start-column="4" selection-end-line="77" selection-end-column="22" />
+          <folding>
+            <element signature="e#24#63#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backEnd/manager/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="8" column="76" lean-forward="false" selection-start-line="8" selection-start-column="76" selection-end-line="8" selection-end-column="76" />
+          <folding>
+            <element signature="e#24#56#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

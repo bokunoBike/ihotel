@@ -52,6 +52,7 @@ function subPerson()
 		document.getElementById('number').innerHTML = changeNumber;
 	}
 }
+<<<<<<< HEAD
 //设置系统人数苏
 function setPersonNumber()
 {
@@ -60,6 +61,17 @@ function setPersonNumber()
 		url:'http://' + host + ':8000/user/get_expire_time',
 		dataType: 'json',
 		data:{"setedNumber":document.getElementById('number')},
+=======
+//设置系统人数
+function setPersonNumber()
+{
+	$.ajax({
+		type: 'POST',
+		url:'http://' + host + ':8000/manager/set_room_people_counts',
+		dataType: 'json',
+		data:{"room_id":'Z101',
+			"people_counts":document.getElementById('number').value},
+>>>>>>> f1483275ace32409041fe5ee25083ad22524c7a7
 		// 下面两个参数解决跨域问题
 		xhrFields: {
 				withCredentials: true
