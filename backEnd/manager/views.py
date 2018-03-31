@@ -95,7 +95,9 @@ def get_floor_rooms_id(request):
 def set_room_people_counts(request):  # 登录页面
     user = auth.get_user(request)
     room_id = request.POST.get('room_id')
+    print(room_id)
     people_counts = int(request.POST.get('people_counts'))
+    print(people_counts)
     if people_counts < 0:
         people_counts = 0
     if user is None or not user.is_admin:  # 用户未登录或不为管理员

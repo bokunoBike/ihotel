@@ -145,6 +145,7 @@ CORS_ALLOW_HEADERS = (
     'Pragma',
 )
 
-# CORS_ALLOW_HOST = "localhost"
-CORS_ALLOW_HOST = "127.0.0.1"
+CORS_ALLOW_HOST = "localhost"
+#CORS_ALLOW_HOST = "127.0.0.1"
 # CORS_ALLOW_HOST = "115.159.77.150"
+
