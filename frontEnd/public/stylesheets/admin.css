@@ -242,7 +242,7 @@ body
 /* 切换楼层表格
 -------------------------------------------------- */
 
-#specialNotice h1
+#specialNotice h1,#floorNotice h1
 {
   text-align:center;
   display: inline-block;
@@ -351,6 +351,10 @@ body
   {
     margin-top: 0;
     display: none;
+  }
+  #form span
+  {
+    font-size: 2em;
   }
   #main-window
   {

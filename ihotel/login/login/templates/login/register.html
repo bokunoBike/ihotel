@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+</head>
+
+<body>
+    <h1>这是注册页面</h1>
+    <hr />
+    <form method="post">
+        {% csrf_token %}
+        {% for field in user_create_form %}
+            <p>{{ field.label_tag }} {{ field }}{% if request.method == "POST" %}{{ field.errors.0 }}{% endif %}</p>
+        {% endfor %}
+        <input type="submit" value="提交"> <input type="reset" value="重置">
+    </form>
+</body>
+</html>

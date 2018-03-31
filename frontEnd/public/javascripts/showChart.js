@@ -20,14 +20,14 @@ function initWindow()
 //通过webSocket获取系统判定人数
 function getPersonNumber()
 {
-	var ws = new WebSocket("ws://"+host+":8000/user/get_room_info");
+	var ws = new WebSocket("ws://"+host+":8000/manager/get_room_people_counts?room_id=Z101");
 	window.ws = ws;
 	ws.onmessage = function (e)
 	{
 		var data = JSON.parse(e.data);
 		systemPersonNumber = data.people_counts;
 		//console.log(systemPersonNumber);
-		getExpireTime();
+		//getExpireTime();
 		var now = new Date();
 		var nowHour = now.getHours();
 		var nowMinute = now.getMinutes();
@@ -151,7 +151,7 @@ function sendModify()
 //获取传感器信号
 function getSenor()
 {
-	var ws = new WebSocket("ws://"+host+":8000/manager/get_floor_rooms?floor=1");
+	var ws = new WebSocket("ws://"+host+":8000/manager/get_room_signal");
 	window.ws = ws;
 	ws.onmessage = function (e)
 	{
@@ -206,7 +206,7 @@ var dataInfared2 = [];
 
 option = {
     title: {
-        text: '传感器输出信号',
+        text: 'Z101传感器输出信号',
         textStyle: {
                fontWeight: 'normal',              //标题颜色
                //color: 'gray'

@@ -132,7 +132,7 @@ def get_room_people_counts(request):  # 获取房间内的房间人数
             data = json.dumps(data).encode()
             request.websocket.send(data)
         else:
-            # print('get it %s' % room.room_id)
+            print('get it %s' % room.room_id)
             socket_status = 1
             while socket_status:
                 room = get_room_by_id(room_id)

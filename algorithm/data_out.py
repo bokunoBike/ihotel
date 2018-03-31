@@ -20,7 +20,7 @@ k = 0
 li = 20
 room_id = 'Z101'
 # 模拟1000组数据写入influxdb
-for j in range(1, 1000):
+for j in range(1, 500):
     time.sleep(0.001)
     # 模拟两个传感器
     if i == 1:
@@ -33,6 +33,9 @@ for j in range(1, 1000):
     # 模拟超声波信号变化
     if li < j < li + 40:
         k -= 100
+    # # 每40组模拟一次无效信号
+    # if j % 20 == 0:
+    #     k = k + 90 + random.randint(-10, 10)
     # 每121组数据，超声波检测到40次变化
     if j % 121 == 0:
         li += 121
@@ -45,10 +48,10 @@ for j in range(1, 1000):
             "measurement": room_id,  # 表名
             "tags": {
                 "sensor": "num%s" % i,  # 标签（属性）
-                "n": str(j),
 
             },
             "fields": {
+                "n": j,
                 "value": k  # 值
             }
         }
