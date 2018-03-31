@@ -20,7 +20,7 @@ function getPersonNumber()
 	}
 	ws.onopen = function()
 	{
-		console.log("wsopens");
+		console.log("wsopen");
 	}
 	ws.onclose = function()
 	{
@@ -52,6 +52,30 @@ function subPerson()
 		document.getElementById('number').innerHTML = changeNumber;
 	}
 }
+//设置系统人数
+function setPersonNumber()
+{
+	$.ajax({
+		type: 'POST',
+		url:'http://' + host + ':8000/manager/set_room_people_counts',
+		dataType: 'json',
+		data:{"room_id":'Z101',
+			"people_counts":document.getElementById('number').value},
+		// 下面两个参数解决跨域问题
+		xhrFields: {
+				withCredentials: true
+		},
+		crossDomain: true,
+		complete: function(XMLHttpRequest, textStatus) {},
+		success: function(data)
+		{
+			getPersonNumber();//人数设置成功后再开启websocket
+		},
+		error: function(err) {
+			console.log(err);
+		}
+	});
+}
 //修改人数
 function sendModify()
 {
@@ -66,7 +90,7 @@ function sendModify()
 	}
 	if(clickChange == true)
 	{
-		getPersonNumber();
+		setPersonNumber();
 	}
 }
 function showPersonNumber()
