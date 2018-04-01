@@ -3,14 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="b437801e-52de-413a-803c-0bbd2afa7ea2" name="默认" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/algorithm/data_out.py" afterPath="$PROJECT_DIR$/algorithm/data_out.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/algorithm/ny.py" afterPath="$PROJECT_DIR$/algorithm/ny.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backEnd/ihotel/settings.py" afterPath="$PROJECT_DIR$/backEnd/ihotel/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backEnd/manager/urls.py" afterPath="$PROJECT_DIR$/backEnd/manager/urls.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backEnd/manager/views.py" afterPath="$PROJECT_DIR$/backEnd/manager/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backEnd/room_guard.py" afterPath="$PROJECT_DIR$/backEnd/room_guard.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backEnd/user/views.py" afterPath="$PROJECT_DIR$/backEnd/user/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontEnd/public/javascripts/showChart.js" afterPath="$PROJECT_DIR$/frontEnd/public/javascripts/showChart.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -49,17 +43,26 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/backEnd/manager/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="337">
-              <caret line="93" column="9" lean-forward="true" selection-start-line="93" selection-start-column="9" selection-end-line="93" selection-end-column="9" />
+            <state relative-caret-position="259">
+              <caret line="7" column="40" lean-forward="false" selection-start-line="7" selection-start-column="40" selection-end-line="7" selection-end-column="40" />
               <folding>
-                <element signature="e#24#63#0" expanded="true" />
-                <marker date="1522557887579" expanded="true" signature="3504:3601" ph="select mean(... missing_value" />
-                <marker date="1522557887579" expanded="true" signature="4123:4220" ph="select mean(... missing_value" />
-                <marker date="1522557887579" expanded="true" signature="5240:5337" ph="select mean(... missing_value" />
+                <marker date="1522580636401" expanded="true" signature="3716:3813" ph="select mean(... missing_value" />
+                <marker date="1522580636401" expanded="true" signature="4375:4472" ph="select mean(... missing_value" />
+                <marker date="1522580636401" expanded="true" signature="5527:5624" ph="select mean(... missing_value" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/backEnd/ihotel/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-300">
+              <caret line="83" column="1" lean-forward="true" selection-start-line="83" selection-start-column="1" selection-end-line="83" selection-end-column="1" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -68,38 +71,7 @@
         <entry file="file://$PROJECT_DIR$/algorithm/data_out.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="259">
-              <caret line="31" column="13" lean-forward="true" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ny.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/algorithm/ny.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="670">
-              <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-              <folding>
-                <element signature="e#25#60#0" expanded="true" />
-                <marker date="1522550295562" expanded="true" signature="297:310" ph="select mean(... " />
-                <marker date="1522550295562" expanded="true" signature="297:311" ph="select * fro... missing_value" />
-                <marker date="1522550295562" expanded="true" signature="297:356" ph="select mean(... missing_value" />
-                <marker date="1522550295562" expanded="true" signature="297:364" ph="select mean(... missing_value" />
-                <marker date="1522550295562" expanded="true" signature="297:404" ph="select mean(... " />
-                <marker date="1522550295562" expanded="true" signature="412:458" ph="select * fro... missing_value" />
-                <marker date="1522550295562" expanded="true" signature="596:693" ph="select mean(... missing_value" />
-                <marker date="1522550295562" expanded="true" signature="830:844" ph="select * fro... missing_value" />
-                <marker date="1522550295562" expanded="true" signature="830:846" ph="select * fro... missing_value" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="showChart.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/frontEnd/public/javascripts/showChart.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="370">
-              <caret line="190" column="51" lean-forward="false" selection-start-line="190" selection-start-column="51" selection-end-line="190" selection-end-column="51" />
+              <caret line="31" column="13" lean-forward="false" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -109,7 +81,7 @@
         <entry file="file://$PROJECT_DIR$/backEnd/login/views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="273">
-              <caret line="88" column="36" lean-forward="true" selection-start-line="88" selection-start-column="36" selection-end-line="88" selection-end-column="36" />
+              <caret line="88" column="36" lean-forward="false" selection-start-line="88" selection-start-column="36" selection-end-line="88" selection-end-column="36" />
               <folding />
             </state>
           </provider>
@@ -118,8 +90,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/backEnd/common/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="239">
-              <caret line="24" column="44" lean-forward="true" selection-start-line="24" selection-start-column="44" selection-end-line="24" selection-end-column="44" />
+            <state relative-caret-position="-37">
+              <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -199,14 +171,14 @@
         <option value="$PROJECT_DIR$/backEnd/manager/admin.py" />
         <option value="$PROJECT_DIR$/backEnd/common/views.py" />
         <option value="$PROJECT_DIR$/backEnd/pattern_guard.py" />
-        <option value="$PROJECT_DIR$/backEnd/ihotel/settings.py" />
         <option value="$PROJECT_DIR$/backEnd/room_guard.py" />
         <option value="$PROJECT_DIR$/algorithm/ny.py" />
         <option value="$PROJECT_DIR$/backEnd/manager/urls.py" />
         <option value="$PROJECT_DIR$/algorithm/data_out.py" />
-        <option value="$PROJECT_DIR$/backEnd/manager/views.py" />
         <option value="$PROJECT_DIR$/frontEnd/public/javascripts/showChart.js" />
         <option value="$PROJECT_DIR$/backEnd/user/views.py" />
+        <option value="$PROJECT_DIR$/backEnd/ihotel/settings.py" />
+        <option value="$PROJECT_DIR$/backEnd/manager/views.py" />
       </list>
     </option>
   </component>
@@ -922,7 +894,14 @@
       <option name="project" value="LOCAL" />
       <updated>1522509708623</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="41-1">
+      <created>1522568614472</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1522568614472</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -993,7 +972,8 @@
     <MESSAGE value="331-2" />
     <MESSAGE value="add signal" />
     <MESSAGE value="331-5-update algorithm" />
-    <option name="LAST_COMMIT_MESSAGE" value="331-5-update algorithm" />
+    <MESSAGE value="41-1" />
+    <option name="LAST_COMMIT_MESSAGE" value="41-1" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1250,24 +1230,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backEnd/ihotel/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="148" column="0" lean-forward="false" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/backEnd/room_guard.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="309">
           <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backEnd/common/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="8" column="4" lean-forward="false" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="88" />
+          <folding>
+            <element signature="e#25#39#0" expanded="false" />
+            <marker date="1522549790285" expanded="true" signature="223:285" ph="UPDATE Room " />
+            <marker date="1522549790285" expanded="true" signature="256:272" ph="SELECT expir... Room" />
+            <marker date="1522549790285" expanded="true" signature="256:279" ph="SELECT expir... Room" />
+            <marker date="1522549790285" expanded="true" signature="256:282" ph="SELECT expir... Room" />
+            <marker date="1522549790285" expanded="true" signature="256:285" ph="SELECT expir... Room" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1283,6 +1257,32 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
           <caret line="10" column="21" lean-forward="false" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backEnd/login/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="37">
+          <caret line="8" column="8" lean-forward="false" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backEnd/user/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="356">
+          <caret line="130" column="45" lean-forward="false" selection-start-line="130" selection-start-column="45" selection-end-line="130" selection-end-column="45" />
+          <folding>
+            <element signature="e#47#81#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontEnd/public/javascripts/showChart.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="333">
+          <caret line="189" column="47" lean-forward="true" selection-start-line="189" selection-start-column="47" selection-end-line="189" selection-end-column="47" />
           <folding />
         </state>
       </provider>
@@ -1306,39 +1306,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/algorithm/data_out.py">
+    <entry file="file://$PROJECT_DIR$/backEnd/common/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="259">
-          <caret line="31" column="13" lean-forward="true" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backEnd/common/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="24" column="44" lean-forward="true" selection-start-line="24" selection-start-column="44" selection-end-line="24" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backEnd/manager/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="337">
-          <caret line="93" column="9" lean-forward="true" selection-start-line="93" selection-start-column="9" selection-end-line="93" selection-end-column="9" />
-          <folding>
-            <element signature="e#24#63#0" expanded="true" />
-            <marker date="1522557887579" expanded="true" signature="3504:3601" ph="select mean(... missing_value" />
-            <marker date="1522557887579" expanded="true" signature="4123:4220" ph="select mean(... missing_value" />
-            <marker date="1522557887579" expanded="true" signature="5240:5337" ph="select mean(... missing_value" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backEnd/login/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="37">
-          <caret line="8" column="8" lean-forward="false" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
+          <caret line="8" column="4" lean-forward="false" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="88" />
           <folding />
         </state>
       </provider>
@@ -1346,26 +1317,44 @@
     <entry file="file://$PROJECT_DIR$/backEnd/login/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="273">
-          <caret line="88" column="36" lean-forward="true" selection-start-line="88" selection-start-column="36" selection-end-line="88" selection-end-column="36" />
+          <caret line="88" column="36" lean-forward="false" selection-start-line="88" selection-start-column="36" selection-end-line="88" selection-end-column="36" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backEnd/user/views.py">
+    <entry file="file://$PROJECT_DIR$/algorithm/data_out.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="356">
-          <caret line="130" column="45" lean-forward="false" selection-start-line="130" selection-start-column="45" selection-end-line="130" selection-end-column="45" />
+        <state relative-caret-position="259">
+          <caret line="31" column="13" lean-forward="false" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backEnd/common/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-37">
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backEnd/ihotel/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-300">
+          <caret line="83" column="1" lean-forward="true" selection-start-line="83" selection-start-column="1" selection-end-line="83" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backEnd/manager/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="259">
+          <caret line="7" column="40" lean-forward="false" selection-start-line="7" selection-start-column="40" selection-end-line="7" selection-end-column="40" />
           <folding>
-            <element signature="e#47#81#0" expanded="true" />
+            <marker date="1522580636401" expanded="true" signature="3716:3813" ph="select mean(... missing_value" />
+            <marker date="1522580636401" expanded="true" signature="4375:4472" ph="select mean(... missing_value" />
+            <marker date="1522580636401" expanded="true" signature="5527:5624" ph="select mean(... missing_value" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontEnd/public/javascripts/showChart.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="370">
-          <caret line="190" column="51" lean-forward="false" selection-start-line="190" selection-start-column="51" selection-end-line="190" selection-end-column="51" />
-          <folding />
         </state>
       </provider>
     </entry>

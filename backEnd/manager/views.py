@@ -6,6 +6,7 @@ import django.contrib.auth as auth
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.http import require_http_methods
+from django.conf import settings
 
 from common.views import add_cors_headers, get_room_by_id, get_rooms_by_floor
 
@@ -89,48 +90,50 @@ def get_room_signal(request):
     user = auth.get_user(request)
     room_id = request.GET.get('room_id')
     room_id = 'Z101'
+    room = get_room_by_id(room_id)
+    normal_distance = 170
+    send_interval = 1
     if user is None or not user.is_admin:  # 管理员未登录或非管理员
         room = None
-    else:
-        room = get_room_by_id(room_id)
     if room is None:  # 没有该房间
         room_data = {'signal1': [], 'signal2': []}
         data = json.dumps(room_data).encode()
         request.websocket.send(data)
     else:
-        client = InfluxDBClient('localhost', 8086, 'root', '', 'test_db')
+        client = InfluxDBClient(settings.INFLUXDB['HOST'], settings.INFLUXDB['PORT'], settings.INFLUXDB['USERNAME'],
+                                settings.INFLUXDB['PASSWORD'], settings.INFLUXDB['NAME'])
         while True:
             current_time = datetime.datetime.now()
-            over_time = current_time - datetime.timedelta(seconds=5)
+            over_time = current_time - datetime.timedelta(seconds=send_interval)
 
             result = client.query(
                 "select mean(value) from %s WHERE sensor='num1' AND time <= %d AND time >= %d GROUP BY TIME(100ms);" % (
                     room_id, current_time.timestamp() * 1000000000, over_time.timestamp() * 1000000000))
             signal1 = []
-            pre = 170
+            pre = normal_distance
             for raw in result[room_id]:
                 if raw['mean'] is None:
                     raw['mean'] = pre
                 signal1.append(raw['mean'])
                 pre = raw['mean']
             i = len(signal1)
-            while i < 50:
-                signal1.append(170)
+            while i < send_interval * 10:
+                signal1.append(normal_distance)
                 i += 1
 
             result = client.query(
                 "select mean(value) from %s WHERE sensor='num2' AND time <= %d AND time >= %d GROUP BY TIME(100ms);" % (
                     room_id, current_time.timestamp() * 1000000000, over_time.timestamp() * 1000000000))
             signal2 = []
-            pre = 170
+            pre = normal_distance
             for raw in result[room_id]:
                 if raw['mean'] is None:
                     raw['mean'] = pre
                 signal2.append(raw['mean'])
                 pre = raw['mean']
             i = len(signal2)
-            while i < 50:
-                signal2.append(170)
+            while i < send_interval * 10:
+                signal2.append(normal_distance)
                 i += 1
 
             room_data = {'signal1': signal1, 'signal2': signal2}
@@ -150,8 +153,8 @@ def test_signal(request):
     over_time = current_time - datetime.timedelta(seconds=5)
 
     result = client.query(
-             "select mean(value) from %s WHERE sensor='num2' AND time <= %d AND time >= %d GROUP BY TIME(100ms);" % (
-                 room_id, current_time.timestamp() * 1000000000, over_time.timestamp() * 1000000000))
+        "select mean(value) from %s WHERE sensor='num2' AND time <= %d AND time >= %d GROUP BY TIME(100ms);" % (
+            room_id, current_time.timestamp() * 1000000000, over_time.timestamp() * 1000000000))
     signal2 = []
     pre = 170
     for raw in result[room_id]:
@@ -186,7 +189,7 @@ def get_room_people_counts(request):  # 获取房间内的房间人数
             data = json.dumps(data).encode()
             request.websocket.send(data)
         else:
-            #print('get it %s' % room.room_id)
+            # print('get it %s' % room.room_id)
             socket_status = 1
             while socket_status:
                 room = get_room_by_id(room_id)
@@ -198,12 +201,12 @@ def get_room_people_counts(request):  # 获取房间内的房间人数
                 time.sleep(1)
                 # print(datetime.datetime.now())
                 socket_status = request.websocket.read(1)
-            # print('end')
+                # print('end')
 
 
 @require_websocket
 def get_room_people_counts_and_pattern(request):  # 获取房间内的房间人数
-    #print('start')
+    # print('start')
     user = auth.get_user(request)
     room_id = request.GET.get('room_id')
     if user is None or not user.is_admin:  # 管理员未登录或非管理员
@@ -219,7 +222,7 @@ def get_room_people_counts_and_pattern(request):  # 获取房间内的房间人�
             data = json.dumps(data).encode()
             request.websocket.send(data)
         else:
-            #print('get it %s' % room.room_id)
+            # print('get it %s' % room.room_id)
             socket_status = 1
             while socket_status:
                 room = get_room_by_id(room_id)
@@ -230,4 +233,4 @@ def get_room_people_counts_and_pattern(request):  # 获取房间内的房间人�
                 request.websocket.send(data)
                 time.sleep(1)
                 socket_status = request.websocket.read(1)
-            # print('end')
+                # print('end')
