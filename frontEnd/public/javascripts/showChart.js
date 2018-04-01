@@ -181,7 +181,7 @@ function getSenor()
     var day=now.getDate();
     var hour=now.getHours();
     var minute=now.getMinutes();
-    var second=now.getSeconds()-5;
+    var second=now.getSeconds();
 		dataUltrasound1.splice(0,dataUltrasound1.length);
 		dataUltrasound2.splice(0,dataUltrasound2.length);
 		for (var i = 0; i <= 50; i++)
@@ -198,7 +198,7 @@ function getSenor()
 			var senorValue1 = {
 					name: now.toString(),
 					value: [
-							year+'/'+month+'/'+day+' '+hour+':'+minute+':'+second.toFixed(1),
+							year+'/'+month+'/'+day+' '+hour+':'+minute+':'+second.toFixed(0),
 							data.signal1[i]
 					]
 			}
@@ -206,7 +206,7 @@ function getSenor()
 			var senorValue2 = {
 					name: now.toString(),
 					value: [
-							year+'/'+month+'/'+day+' '+hour+':'+minute+':'+second.toFixed(1),
+							year+'/'+month+'/'+day+' '+hour+':'+minute+':'+second.toFixed(0),
 							data.signal2[i]
 					]
 			}
