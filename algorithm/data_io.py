@@ -4,6 +4,7 @@ import queue
 import threading
 import serial
 from influxdb import InfluxDBClient
+import time
 import re
 
 
@@ -19,8 +20,16 @@ class Producer(threading.Thread):
     def run(self):
 
         # 硬件端口号com3，波特率9600
-        ser = serial.Serial('/dev/ttyACM0', 9600)
+        while 1:
+            try:
+                ser = serial.Serial('/dev/ttyACM0', 9600)
+                break
+            except Exception as e:
+                print(e, "\n没有检测到串口，将于5s后自动重试")
+                time.sleep(5)
+                continue
 
+        # 将数据写入内存
         while 1:
             resource = ser.readline()
 
@@ -50,17 +59,24 @@ class Consumer(threading.Thread):
     def run(self):
 
         n = 0
-        # 初始化
-        client = InfluxDBClient()
-        # 删除冗余数据
-        client.drop_database('test_db')
-        # 创建数据库test_db
-        client.create_database('test_db')
-        # 创建数据保留策略为1h
-        client.query('CREATE RETENTION POLICY "1_hours" ON "test_db" DURATION 1h REPLICATION 1 DEFAULT')
-        # 连接并使用数据库test_db
-        client = InfluxDBClient('localhost', 8086, 'root', '', 'test_db')
+        # 初始化数据库
+        while 1:
+            try:
+                # 初始化
+                client = InfluxDBClient()
+                # 删除冗余数据
+                client.drop_database('test_db')
+                # 创建数据库test_db
+                client.create_database('test_db')
+                # 连接并使用数据库test_db
+                client = InfluxDBClient('localhost', 8086, 'root', '', 'test_db')
+                break
+            except Exception as e:
+                print("Error:", e, "\n请检查influxdb或者mysql数据库，操作将于5s后自动重试")
+                time.sleep(5)
+                continue
 
+        # 从内存取数据
         while 1:
             n += 1
             try:
@@ -78,9 +94,10 @@ class Consumer(threading.Thread):
                 break
 
             else:
-                print('%s:resource %s out queue' % (self.name, str(res)))
+                print('%i   %s:resource %s out queue' % (n, self.name, str(res)))
 
 
+# 数据存入influxdb
 def data_out(res, n, client):
     pattern = re.compile(r".*(\d):(\d*)")
     try:
@@ -90,7 +107,11 @@ def data_out(res, n, client):
     except TypeError:
         return
     # print(res_t.group(1), res_t.group(2))
-    print(str(res))
+
+    # 防止res_t.group(2)即传感器信号为空
+    res_t2 = res_t.group(2)
+    if len(res_t.group(2)) == 0:
+        res_t2 = 0
 
     # 写入数据格式如下
     data = [
@@ -98,10 +119,10 @@ def data_out(res, n, client):
             "measurement": "Z101",  # 表名
             "tags": {
                 "sensor": "num%s" % res_t.group(1),  # 标签（属性）
-                "n": str(n),
             },
             "fields": {
-                "value": res_t.group(2),  # 值
+                "n": n,  # 索引
+                "value": int(res_t2),  # 值
             }
         }
     ]

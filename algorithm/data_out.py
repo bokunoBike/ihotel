@@ -4,42 +4,52 @@ from influxdb import InfluxDBClient
 import time
 import random
 
-# 初始化
-client = InfluxDBClient()
-# 删除冗余数据
-client.drop_database('test_db')
-# 创建数据库test_db
-client.create_database('test_db')
-# 创建数据保留策略为1h
-client.query('CREATE RETENTION POLICY "1_hours" ON "test_db" DURATION 1h REPLICATION 1 DEFAULT')
-# 连接并使用数据库test_db
-client = InfluxDBClient('localhost', 8086, 'root', '', 'test_db')
-
-i = 2
-k = 0
-li = 20
+num = 2
+sensor = 0
+m = 20
 room_id = 'Z101'
-# 模拟1000组数据写入influxdb
-for j in range(1, 500):
+
+# 初始化数据库
+while 1:
+    try:
+        # 初始化
+        client = InfluxDBClient()
+        # 删除冗余数据
+        client.drop_database('test_db')
+        # 创建数据库test_db
+        client.create_database('test_db')
+        # 连接并使用数据库test_db
+        client = InfluxDBClient('localhost', 8086, 'root', '', 'test_db')
+        break
+    except Exception as e:
+        print("Error:", e, "\n请检查influxdb或者mysql数据库，操作将于5s后自动重试")
+        time.sleep(5)
+        continue
+            
+# 模拟1500组数据写入influxdb
+for n in range(1, 1500):
     time.sleep(0.001)
     # 模拟两个传感器
-    if i == 1:
-        i = 2
+    if num == 1:
+        num = 2
     else:
-        i = 1
+        num = 1
 
     # 模拟超声波信号波动
-    k = 190 + random.randint(-5, 5)
+    sensor = 190 + random.randint(-5, 5)
+
     # 模拟超声波信号变化
-    if li < j < li + 40:
-        k -= 100
-    # # 每40组模拟一次无效信号
-    # if j % 20 == 0:
-    #     k = k + 90 + random.randint(-10, 10)
+    if m < n <= m + 40:
+        sensor -= 100
+
+    # 每13组模拟一次无效信号
+    if n % 13 == 0:
+        sensor = sensor + 90 + random.randint(-10, 10)
+
     # 每121组数据，超声波检测到40次变化
-    if j % 121 == 0:
-        li += 121
-        print('数据导入量: %s' % j)
+    if n % 121 == 0:
+        m += 121
+        print('数据导入量: %s' % n)
 
     t = round(time.time() * 1000000000)
     # 写入数据格式如下
@@ -47,12 +57,12 @@ for j in range(1, 500):
         {
             "measurement": room_id,  # 表名
             "tags": {
-                "sensor": "num%s" % i,  # 标签（属性）
+                "sensor": "num%s" % num,  # 标签（属性）
 
             },
             "fields": {
-                "n": j,
-                "value": k  # 值
+                "n": n,
+                "value": sensor  # 值
             }
         }
     ]
