@@ -140,7 +140,7 @@ def get_room_signal(request):
             #print(room_data)
             data = json.dumps(room_data).encode()
             request.websocket.send(data)
-            time.sleep(5)
+            time.sleep(send_interval)
 
 
 def test_signal(request):

@@ -171,15 +171,46 @@ function getSenor()
 {
 	var ws = new WebSocket("ws://"+host+":8000/manager/get_room_signal");
 	window.ws = ws;
+	var times = 0;
 	ws.onmessage = function (e)
 	{
 		var data = JSON.parse(e.data);
 		//myChart.clear();
 		now = new Date();
-		dataUltrasound1.splice(0,dataUltrasound1.length);
-		dataUltrasound2.splice(0,dataUltrasound2.length);
+		now = new Date(+now-1000);
+		/*dataUltrasound1.splice(0,dataUltrasound1.length);
+		dataUltrasound2.splice(0,dataUltrasound2.length);*/
+		if(times == 0)
+		{
+			now = new Date(+now-4000);
+			for(var i = 0;i < 40;i++)
+			{
+				var senorValue1 = {
+						name: now.toString(),
+						value: [
+								now,
+								0
+						]
+				}
+				var senorValue2 = {
+						name: now.toString(),
+						value: [
+								now,
+								0
+						]
+				}
+				now = new Date(+now+100);
+				dataUltrasound1.push(senorValue1);
+				dataUltrasound2.push(senorValue2);
+			}
+		}
+		for(var i = 0;i < 10;i++)
+		{
+			dataUltrasound1.shift();
+			dataUltrasound2.shift();
+		}
 
-		for (var i = 0; i < 50; i++)
+		for (var i = 0; i < 10; i++)
 		{
 			var senorValue1 = {
 					name: now.toString(),
@@ -202,6 +233,7 @@ function getSenor()
 		}
 		myChart.setOption(option);
 		window.onresize = myChart.resize;
+		times++;
 	}
 	ws.onclose = function()
 	{
@@ -294,17 +326,6 @@ option = {
 	]
 };
 
-/*setInterval(function () {
-
-    for (var i = 0; i < 1; i++) {
-      //myChart.clear();
-        data.shift();
-        data.push(randomData());
-    }
-
-    myChart.setOption(option);
-		window.onresize = myChart.resize;
-}, 1000);*/
 //显示楼层号输入
 function showForm()
 {
