@@ -12,7 +12,7 @@ function initWindow()
 {
 	getPersonNumber();
 	getExpireTime();
-	//getSenor();
+	getSenor();
 }
 //通过webSocket获取系统判定人数
 function getPersonNumber()
@@ -90,7 +90,7 @@ function getExpireTime()
 function changeFloorClick()
 {
 	var floorNumber = document.getElementById('inputFloor').value;
-	if(!isNaN(floorNumber)&&floorNumber <= 10&&floorNumber != '')
+	if(!isNaN(floorNumber)&&floorNumber <= 10&&floorNumber > 0&&floorNumber != '')
 	{
 		document.getElementById('floorNumber').innerHTML = floorNumber;
 		document.getElementById('justifyNotice').style.display = "none";
@@ -173,37 +173,56 @@ function getSenor()
 	ws.onmessage = function (e)
 	{
 		var data = JSON.parse(e.data);
-		senor = data.value;
-		//假设一批送30个数据
-		for (var i = 0; i < 30; i++)
+		console.log(data);
+		myChart.clear();
+		now = new Date();
+    var year=now.getFullYear();
+    var month=now.getMonth()+1;
+    var day=now.getDate();
+    var hour=now.getHours();
+    var minute=now.getMinutes();
+    var second=now.getSeconds()-5;
+		dataUltrasound1.splice(0,dataUltrasound1.length);
+		dataUltrasound2.splice(0,dataUltrasound2.length);
+		for (var i = 0; i <= 50; i++)
 		{
-			var senorValue = {
-					//name: now.toString(),
+
+			console.log("signal1"+data.signal1[i]);
+			console.log("signal2"+data.signal2[i]);
+			if(second < 0)
+			{
+				minute = minute - 1;
+				second += 60;
+				console.log("fixedNumber"+second);
+			}
+			var senorValue1 = {
+					name: now.toString(),
 					value: [
-							year+'/'+month+'/'+day+' '+hour+':'+minute+':'+second,
-							senor[i][2]
+							year+'/'+month+'/'+day+' '+hour+':'+minute+':'+second.toFixed(1),
+							data.signal1[i]
 					]
 			}
-			if(senor[i][1] == '超声1')
-			{
-				dataUltrasound1.push(senorValue);
+			console.log(senorValue1.value);
+			var senorValue2 = {
+					name: now.toString(),
+					value: [
+							year+'/'+month+'/'+day+' '+hour+':'+minute+':'+second.toFixed(1),
+							data.signal2[i]
+					]
 			}
-			else if(senor[i][1] == '超声2')
+			second += 0.1;
+			if(second > 60)
 			{
-				dataUltrasound2.push(senorValue);
+				second -= 60;
+				minute += 1;
 			}
-			else if(senor[i][1] == '红外1')
-			{
-				dataInfared1.push(senorValue);
-			}
-			else if(senor[i][1] == '红外2')
-			{
-				dataInfared2.push(senorValue);
-			}
-			myChart.setOption(option);
-			window.onresize = myChart.resize;
+			console.log(senorValue2.value);
+			dataUltrasound1.push(senorValue1);
+			dataUltrasound2.push(senorValue2);
 		    //data.push(randomData())
 		}
+		myChart.setOption(option);
+		window.onresize = myChart.resize;
 	}
 	ws.onclose = function()
 	{
@@ -241,7 +260,7 @@ option = {
         }
     },
 		legend: {
-							 data:['超声1','超声2','红外1','红外2'],
+							 data:['超声1','超声2'],
 							 right:0,
 							 top:10,
 							 orient: 'vertical',
@@ -275,7 +294,7 @@ option = {
 			showSymbol: false,
 			hoverAnimation: false,
 			data: dataUltrasound2
-		},
+		}/*,
 		{
 			smooth:true,
 			name: '红外1',
@@ -291,7 +310,7 @@ option = {
 			showSymbol: false,
 			hoverAnimation: false,
 			data: dataInfared2
-		}
+		}*/
 	]
 };
 
