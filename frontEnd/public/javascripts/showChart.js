@@ -3,15 +3,16 @@ var node = null;
 var url = window.location.href.split('/');
 var host = window.location.hostname;
 var senor;//传感器信号list
-if(url[4] != 'adminCertainRoom')
-{
-	myChart = echarts.init(document.getElementById('showChart'),'dark');
-}
+
 window.onload = initWindow();
 function initWindow()
 {
 	getPersonNumber();
 	getExpireTime();
+	if(url[4] != 'adminCertainRoom')
+	{
+		myChart = echarts.init(document.getElementById('showChart'),'dark');
+	}
 	getSenor();
 }
 //通过webSocket获取系统判定人数
@@ -173,50 +174,28 @@ function getSenor()
 	ws.onmessage = function (e)
 	{
 		var data = JSON.parse(e.data);
-		console.log(data);
 		//myChart.clear();
 		now = new Date();
-    var year=now.getFullYear();
-    var month=now.getMonth()+1;
-    var day=now.getDate();
-    var hour=now.getHours();
-    var minute=now.getMinutes();
-    var second=now.getSeconds();
 		dataUltrasound1.splice(0,dataUltrasound1.length);
 		dataUltrasound2.splice(0,dataUltrasound2.length);
+
 		for (var i = 0; i < 50; i++)
 		{
-
-			console.log("signal1"+data.signal1[i]);
-			console.log("signal2"+data.signal2[i]);
-			if(second < 0)
-			{
-				minute = minute - 1;
-				second += 60;
-				console.log("fixedNumber"+second);
-			}
 			var senorValue1 = {
 					name: now.toString(),
 					value: [
-							year+'/'+month+'/'+day+' '+hour+':'+minute+':'+second.toFixed(0),
+							now,
 							data.signal1[i]
 					]
 			}
-			console.log(senorValue1.value);
 			var senorValue2 = {
 					name: now.toString(),
 					value: [
-							year+'/'+month+'/'+day+' '+hour+':'+minute+':'+second.toFixed(0),
+							now,
 							data.signal2[i]
 					]
 			}
-			second += 0.1;
-			if(second > 60)
-			{
-				second -= 60;
-				minute += 1;
-			}
-			console.log(senorValue2.value);
+			now = new Date(+now+100);
 			dataUltrasound1.push(senorValue1);
 			dataUltrasound2.push(senorValue2);
 		    //data.push(randomData())
@@ -242,18 +221,18 @@ var dataInfared2 = [];
 
 option = {
     title: {
-        text: 'Z101传感器输出信号',
+        text: 'Z101传感器信号',
         textStyle: {
-               fontWeight: 'normal',              //标题颜色
+               fontWeight: 'normal'              //标题颜色
                //color: 'gray'
-           },
+           }
     },
     tooltip: {
         trigger: 'axis',
         formatter: function (params) {
             params = params[0];
             var date = new Date(params.name);
-            return date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + ' value: ' + params.value[1];;
+            return date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + ' value: ' + params.value[1];
         },
         axisPointer: {
             animation: false
@@ -263,13 +242,14 @@ option = {
 							 data:['超声1','超声2'],
 							 right:0,
 							 top:10,
-							 orient: 'vertical',
+							 orient: 'vertical'
 					 },
     xAxis: {
         type: 'time',
         splitLine: {
             show: false
-        }
+        },
+				axisLabel:{interval: 0}
     },
     yAxis: {
         type: 'value',
@@ -280,19 +260,19 @@ option = {
     },
     backgroundColor:'#303030',
     series: [{
-        smooth:true,
+        //smooth:true,
         name: '超声1',
         type: 'line',
         showSymbol: false,
-        hoverAnimation: false,
+        hoverAnimation: true,
         data: dataUltrasound1
     },
 		{
-			smooth:true,
+			//smooth:true,
 			name: '超声2',
 			type: 'line',
 			showSymbol: false,
-			hoverAnimation: false,
+			hoverAnimation: true,
 			data: dataUltrasound2
 		}/*,
 		{

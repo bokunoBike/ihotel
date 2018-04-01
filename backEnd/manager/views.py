@@ -134,7 +134,7 @@ def get_room_signal(request):
                 i += 1
 
             room_data = {'signal1': signal1, 'signal2': signal2}
-            print(room_data)
+            #print(room_data)
             data = json.dumps(room_data).encode()
             request.websocket.send(data)
             time.sleep(5)
