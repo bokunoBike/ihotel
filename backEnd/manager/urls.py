@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'get_floor_rooms_id', get_floor_rooms_id, name="get_floor_rooms_id"),
     url(r'get_room_people_counts_and_pattern', get_room_people_counts_and_pattern, name="get_room_people_counts_and_pattern"),
     url(r'get_room_people_counts', get_room_people_counts, name="get_room_people_counts"),
+    url(r'test_signal', test_signal, name="test_signal"),
 ]

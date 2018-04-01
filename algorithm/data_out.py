@@ -26,8 +26,8 @@ while 1:
         time.sleep(5)
         continue
             
-# 模拟1500组数据写入influxdb
-for n in range(1, 1500):
+# 模拟3000组数据写入influxdb
+for n in range(1, 3000):
     time.sleep(0.001)
     # 模拟两个传感器
     if num == 1:
