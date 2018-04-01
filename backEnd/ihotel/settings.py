@@ -76,7 +76,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ihotel',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': '123456',
         'HOST': 'localhost',
         'PORT': '3306',
         'TEST_CHARSET': 'utf8',
@@ -152,7 +152,7 @@ CORS_ALLOW_HEADERS = (
     'Pragma',
 )
 
-#CORS_ALLOW_HOST = "localhost"
-CORS_ALLOW_HOST = "127.0.0.1"
+CORS_ALLOW_HOST = "localhost"
+#CORS_ALLOW_HOST = "127.0.0.1"
 # CORS_ALLOW_HOST = "115.159.77.150"
 
