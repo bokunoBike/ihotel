@@ -82,6 +82,13 @@ DATABASES = {
         'TEST_CHARSET': 'utf8',
     }
 }
+INFLUXDB = {
+    'NAME': 'test_db',
+    'USERNAME': 'root',
+    'PASSWORD': '',
+    'HOST': 'localhost',
+    'PORT': 8086
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
