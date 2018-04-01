@@ -86,12 +86,17 @@ html
           #realForm
             .form-group#input
               center
-                h3 切换楼层
+                #floorNotice
+                  span 当前楼层为
+                    h1#floorNumber 1
+              //  h3 切换楼层
               label.sr-only
-              input.form-control(type='text',placeholder='房号')
+              input#inputFloor.form-control(type='text',placeholder='切换楼层')
             .form-group#submitButton
               label.sr-only
-              button.btn.btn-primary.btn-lg.btn-block(type='submit') 确认
+              button.btn.btn-primary.btn-lg.btn-block(type='submit',onclick='changeFloorClick()') 确认
+            center
+              #justifyNotice 输入楼层错误！
       // footer
       .w3l-footer#footer
         .container

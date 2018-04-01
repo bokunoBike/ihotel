@@ -2,9 +2,6 @@ var myChart = null;
 var node = null;
 var url = window.location.href.split('/');
 var host = window.location.hostname;
-var expireHour;
-var expireMinute;
-var expireSecond;
 var senor;//传感器信号list
 if(url[4] != 'adminCertainRoom')
 {
@@ -20,23 +17,25 @@ function initWindow()
 //通过webSocket获取系统判定人数
 function getPersonNumber()
 {
-	var ws = new WebSocket("ws://"+host+":8000/user/get_room_info");
+	var ws = new WebSocket("ws://"+host+":8000/manager/get_room_people_counts_and_pattern?room_id=Z101");
 	window.ws = ws;
 	ws.onmessage = function (e)
 	{
 		var data = JSON.parse(e.data);
 		systemPersonNumber = data.people_counts;
-		//console.log(systemPersonNumber);
-		getExpireTime();
-		var now = new Date();
-		var nowHour = now.getHours();
-		var nowMinute = now.getMinutes();
-		var nowSecond = now.getSeconds();
-		//console.log((expireHour-nowHour)*60*60+(expireMinute-nowMinute)*60+expireSecond-nowSecond);
-		if(((expireHour-nowHour)*60*60+(expireMinute-nowMinute)*60+expireSecond-nowSecond) <= 0&&systemPersonNumber == 0&&url[4] != 'adminCertainRoom')
+		var pattern = data.pattern;
+		//console.log("pattern"+pattern);
+		if(pattern == false&&systemPersonNumber == 0)
 		{
 			//console.log("lightOff");
-			document.getElementById('showChart').style.boxShadow = 'none';
+			if(url[4] != 'adminCertainRoom')
+			{
+				document.getElementById('showChart').style.boxShadow = 'none';
+			}
+			else
+			{
+				document.getElementById('main-window').style.boxShadow = 'none';
+			}
 		}
 		else
 		{
@@ -44,6 +43,10 @@ function getPersonNumber()
 			if(url[4] != 'adminCertainRoom')
 			{
 				document.getElementById('showChart').style.boxShadow = '0 0 20px #E2C08D';
+			}
+			else
+			{
+				document.getElementById('main-window').style.boxShadow = '0 0 20px #E2C08D';
 			}
 		}
 		//console.log(systemPersonNumber);
@@ -82,6 +85,20 @@ function getExpireTime()
 			console.log(err);
 		}
 	});
+}
+//设置楼层提示信息
+function changeFloorClick()
+{
+	var floorNumber = document.getElementById('inputFloor').value;
+	if(!isNaN(floorNumber)&&floorNumber <= 10&&floorNumber > 0&&floorNumber != '')
+	{
+		document.getElementById('floorNumber').innerHTML = floorNumber;
+		document.getElementById('justifyNotice').style.display = "none";
+	}
+	else
+	{
+		document.getElementById('justifyNotice').style.display = "block";
+	}
 }
 //点击显示大图表
 $("canvas").click(function()
@@ -151,42 +168,61 @@ function sendModify()
 //获取传感器信号
 function getSenor()
 {
-	var ws = new WebSocket("ws://"+host+":8000/manager/get_floor_rooms?floor=1");
+	var ws = new WebSocket("ws://"+host+":8000/manager/get_room_signal");
 	window.ws = ws;
 	ws.onmessage = function (e)
 	{
 		var data = JSON.parse(e.data);
-		senor = data.value;
-		//假设一批送30个数据
-		for (var i = 0; i < 30; i++)
+		console.log(data);
+		myChart.clear();
+		now = new Date();
+    var year=now.getFullYear();
+    var month=now.getMonth()+1;
+    var day=now.getDate();
+    var hour=now.getHours();
+    var minute=now.getMinutes();
+    var second=now.getSeconds()-5;
+		dataUltrasound1.splice(0,dataUltrasound1.length);
+		dataUltrasound2.splice(0,dataUltrasound2.length);
+		for (var i = 0; i <= 50; i++)
 		{
-			var senorValue = {
-					//name: now.toString(),
+
+			console.log("signal1"+data.signal1[i]);
+			console.log("signal2"+data.signal2[i]);
+			if(second < 0)
+			{
+				minute = minute - 1;
+				second += 60;
+				console.log("fixedNumber"+second);
+			}
+			var senorValue1 = {
+					name: now.toString(),
 					value: [
-							year+'/'+month+'/'+day+' '+hour+':'+minute+':'+second,
-							senor[i][2]
+							year+'/'+month+'/'+day+' '+hour+':'+minute+':'+second.toFixed(1),
+							data.signal1[i]
 					]
 			}
-			if(senor[i][1] == '超声1')
-			{
-				dataUltrasound1.push(senorValue);
+			console.log(senorValue1.value);
+			var senorValue2 = {
+					name: now.toString(),
+					value: [
+							year+'/'+month+'/'+day+' '+hour+':'+minute+':'+second.toFixed(1),
+							data.signal2[i]
+					]
 			}
-			else if(senor[i][1] == '超声2')
+			second += 0.1;
+			if(second > 60)
 			{
-				dataUltrasound2.push(senorValue);
+				second -= 60;
+				minute += 1;
 			}
-			else if(senor[i][1] == '红外1')
-			{
-				dataInfared1.push(senorValue);
-			}
-			else if(senor[i][1] == '红外2')
-			{
-				dataInfared2.push(senorValue);
-			}
-			myChart.setOption(option);
-			window.onresize = myChart.resize;
+			console.log(senorValue2.value);
+			dataUltrasound1.push(senorValue1);
+			dataUltrasound2.push(senorValue2);
 		    //data.push(randomData())
 		}
+		myChart.setOption(option);
+		window.onresize = myChart.resize;
 	}
 	ws.onclose = function()
 	{
@@ -206,7 +242,7 @@ var dataInfared2 = [];
 
 option = {
     title: {
-        text: '传感器输出信号',
+        text: 'Z101传感器输出信号',
         textStyle: {
                fontWeight: 'normal',              //标题颜色
                //color: 'gray'
@@ -224,7 +260,7 @@ option = {
         }
     },
 		legend: {
-							 data:['超声1','超声2','红外1','红外2'],
+							 data:['超声1','超声2'],
 							 right:0,
 							 top:10,
 							 orient: 'vertical',
@@ -258,7 +294,7 @@ option = {
 			showSymbol: false,
 			hoverAnimation: false,
 			data: dataUltrasound2
-		},
+		}/*,
 		{
 			smooth:true,
 			name: '红外1',
@@ -274,7 +310,7 @@ option = {
 			showSymbol: false,
 			hoverAnimation: false,
 			data: dataInfared2
-		}
+		}*/
 	]
 };
 

@@ -242,7 +242,7 @@ body
 /* 切换楼层表格
 -------------------------------------------------- */
 
-#specialNotice h1
+#specialNotice h1,#floorNotice h1
 {
   text-align:center;
   display: inline-block;
@@ -252,7 +252,14 @@ body
   font-size: 4em;
   color: #57A0F1;
 }
-
+#floorNotice span
+{
+  font-size: 2.5em;
+}
+#floorNotice
+{
+  margin-bottom: 10%;
+}
 #specialNotice span
 {
   color: #ffffff;
@@ -261,11 +268,11 @@ body
 
 .form
 {
-  margin-top: 5%;
+  margin-top: 50px;
 }
 #realForm
 {
-  margin: 20% auto;
+  margin: 2% auto;
   width: 50%;
 }
 #realForm h3,#realForm #input,#realForm #submitButton
@@ -329,6 +336,11 @@ body
   position: relative;
 }
 
+#justifyNotice
+{
+  display: none;
+}
+
 @media screen and (max-width: 767px) {
   .body_container #notices
   {
@@ -351,6 +363,10 @@ body
   {
     margin-top: 0;
     display: none;
+  }
+  #form span
+  {
+    font-size: 2em;
   }
   #main-window
   {

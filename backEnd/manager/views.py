@@ -64,7 +64,9 @@ def get_floor_rooms_id(request):
 def set_room_people_counts(request):  # 登录页面
     user = auth.get_user(request)
     room_id = request.POST.get('room_id')
+    print(room_id)
     people_counts = int(request.POST.get('people_counts'))
+    print(people_counts)
     if people_counts < 0:
         people_counts = 0
     if user is None or not user.is_admin:  # 用户未登录或不为管理员
@@ -135,7 +137,7 @@ def get_room_people_counts(request):  # 获取房间内的房间人数
             data = json.dumps(data).encode()
             request.websocket.send(data)
         else:
-            # print('get it %s' % room.room_id)
+            #print('get it %s' % room.room_id)
             socket_status = 1
             while socket_status:
                 room = get_room_by_id(room_id)
@@ -152,7 +154,7 @@ def get_room_people_counts(request):  # 获取房间内的房间人数
 
 @require_websocket
 def get_room_people_counts_and_pattern(request):  # 获取房间内的房间人数
-    # print('start')
+    #print('start')
     user = auth.get_user(request)
     room_id = request.GET.get('room_id')
     if user is None or not user.is_admin:  # 管理员未登录或非管理员
@@ -168,7 +170,7 @@ def get_room_people_counts_and_pattern(request):  # 获取房间内的房间人�
             data = json.dumps(data).encode()
             request.websocket.send(data)
         else:
-            # print('get it %s' % room.room_id)
+            #print('get it %s' % room.room_id)
             socket_status = 1
             while socket_status:
                 room = get_room_by_id(room_id)

@@ -5,7 +5,7 @@ import time
 import datetime
 
 # 连接mysql
-db = pymysql.connect("localhost", "root", "", "ihotel")
+db = pymysql.connect("localhost", "root", "123456", "ihotel")
 cursor = db.cursor()
 
 while True:
