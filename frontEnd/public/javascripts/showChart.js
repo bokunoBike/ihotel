@@ -174,7 +174,7 @@ function getSenor()
 	{
 		var data = JSON.parse(e.data);
 		console.log(data);
-		myChart.clear();
+		//myChart.clear();
 		now = new Date();
     var year=now.getFullYear();
     var month=now.getMonth()+1;
@@ -184,7 +184,7 @@ function getSenor()
     var second=now.getSeconds();
 		dataUltrasound1.splice(0,dataUltrasound1.length);
 		dataUltrasound2.splice(0,dataUltrasound2.length);
-		for (var i = 0; i <= 50; i++)
+		for (var i = 0; i < 50; i++)
 		{
 
 			console.log("signal1"+data.signal1[i]);
