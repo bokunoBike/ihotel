@@ -1,4 +1,5 @@
 
+
 /*--
 Author: W3layouts
 Author URL: http://w3layouts.com
@@ -95,7 +96,10 @@ input[type="submit"],.w3l_header_left ul li a,.related-post-right h4 a,.comments
 }
 /*--//model--*/
 /*--header-w3-agileits --*/
-
+#navbar a:hover
+{
+  cursor: pointer;
+}
 /*Signin part*/
 .signin
  {

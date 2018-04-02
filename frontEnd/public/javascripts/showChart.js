@@ -262,9 +262,13 @@ option = {
     tooltip: {
         trigger: 'axis',
         formatter: function (params) {
-            params = params[0];
-            var date = new Date(params.name);
-            return date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + ' value: ' + params.value[1];
+					var date = new Date(params[0].name);
+					var res = '时间: '+date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+					for(var i=0;i<params.length;i++)
+					{
+						res+='<p>'+params[i].seriesName+': '+params[i].value[1]+'</p>'
+					}
+					return res;
         },
         axisPointer: {
             animation: false
