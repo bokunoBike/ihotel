@@ -66,7 +66,7 @@ function logout()
     success: function(data)
     {
       console.log('logout');
-      window.location.href = '/';  
+      window.location.href = '/';
     },
     error: function(err) {
         console.log("error"+err);
