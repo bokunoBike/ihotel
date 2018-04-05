@@ -65,11 +65,11 @@ class Consumer(threading.Thread):
                 # 初始化
                 client = InfluxDBClient()
                 # 删除冗余数据
-                client.drop_database('test_db')
-                # 创建数据库test_db
-                client.create_database('test_db')
-                # 连接并使用数据库test_db
-                client = InfluxDBClient('localhost', 8086, 'root', '', 'test_db')
+                client.drop_database('ihotel')
+                # 创建数据库ihotel
+                client.create_database('ihotel')
+                # 连接并使用数据库ihotel
+                client = InfluxDBClient('localhost', 8086, 'root', '', 'ihotel')
                 break
             except Exception as e:
                 print("Error:", e, "\n请检查influxdb或者mysql数据库，操作将于5s后自动重试")

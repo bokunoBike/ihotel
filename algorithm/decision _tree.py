@@ -16,20 +16,15 @@ def _my_tree(room_id='Z101', max_distance=190, fluctuate=20):
     people_num = 0  # 人数
     sensor1_level = 0  # 超声波1号电平
     sensor2_level = 0  # 超声波2号电平
-    sensor3_level = 0  # 红外线1号电平
-    sensor4_level = 0  # 红外线2号电平
+    surpass_query = 0
+    jump_interval = 50  # 跳50组数据
+    sensor_count = 2  # 传感器数量
 
-    # 对两个数据库进行初始化操作
+    '''对两个数据库进行初始化操作'''
     while 1:
         try:
-            # 初始化influxdb
-            client = InfluxDBClient()
-            # 显示所有数据库名称
-            print(client.get_list_database())
-            # 创建数据库test_db
-            client.create_database('test_db')
             # 连接influxdb
-            client = InfluxDBClient('localhost', 8086, 'root', '', 'test_db')
+            client = InfluxDBClient('localhost', 8086, 'root', '', 'ihotel')
 
             # 连接mysql
             db = pymysql.connect("localhost", "root", "123456", "ihotel")
@@ -40,62 +35,63 @@ def _my_tree(room_id='Z101', max_distance=190, fluctuate=20):
             time.sleep(5)
             continue
 
-    # 舍弃前几组不稳定数据(12的倍数)
+    # 舍弃前几组不稳定数据(sensor_count * 3的倍数)
     n = 24
 
-    # 缓存前6组数据
-    while 1:
+    ''' 缓存前sensor_count * 3组数据'''
+    i = 1
+    temp = []
+    while i <= sensor_count * 3:
         try:
-            result1 = client.query("SELECT*FROM %s WHERE n = %i;" % (room_id, n))
-            result2 = client.query("SELECT*FROM %s WHERE n = %i;" % (room_id, n + 1))
-            result3 = client.query("SELECT*FROM %s WHERE n = %i;" % (room_id, n + 2))
-            result4 = client.query("SELECT*FROM %s WHERE n = %i;" % (room_id, n + 3))
-            result5 = client.query("SELECT*FROM %s WHERE n = %i;" % (room_id, n + 4))
-            result6 = client.query("SELECT*FROM %s WHERE n = %i;" % (room_id, n + 5))
-            temp = [result1.raw['series'][0]['values'][0], result2.raw['series'][0]['values'][0],
-                    result3.raw['series'][0]['values'][0], result4.raw['series'][0]['values'][0],
-                    result5.raw['series'][0]['values'][0], result6.raw['series'][0]['values'][0]]
-            break
+            result = client.query("SELECT*FROM %s WHERE n = %i;" % (room_id, n + i))
+            temp.append(result.raw['series'][0]['values'][0])
+            i += 1
         except Exception as e:
-            print("Error:", e, "\n请确保传感器信息已经存入influxdb中，操作将于5s后自动重试")
-            time.sleep(5)
+            print("Error:", e, "\n请确保传感器信息已经存入influxdb中，操作将于1s后自动重试")
+            time.sleep(1)
             continue
-
     # 将n指向第下一个还未缓存的数据
-    n += 6
+    n += sensor_count * 3
 
     # 超声波最近3个状态（从左到右状态由旧到新）
     sensor_stat = ['00', '00', '00']
 
-    # 算法判断开始
+    ''' 算法判断开始'''
     while 1:
         # 实时时间
         t = time.time()
-
-        # 读取下一组数据
-        result = client.query("SELECT*FROM %s WHERE n = %i;" % (room_id, n))
-        if len(result) == 0:
-            continue
+        try:
+            # 读取下一组数据
+            result = client.query("SELECT*FROM %s WHERE n = %i;" % (room_id, n))
+            if len(result) == 0:
+                time.sleep(0.5)
+                continue
+        except Exception as e:
+            print("Error:", e, "\n数据库出错，程序将于1s后重新启动")
+            time.sleep(1)
+            _my_tree(room_id, max_distance, fluctuate)
+            return
 
         # 清除旧数据，缓存新数据
         temp.pop(0)
         temp.append(result.raw['series'][0]['values'][0])
 
         # 提取数据
-        sensor_num = temp[2][2]  # 传感器号码
-        distance_or_signal1 = temp[0][3]  # 第1个超声距离或者红外信号
-        distance_or_signal2 = temp[2][3]  # 第2个超声距离或者红外信号
-        distance_or_signal3 = temp[4][3]  # 第3个超声距离或者红外信号
+        sensor_num = temp[sensor_count][2]  # 传感器号码
+        distance_or_signal1 = temp[0 * sensor_count][3]  # 第1个超声距离或者红外信号
+        distance_or_signal2 = temp[1 * sensor_count][3]  # 第2个超声距离或者红外信号
+        distance_or_signal3 = temp[2 * sensor_count][3]  # 第3个超声距离或者红外信号
 
-        # 过滤无效信号
+        ''' 过滤无效信号'''
         # 一个传感器的连续的3个信号，如果第1个和第3个信号相差不大
         if distance_or_signal1 - fluctuate < distance_or_signal3 < distance_or_signal1 + fluctuate:
             sig_ave = (distance_or_signal1 + distance_or_signal3) / 2
             # 而中间信号波动很大时，中间信号取1、3信号平均值
             if distance_or_signal2 > sig_ave + fluctuate or distance_or_signal2 < sig_ave - fluctuate:
                 distance_or_signal2 = sig_ave
-                temp[2][3] = sig_ave
+                temp[1 * sensor_count][3] = sig_ave
 
+        '''传感器信号判断'''
         # 超声传感器信号判断
         if max_distance - int(distance_or_signal2) > 40:
             stat = 1
@@ -106,13 +102,7 @@ def _my_tree(room_id='Z101', max_distance=190, fluctuate=20):
         elif sensor_num == 'num2':
             sensor2_level = stat
 
-        # 红外传感器信号判断
-        elif sensor_num == 'num3':
-            sensor3_level = distance_or_signal2
-        elif sensor_num == 'num4':
-            sensor4_level = distance_or_signal2
-
-        # 超声波状态判断
+        ''' 超声波状态判断'''
         # 00：增加最新状态，删除旧状态
         if sensor1_level == 0 and sensor2_level == 0:
             sensor_stat.pop(0)  # 删
@@ -139,6 +129,7 @@ def _my_tree(room_id='Z101', max_distance=190, fluctuate=20):
         # 人数变化状态
         people_stat = 0
 
+        '''人数判断'''
         # 00->10->11，加1人
         if sensor_stat == ['00', '10', '11']:
             people_num += 1
@@ -148,44 +139,63 @@ def _my_tree(room_id='Z101', max_distance=190, fluctuate=20):
             people_num -= 1
             people_stat = 1
 
-        # 如果房间人数判断为0，红外线有信号，人数加1
-        if people_num == 0:
-            if sensor3_level == 1 or sensor4_level == 1:
-                people_num += 1
-                people_stat = 1
-
-        # 人数发生变化时
+        ''' 人数发生变化时'''
         if people_stat == 1:
-            print(n, t, people_num, distance_or_signal2)
+            print(n - 2 * sensor_count, t, people_num, distance_or_signal2, sensor_stat)
 
             n += 24  # 人数变化后舍弃后24组数据降低CPU使用率
-            # 舍弃数据后需要重新缓存6组数据
-            while 1:
+            time.sleep(0.2)  # CPU休眠一段时间防止之后的数据还没传进来
+            # 舍弃数据后需要重新缓存sensor_count * 3组数据
+            i = 1
+            j = 1
+            temp = []
+            while i <= sensor_count * 3:
                 try:
-                    result1 = client.query("SELECT*FROM %s WHERE n = %i;" % (room_id, n))
-                    result2 = client.query("SELECT*FROM %s WHERE n = %i;" % (room_id, n + 1))
-                    result3 = client.query("SELECT*FROM %s WHERE n = %i;" % (room_id, n + 2))
-                    result4 = client.query("SELECT*FROM %s WHERE n = %i;" % (room_id, n + 3))
-                    result5 = client.query("SELECT*FROM %s WHERE n = %i;" % (room_id, n + 4))
-                    result6 = client.query("SELECT*FROM %s WHERE n = %i;" % (room_id, n + 5))
-                    temp = [result1.raw['series'][0]['values'][0], result2.raw['series'][0]['values'][0],
-                            result3.raw['series'][0]['values'][0], result4.raw['series'][0]['values'][0],
-                            result5.raw['series'][0]['values'][0], result6.raw['series'][0]['values'][0]]
-                    break
+                    result = client.query("SELECT*FROM %s WHERE n = %i;" % (room_id, n + i))
+                    temp.append(result.raw['series'][0]['values'][0])
+                    i += 1
                 except Exception as e:
-                    print("Error:", e, "\n请确保传感器信息已经存入influxdb中，操作将于5s后自动重试")
-                    time.sleep(5)
+                    print("Error:", e, "\n数据库出错，操作将于0.5s后自动重试")
+                    if j > 6:
+                        print("请手动重启程序")
+                        return
+                    time.sleep(0.5)
+                    j += 1
                     continue
-
+            n += sensor_count * 3
             # 人数变化后存储到数据库
-            sql = "UPDATE room SET people_counts='%i' WHERE room_id='%s'" % (people_num, room_id)
+            sql = "UPDATE Room SET people_counts='%i' WHERE room_id='%s'" % (people_num, room_id)
             # 执行sql语句
             cursor.execute(sql)
             # 提交到数据库执行
             db.commit()
 
-        # 下一组数据
-        n += 1
+            # 下一组数据
+            if n > surpass_query:
+                # query_sql = "SELECT first(n) FROM %s WHERE n>%i AND (value < %i OR value > %i);" % (
+                #     room_id, n, max_distance - fluctuate, max_distance + fluctuate)
+                query_sql = "SELECT first(n) FROM %s WHERE n>%i AND value < %i;" % (
+                    room_id, n, max_distance - fluctuate)
+                result = client.query(query_sql)
+                # print("SELECT first(n) FROM %s WHERE n>%i AND (value < %i OR value > %i);" % (
+                #     room_id, n, max_distance - fluctuate, max_distance + fluctuate))
+                # print(result.raw['series'][0]['values'][0][1])
+                # print(result.raw)
+                while len(result) == 0:
+                    print('sleep')
+                    time.sleep(0.5)
+                    result = client.query(query_sql)
+                next_n = result.raw['series'][0]['values'][0][1]
+                if next_n - n <= jump_interval:
+                    surpass_query += jump_interval
+                    n += 1
+                    # print('find no jump')
+                else:
+                    n = next_n - 10
+                    surpass_query = n
+                    print('jump')
+            else:
+                n += 1
 
 
 if __name__ == "__main__":

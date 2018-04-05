@@ -65,9 +65,9 @@ def get_floor_rooms_id(request):
 def set_room_people_counts(request):  # 登录页面
     user = auth.get_user(request)
     room_id = request.POST.get('room_id')
-    print(room_id)
+    # print(room_id)
     people_counts = int(request.POST.get('people_counts'))
-    print(people_counts)
+    # print(people_counts)
     if people_counts < 0:
         people_counts = 0
     if user is None or not user.is_admin:  # 用户未登录或不为管理员
@@ -102,7 +102,8 @@ def get_room_signal(request):
     else:
         client = InfluxDBClient(settings.INFLUXDB['HOST'], settings.INFLUXDB['PORT'], settings.INFLUXDB['USERNAME'],
                                 settings.INFLUXDB['PASSWORD'], settings.INFLUXDB['NAME'])
-        while True:
+        socket_status = 1
+        while socket_status:
             current_time = datetime.datetime.now()
             over_time = current_time - datetime.timedelta(seconds=send_interval)
 
@@ -137,10 +138,11 @@ def get_room_signal(request):
                 i += 1
 
             room_data = {'signal1': signal1, 'signal2': signal2}
-            print(room_data)
+            # print(room_data)
             data = json.dumps(room_data).encode()
             request.websocket.send(data)
-            time.sleep(5)
+            time.sleep(send_interval)
+            socket_status = request.websocket.read(1)
 
 
 def test_signal(request):

@@ -17,5 +17,5 @@ result = client.query(
 # result = client.query("select * from %s;" % (room_id))
 
 for raw in result[room_id]:
-    print(raw['mean'])
+    print(raw['time'])
     # print(raw)

@@ -108,13 +108,26 @@ def get_room_info(request):  # 返回房间人数
                 # print('end')
 
 
+def is_valid_date(str):
+    '''判断是否是一个有效的日期字符串'''
+    try:
+        time.strptime(str, "%Y-%m-%d")
+        return True
+    except:
+        return False
+
+
 @require_http_methods(["POST"])
 def create_record(request):
     user = auth.get_user(request)
-    check_in_date = datetime.datetime(request.POST.get('check_in_time'))
+    check_in_date_str = request.POST.get('check_in_time')
     days = int(request.POST.get('days'))
+    if is_valid_date(check_in_date_str):
+        check_in_date = datetime.datetime(check_in_date_str)
+        expired_time = check_in_date + datetime.timedelta(days=days)
+    else:
+        expired_time = None
     room_id = request.POST.get('room_id')
-    expired_time = check_in_date + datetime.timedelta(days=days)
     room = get_room_by_id(room_id)
 
     if user is None:  # 用户未登录
@@ -123,12 +136,14 @@ def create_record(request):
         data = {"result": 0, "message": "房间不存在"}
     elif room.user is not None:
         data = {"result": 0, "message": "房间已经被预定"}
+    elif expired_time is None:
+        data = {"result": 0, "message": "时间错误"}
     else:
         record = Record(user=user, room=room, check_in_date=check_in_date,
                         expired_time=expired_time, current_status=0,
                         create_record=datetime.datetime.now())
         record.save()
-        data = {"result": 0, "message": "预定成功"}
+        data = {"result": 1, "message": "预定成功"}
     response = JsonResponse(data)
     response = add_cors_headers(response)
     return response
