@@ -97,7 +97,6 @@ $(document).ready(function()
                   //bootstrapValidator.updateStatus('thePassword', 'INVALID','');
                   document.getElementById('passwordNotice').innerHTML="用户名和密码不匹配";
                   //bootstrapValidator.updateMessage('thePassword','notEmpty','密码错误');
-                  console.log("passwordincorrect");
                 }
               }
             },

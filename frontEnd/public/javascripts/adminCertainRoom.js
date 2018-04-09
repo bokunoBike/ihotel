@@ -16,12 +16,7 @@ function getPersonNumber()
 	{
 		var data = JSON.parse(e.data);
 		systemPersonNumber = data.people_counts;
-		console.log("systemPersonNumber"+systemPersonNumber);
 		document.getElementById('number').innerHTML = systemPersonNumber;
-	}
-	ws.onopen = function()
-	{
-		console.log("wsopen");
 	}
 	ws.onclose = function()
 	{
@@ -56,7 +51,6 @@ function subPerson()
 //设置系统人数
 function setPersonNumber()
 {
-	console.log("set_room_people_counts"+document.getElementById('number').innerHTML);
 	$.ajax({
 		type: 'POST',
 		url:'http://' + host + ':8000/manager/set_room_people_counts',
