@@ -80,7 +80,7 @@ body
 #main-window {
   padding: 0;
   margin: 5% 0 5% 7%;
-  height: 450px;
+  min-height: 450px;
   background-color: inherit;
   border: 1px inset lightgray;
   //border-color: lightgray #202020 #202020 lightgray;
@@ -340,7 +340,6 @@ body
 {
   display: none;
 }
-
 @media screen and (max-width: 767px) {
   .body_container #notices
   {

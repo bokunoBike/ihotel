@@ -2,9 +2,7 @@ var localStorage = window.sessionStorage;
 
 window.onload = checkLogin();
 window.onclick = function(){
-  //alert("hhh");
   var now = new Date();
-  //console.log(now.getTime());
   localStorage.setItem("lastClick",now.getTime());
 }
 
@@ -48,9 +46,7 @@ function logout()
 {
   var host = window.location.hostname;
   localStorage.removeItem("user");
-  console.log(localStorage.getItem("user"));
   var host = window.location.hostname;
-  //console.log('try to logout');
   $.ajax({
     type: 'GET',
     url:'http://' + host + ':8000/login/logout',
@@ -65,7 +61,6 @@ function logout()
     complete: function(XMLHttpRequest, textStatus) {},
     success: function(data)
     {
-      console.log('logout');
       window.location.href = '/';
     },
     error: function(err) {

@@ -15,7 +15,6 @@ function getPersonNumber()
 		var data = JSON.parse(e.data);
 		systemPersonNumber = data.people_counts;
 		document.getElementById('number').innerHTML = systemPersonNumber;
-		//console.log(systemPersonNumber);
 	}
 	ws.onclose = function()
 	{
@@ -87,7 +86,6 @@ $('#myModal').on('show.bs.modal', function () {
 	document.getElementById('navbarContainer').style.position='static';
 })
 $('#myModal').on('hidden.bs.modal', function () {
-	//console.log(document.getElementById('navbarContainer').clientHeight);
 	document.getElementsByTagName('body')[0].style.paddingTop='75px';
   document.getElementById('navbarContainer').style.position='fixed';
 })

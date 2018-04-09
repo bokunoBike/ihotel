@@ -7,6 +7,7 @@ var senor;//传感器信号list
 window.onload = initWindow();
 function initWindow()
 {
+	resizeMainwindow();
 	getPersonNumber();
 	getExpireTime();
 	if(url[4] != 'adminCertainRoom')
@@ -14,6 +15,22 @@ function initWindow()
 		myChart = echarts.init(document.getElementById('showChart'),'dark');
 	}
 	getSenor();
+}
+//mainwindow响应式高度实现
+function resizeMainwindow()
+{
+	if(window.screen.width < 1024)
+	{
+		document.getElementById('main-window').style.height = window.screen.width*0.5+'px';
+	}
+	else if(window.screen.width <1366)
+	{
+		document.getElementById('main-window').style.height = window.screen.width*0.4+'px';
+	}
+	else
+	{
+		document.getElementById('main-window').style.height = window.screen.width*0.32+'px';
+	}
 }
 //通过webSocket获取系统判定人数
 function getPersonNumber()
@@ -25,10 +42,8 @@ function getPersonNumber()
 		var data = JSON.parse(e.data);
 		systemPersonNumber = data.people_counts;
 		var pattern = data.pattern;
-		//console.log("pattern"+pattern);
 		if(pattern == false&&systemPersonNumber == 0)
 		{
-			//console.log("lightOff");
 			if(url[4] != 'adminCertainRoom')
 			{
 				document.getElementById('showChart').style.boxShadow = 'none';
@@ -40,7 +55,6 @@ function getPersonNumber()
 		}
 		else
 		{
-			//console.log("lightOn");
 			if(url[4] != 'adminCertainRoom')
 			{
 				document.getElementById('showChart').style.boxShadow = '0 0 20px #E2C08D';
@@ -50,7 +64,6 @@ function getPersonNumber()
 				document.getElementById('main-window').style.boxShadow = '0 0 20px #E2C08D';
 			}
 		}
-		//console.log(systemPersonNumber);
 	}
 	ws.onclose = function()
 	{
@@ -102,10 +115,6 @@ function changeFloorClick()
 	}
 }
 //点击显示大图表
-$("canvas").click(function()
-{
-	console.log('hhh');
-});
 function showBigChart()
 {
 	window.location.href = "/admin/adminCertainRoom";
@@ -114,7 +123,6 @@ function showBigChart()
 function returntoCharts()
 {
 	var width =  window.screen.width;
-	console.log(width);
 	if(width < 768)
 	{
 		window.location.href = "/admin/adminCertainRoom";
@@ -147,25 +155,6 @@ function sendModify()
 {
 	document.getElementById('feedback').style.display = 'block';
 }
-
-//获取随机数据
-/*function randomData() {
-    now = new Date(+now + 1000);
-    var year=now.getFullYear();
-    var month=now.getMonth()+1;
-    var day=now.getDate();
-    var hour=now.getHours();
-    var minute=now.getMinutes();
-    var second=now.getSeconds();
-    value = value + Math.random() * 21 - 10;
-    return {
-        //name: now.toString(),
-        value: [
-            year+'/'+month+'/'+day+' '+hour+':'+minute+':'+second,
-            Math.round(value)
-        ]
-    }
-}*/
 //获取传感器信号
 function getSenor()
 {
@@ -178,8 +167,6 @@ function getSenor()
 		//myChart.clear();
 		now = new Date();
 		now = new Date(+now-1000);
-		/*dataUltrasound1.splice(0,dataUltrasound1.length);
-		dataUltrasound2.splice(0,dataUltrasound2.length);*/
 		if(times == 0)
 		{
 			now = new Date(+now-4000);
@@ -229,15 +216,19 @@ function getSenor()
 			now = new Date(+now+100);
 			dataUltrasound1.push(senorValue1);
 			dataUltrasound2.push(senorValue2);
-		    //data.push(randomData())
 		}
 		myChart.setOption(option);
-		window.onresize = myChart.resize;
+		window.onresize = function()
+		{
+			resizeMainwindow();
+			myChart.resize();
+		};
 		times++;
 	}
 	ws.onclose = function()
 	{
 		ws.send(0);
+		getSenor();
 	}
 	ws.onerror = function(e)
 	{
@@ -256,7 +247,6 @@ option = {
         text: 'Z101传感器信号',
         textStyle: {
                fontWeight: 'normal'              //标题颜色
-               //color: 'gray'
            }
     },
     tooltip: {

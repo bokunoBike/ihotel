@@ -29,20 +29,19 @@ function makeSureSet()
 			complete: function(XMLHttpRequest, textStatus) {},
 			success: function(data)
 			{
-				console.log("set"+data);
 				resolve('Hello I am No.1');
 			},
 			error: function(err) {
 					console.log("error"+err);
 			}
 		});
-		console.log('步骤一：执行');
+		//console.log('步骤一：执行');
 	}
 
 	function step2(resolve, reject)
 	{
 		getExpireTime();
-		console.log('步骤二：执行');
+		//console.log('步骤二：执行');
 		resolve('Hello I am No.2');
 	}
 	//promise确保ajax顺序执行
@@ -81,7 +80,6 @@ function getExpireTime()
 			expireHour = expireTime.getHours()-nowHour;
 			expireMinute = expireTime.getMinutes()-nowMinute;
 			expireSecond = expireTime.getSeconds()-nowSecond;
-			console.log(expireHour*60*60+expireMinute*60+expireSecond);
 			if((expireHour*60*60+expireMinute*60+expireSecond) > 0)
 			{
 				initCounter();
@@ -111,7 +109,6 @@ function setExpireTime(setHours,setMinutes,setSeconds)
 		complete: function(XMLHttpRequest, textStatus) {},
 		success: function(data)
 		{
-			console.log("set"+data);
 		},
 		error: function(err) {
 				console.log("error"+err);

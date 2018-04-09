@@ -12,6 +12,7 @@ html, body{
   font-family: 'Open Sans', sans-serif;
 	background:#ffffff;
 	margin:0px!important;
+  height: 100%;
 }
 p{
 	margin:0;
