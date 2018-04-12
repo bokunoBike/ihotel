@@ -48,16 +48,17 @@ def set_expire_time(request):  # 登录页面
 
 
 @require_http_methods(["GET"])
-def get_expire_time(request):  # 登录页面
+def get_room_time(request):  # 登录页面
     # print('start')
     user = auth.get_user(request)
     if user is None:  # 用户未登录
-        data = {"expire_time": datetime.datetime.now(), 'feedback': 'user does not login'}
+        current_time = datetime.datetime.now()
+        data = {"expire_time": current_time, "current_time": current_time, 'feedback': 'user does not login'}
     else:
         room = get_room_by_user(user)
         current_time = datetime.datetime.now()
         if room is None:  # 该用户没有使用房间
-            data = {"expire_time": current_time, 'feedback': "The user doesn't use a room."}
+            data = {"expire_time": current_time, "current_time": current_time, 'feedback': "The user doesn't use a room."}
         else:
             expired_time = room.expired_time
             if expired_time is None:
@@ -67,9 +68,12 @@ def get_expire_time(request):  # 登录页面
             # print(expired_time)
             if expired_time <= current_time:
                 data = {"expire_time": current_time,
+                        "current_time": current_time,
                         'feedback': 'not set expire_time or has expired'}
             else:
-                data = {"expire_time": expired_time, 'feedback': 'the expire time'}
+                data = {"expire_time": expired_time,
+                        "current_time": current_time,
+                        'feedback': 'the expire time'}
     response = JsonResponse(data)
     response = add_cors_headers(response)
     return response
