@@ -134,10 +134,12 @@ def _my_tree(room_id='Z101', max_distance=190, fluctuate=20):
         if sensor_stat == ['00', '10', '11']:
             people_num += 1
             people_stat = 1
+            people_change = 1
         # people_num!=0，00->01->11，减1人
         if people_num != 0 and sensor_stat == ['00', '01', '11']:
             people_num -= 1
             people_stat = 1
+            people_change = -1
 
         ''' 人数发生变化时'''
         if people_stat == 1:
@@ -164,7 +166,12 @@ def _my_tree(room_id='Z101', max_distance=190, fluctuate=20):
                     continue
             n += sensor_count * 3
             # 人数变化后存储到数据库
-            sql = "UPDATE Room SET people_counts='%i' WHERE room_id='%s'" % (people_num, room_id)
+            # sql = "UPDATE Room SET people_counts='%i' WHERE room_id='%s'" % (people_num, room_id)
+            if people_change == 1:
+                sql = "UPDATE Room SET people_counts=people_counts+1 WHERE room_id='%s'" % (room_id,)
+            elif people_change == -1:
+                sql = "UPDATE Room SET people_counts=people_counts-1 WHERE room_id='%s' AND people_counts!=0" % (
+                    room_id,)
             # 执行sql语句
             cursor.execute(sql)
             # 提交到数据库执行
