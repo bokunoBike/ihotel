@@ -85,7 +85,7 @@ DATABASES = {
 INFLUXDB = {
     'NAME': 'test_db',
     'USERNAME': 'root',
-    'PASSWORD': '',
+    'PASSWORD': '123456',
     'HOST': 'localhost',
     'PORT': 8086
     }
