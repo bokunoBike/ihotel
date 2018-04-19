@@ -2,6 +2,10 @@
 -------------------------------------------------- */
 /*BODY AND CONTAINER *
 -------------------------------------------------- */
+html
+{
+  background-color: #2A2A2A;
+}
 body
 {
   padding-top:75px;
@@ -17,10 +21,6 @@ body
 }
 /* CUSTOMIZE THE HEADER
 -------------------------------------------------- */
-#roomStatus
-{
-  display: none;
-}
 /* CUSTOMIZE THE CONTAIANER
 -------------------------------------------------- */
 .body_container
@@ -52,6 +52,12 @@ body
 
 /* 人数核验
 -------------------------------------------------- */
+#getRoomNum
+{
+  margin: 2em 4.16667% 0 0;
+  display: none;
+}
+
 #main-window h1
 {
   text-align:center;
@@ -133,6 +139,7 @@ center .container
 {
   margin-top:2%;
 }
+
 .pattern
 {
   cursor: pointer;
@@ -182,7 +189,7 @@ center .container
 @media screen and (max-width: 767px)
 {
   #main-window{display: none;}
-  #roomStatus,#main-window #back
+  #getRoomNum,#main-window #back
   {
     display: block;
   }
@@ -197,6 +204,10 @@ center .container
   .body_container img
   {
     height: 40px;
+  }
+  .activeMode
+  {
+    margin-top: 10%;
   }
   .passiveMode{margin-bottom: 30%;}
 }

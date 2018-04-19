@@ -62,7 +62,7 @@ function getExpireTime()
 	//获取过期时间初始化计时器
 	$.ajax({
 		type: 'GET',
-		url:'http://' + host + ':8000/user/get_expire_time',
+		url:'http://' + host + ':8000/user/get_room_time',
 		dataType: 'json',
 		// 下面两个参数解决跨域问题
 		xhrFields: {
@@ -73,7 +73,7 @@ function getExpireTime()
 		success: function(data)
 		{
 			var expireTime = new Date(data.expire_time);
-			var now = new Date();
+			var now = new Date(data.current_time);
 			var nowHour = now.getHours();
 			var nowMinute = now.getMinutes();
 			var nowSecond = now.getSeconds();

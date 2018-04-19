@@ -68,15 +68,14 @@ html(xmlns='http://www.w3.org/1999/xhtml')
                   a.glyphicon.glyphicon-log-out(aria-hidden='true')(onclick = 'logout()') 注销
                 li
                   a.glyphicon.glyphicon-envelope(aria-hidden='true')(href='mailto:bowl_www@163.com') 联系我们
-                li
-                  a#roomStatus(onclick='showStatus()') 查看房间状态
       //container
       .body_container.row#body_container
         img#img.img-responsive(src='/images/ab.jpg', alt='Header')
+        button#getRoomNum.btn.btn-primary.pull-right(type='submit',onclick='showStatus()') 查看房间状态
         #main-window.ui.segment.pull-right.col-xs-10.col-sm-6
           center
             span 当前房间内有
-              h1#number 
+              h1#number
             span 人
           #porlContainer
             #plusAndSub
