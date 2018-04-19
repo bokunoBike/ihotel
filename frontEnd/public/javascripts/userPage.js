@@ -30,13 +30,16 @@ function showStatus()
 {
 	var select = document.getElementById('select');
 	var statusWindow = document.getElementById('main-window');
-	select.style.display='none';
-	statusWindow.style.display='block';
+	var getRoomNum = document.getElementById('getRoomNum');
+	getRoomNum.style.display = 'none';
+	select.style.display = 'none';
+	statusWindow.style.display = 'block';
 }
 //小屏幕点击返回按钮
 function backSelect()
 {
 	document.getElementById('select').style.display = 'block';
+	document.getElementById('getRoomNum').style.display = 'block';
 	document.getElementById('main-window').style.display = 'none';
 }
 //点击增加人数
