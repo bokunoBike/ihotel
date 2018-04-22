@@ -20,7 +20,7 @@ SECRET_KEY = '9$%8z(lk*z(!q@y8qu0i!sjpu4d2zih$n%xu1gyd2n($ypc=p9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1","localhost"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "115.159.77.150"]
 
 # Application definition
 
@@ -152,7 +152,7 @@ CORS_ALLOW_HEADERS = (
     'Pragma',
 )
 
-CORS_ALLOW_HOST = "localhost"
-#CORS_ALLOW_HOST = "127.0.0.1"
+#CORS_ALLOW_HOST = "localhost"
+CORS_ALLOW_HOST = "127.0.0.1"
 # CORS_ALLOW_HOST = "115.159.77.150"
 
