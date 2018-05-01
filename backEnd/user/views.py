@@ -78,7 +78,7 @@ def get_room_time(request):  # 登录页面
     response = add_cors_headers(response)
     return response
 
-
+'''
 @require_websocket
 def get_room_info(request):  # 返回房间人数
     # print('start')
@@ -110,7 +110,7 @@ def get_room_info(request):  # 返回房间人数
                 # print(datetime.datetime.now())
                 socket_status = request.websocket.read(1)
                 # print('end')
-
+'''
 
 def is_valid_date(str):
     '''判断是否是一个有效的日期字符串'''
