@@ -4,6 +4,7 @@ var host = window.location.hostname;
 var setHour;
 var setMinute;
 var setSecond;
+var expireDate;
 var expireHour;
 var expireMinute;
 var expireSecond;
@@ -74,13 +75,16 @@ function getExpireTime()
 		{
 			var expireTime = new Date(data.expire_time);
 			var now = new Date(data.current_time);
+			var nowDate = now.getDate();
 			var nowHour = now.getHours();
 			var nowMinute = now.getMinutes();
 			var nowSecond = now.getSeconds();
+			expireDate = expireTime.getDate()-nowDate;
 			expireHour = expireTime.getHours()-nowHour;
 			expireMinute = expireTime.getMinutes()-nowMinute;
 			expireSecond = expireTime.getSeconds()-nowSecond;
-			if((expireHour*60*60+expireMinute*60+expireSecond) > 0)
+			console.log(expireDate*24*60*60+expireHour*60*60+expireMinute*60+expireSecond);
+			if((expireDate*24*60*60+expireHour*60*60+expireMinute*60+expireSecond) > 0)
 			{
 				initCounter();
 			}
@@ -235,7 +239,7 @@ function initCounter()
 			getTimeSet();
 			if((new Date()) > ts){
 			//修改倒计时时间
-			ts = (new Date()).getTime() + expireHour*60*60*1000 + expireMinute*60*1000 + expireSecond*1000-1;
+			ts = (new Date()).getTime() + expireDate*24*60*60*1000 + expireHour*60*60*1000 + expireMinute*60*1000 + expireSecond*1000-1;
 			newYear = false;
 			//storage.setItem("alreadySetTime",true);
 		}
