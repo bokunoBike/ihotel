@@ -25,22 +25,10 @@ class Room(models.Model):
         return str(self.room_id)
 
 
-# class UserDetail(models.Model):
-#     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True,
-#                                 related_name='user')  # 用户名
-#     is_id_auth = models.BooleanField(null=False, default=False)  # 是否通过实名认证
-#
-#     class Meta:
-#         db_table = 'UserDetail'
-#
-#     def __str__(self):
-#         return str(self.user)
-
-
 class Record(models.Model):
     id = models.AutoField(primary_key=True)  # 记录id，自动生成
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True,
-                             related_name='userdetail')  # 用户名
+                             related_name='user')  # 用户名
     room = models.ForeignKey('common.Room', on_delete=models.SET_NULL, null=True, blank=True,
                              related_name='room')  # 房间名
     current_status = models.IntegerField(null=False, default=0)  # 0表示未退房，1表示已退房

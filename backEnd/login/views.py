@@ -7,7 +7,7 @@ import django.contrib.auth as auth
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.http import require_http_methods
 
-from .admin import UserCreateForm
+from .forms import UserCreateForm
 from .forms import LoginForm
 from .models import User
 from common.views import add_cors_headers

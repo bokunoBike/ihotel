@@ -76,7 +76,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ihotel',
         'USER': 'root',
-        'PASSWORD': '123456',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '3306',
         'TEST_CHARSET': 'utf8',
@@ -93,7 +93,7 @@ INFLUXDB = {
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
-AUTH_USER_MODEL = 'login.User'
+AUTH_USER_MODEL = 'auth.User'
 
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -152,8 +152,8 @@ CORS_ALLOW_HEADERS = (
     'Pragma',
 )
 
-WEBSOCKET_FACTORY_CLASS = 'dwebsocket.backends.uwsgi.factory.uWsgiWebSocketFactory'
+#WEBSOCKET_FACTORY_CLASS = 'dwebsocket.backends.uwsgi.factory.uWsgiWebSocketFactory'
 
-CORS_ALLOW_HOST = "localhost"
-#CORS_ALLOW_HOST = "127.0.0.1"
+#CORS_ALLOW_HOST = "localhost"
+CORS_ALLOW_HOST = "127.0.0.1"
 #CORS_ALLOW_HOST = "115.159.77.150"
