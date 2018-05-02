@@ -1,22 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b437801e-52de-413a-803c-0bbd2afa7ea2" name="默认" comment="422-2">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/backEnd/common/migrations/0003_auto_20180502_1926.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/backEnd/login/forms.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/backEnd/login/migrations/0001_initial.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/backEnd/login/migrations/0002_auto_20180502_1928.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/backEnd/login/migrations/0003_profile.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/backEnd/login/migrations/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/backEnd/login/validators.py" />
+    <list default="true" id="b437801e-52de-413a-803c-0bbd2afa7ea2" name="默认" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backEnd/common/admin.py" afterPath="$PROJECT_DIR$/backEnd/common/admin.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backEnd/common/models.py" afterPath="$PROJECT_DIR$/backEnd/common/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backEnd/ihotel/settings.py" afterPath="$PROJECT_DIR$/backEnd/ihotel/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backEnd/login/admin.py" afterPath="$PROJECT_DIR$/backEnd/login/admin.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backEnd/login/models.py" afterPath="$PROJECT_DIR$/backEnd/login/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backEnd/login/views.py" afterPath="$PROJECT_DIR$/backEnd/login/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backEnd/user/models.py" afterPath="$PROJECT_DIR$/backEnd/user/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backEnd/manager/views.py" afterPath="$PROJECT_DIR$/backEnd/manager/views.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -46,11 +35,21 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/backEnd/user/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="213">
+              <caret line="48" column="0" lean-forward="true" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/backEnd/ihotel/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1998">
-              <caret line="93" column="34" lean-forward="true" selection-start-line="93" selection-start-column="34" selection-end-line="93" selection-end-column="34" />
+            <state relative-caret-position="3552">
+              <caret line="159" column="0" lean-forward="true" selection-start-line="159" selection-start-column="0" selection-end-line="159" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -59,10 +58,24 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/backEnd/login/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1517">
-              <caret line="62" column="17" lean-forward="true" selection-start-line="62" selection-start-column="17" selection-end-line="62" selection-end-column="17" />
+            <state relative-caret-position="-632">
+              <caret line="30" column="34" lean-forward="false" selection-start-line="30" selection-start-column="34" selection-end-line="30" selection-end-column="34" />
               <folding>
                 <element signature="e#55#109#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/backEnd/manager/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="589">
+              <caret line="210" column="11" lean-forward="true" selection-start-line="210" selection-start-column="11" selection-end-line="210" selection-end-column="11" />
+              <folding>
+                <marker date="1525274017812" expanded="true" signature="3755:3852" ph="select mean(... missing_value" />
+                <marker date="1525274017812" expanded="true" signature="4414:4511" ph="select mean(... missing_value" />
+                <marker date="1525274017812" expanded="true" signature="5634:5731" ph="select mean(... missing_value" />
               </folding>
             </state>
           </provider>
@@ -71,8 +84,8 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/backEnd/login/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-148">
-              <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+            <state relative-caret-position="259">
+              <caret line="16" column="28" lean-forward="true" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="28" />
               <folding>
                 <element signature="e#39#67#0" expanded="true" />
               </folding>
@@ -80,11 +93,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="admin.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="admin.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/backEnd/login/admin.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="185">
-              <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+              <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
               <folding>
                 <element signature="e#16#48#0" expanded="true" />
               </folding>
@@ -95,8 +108,8 @@
       <file leaf-file-name="admin.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/backEnd/common/admin.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="21" />
+            <state relative-caret-position="148">
+              <caret line="4" column="27" lean-forward="true" selection-start-line="4" selection-start-column="27" selection-end-line="4" selection-end-column="27" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
@@ -107,8 +120,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/backEnd/common/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="703">
-              <caret line="45" column="12" lean-forward="true" selection-start-line="45" selection-start-column="12" selection-end-line="45" selection-end-column="12" />
+            <state relative-caret-position="1480">
+              <caret line="45" column="12" lean-forward="false" selection-start-line="45" selection-start-column="12" selection-end-line="45" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -117,8 +130,8 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/backEnd/common/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="325">
-              <caret line="42" column="4" lean-forward="true" selection-start-line="42" selection-start-column="4" selection-end-line="43" selection-end-column="27" />
+            <state relative-caret-position="814">
+              <caret line="42" column="4" lean-forward="false" selection-start-line="42" selection-start-column="4" selection-end-line="43" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -143,10 +156,12 @@
       <find>already</find>
       <find>room_num</find>
       <find>max_distance</find>
+      <find>is_admin</find>
     </findStrings>
     <replaceStrings>
       <replace>&quot;</replace>
       <replace>room_id</replace>
+      <replace>is_staff</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -195,7 +210,6 @@
         <option value="$PROJECT_DIR$/backEnd/room_guard.py" />
         <option value="$PROJECT_DIR$/algorithm/data_io.py" />
         <option value="$PROJECT_DIR$/algorithm/data_out.py" />
-        <option value="$PROJECT_DIR$/backEnd/manager/views.py" />
         <option value="$PROJECT_DIR$/backEnd/user/views.py" />
         <option value="$PROJECT_DIR$/algorithm/decision _tree.py" />
         <option value="$PROJECT_DIR$/backEnd/ihotel/uwsgi.ini" />
@@ -203,11 +217,12 @@
         <option value="$PROJECT_DIR$/backEnd/user/models.py" />
         <option value="$PROJECT_DIR$/backEnd/ihotel/settings.py" />
         <option value="$PROJECT_DIR$/backEnd/login/forms.py" />
-        <option value="$PROJECT_DIR$/backEnd/login/views.py" />
         <option value="$PROJECT_DIR$/backEnd/common/models.py" />
-        <option value="$PROJECT_DIR$/backEnd/login/models.py" />
         <option value="$PROJECT_DIR$/backEnd/common/admin.py" />
         <option value="$PROJECT_DIR$/backEnd/login/admin.py" />
+        <option value="$PROJECT_DIR$/backEnd/login/models.py" />
+        <option value="$PROJECT_DIR$/backEnd/login/views.py" />
+        <option value="$PROJECT_DIR$/backEnd/manager/views.py" />
       </list>
     </option>
   </component>
@@ -987,7 +1002,14 @@
       <option name="project" value="LOCAL" />
       <updated>1524413622520</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="important:update user model">
+      <created>1525265455298</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1525265455298</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1065,7 +1087,8 @@
     <MESSAGE value="update algorithm" />
     <MESSAGE value="422-1" />
     <MESSAGE value="422-2" />
-    <option name="LAST_COMMIT_MESSAGE" value="422-2" />
+    <MESSAGE value="important:update user model" />
+    <option name="LAST_COMMIT_MESSAGE" value="important:update user model" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1259,13 +1282,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backEnd/manager/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="209" column="47" lean-forward="false" selection-start-line="209" selection-start-column="4" selection-end-line="209" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/backEnd/user/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="111">
@@ -1359,14 +1375,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backEnd/common/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="703">
-          <caret line="45" column="12" lean-forward="true" selection-start-line="45" selection-start-column="12" selection-end-line="45" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/backEnd/login/forms.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-481">
@@ -1377,75 +1385,95 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backEnd/user/views.py">
+    <entry file="file://$PROJECT_DIR$/backEnd/login/admin.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="37">
-          <caret line="59" column="18" lean-forward="false" selection-start-line="59" selection-start-column="18" selection-end-line="59" selection-end-column="18" />
-          <folding />
+        <state relative-caret-position="185">
+          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding>
+            <element signature="e#16#48#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/backEnd/common/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="42" column="4" lean-forward="true" selection-start-line="42" selection-start-column="4" selection-end-line="43" selection-end-column="27" />
+        <state relative-caret-position="814">
+          <caret line="42" column="4" lean-forward="false" selection-start-line="42" selection-start-column="4" selection-end-line="43" selection-end-column="27" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://F:/Anaconda3.5/Anaconda3.5/Lib/site-packages/django/contrib/auth/models.py">
+    <entry file="file://$PROJECT_DIR$/backEnd/common/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-253">
-          <caret line="368" column="6" lean-forward="false" selection-start-line="368" selection-start-column="6" selection-end-line="368" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backEnd/ihotel/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1998">
-          <caret line="93" column="34" lean-forward="true" selection-start-line="93" selection-start-column="34" selection-end-line="93" selection-end-column="34" />
+        <state relative-caret-position="1480">
+          <caret line="45" column="12" lean-forward="false" selection-start-line="45" selection-start-column="12" selection-end-line="45" selection-end-column="12" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/backEnd/common/admin.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="21" />
+        <state relative-caret-position="148">
+          <caret line="4" column="27" lean-forward="true" selection-start-line="4" selection-start-column="27" selection-end-line="4" selection-end-column="27" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backEnd/login/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1517">
-          <caret line="62" column="17" lean-forward="true" selection-start-line="62" selection-start-column="17" selection-end-line="62" selection-end-column="17" />
-          <folding>
-            <element signature="e#55#109#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/backEnd/login/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-148">
-          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+        <state relative-caret-position="259">
+          <caret line="16" column="28" lean-forward="true" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="28" />
           <folding>
             <element signature="e#39#67#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backEnd/login/admin.py">
+    <entry file="file://F:/Anaconda3.5/Anaconda3.5/Lib/site-packages/django/contrib/auth/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+        <state relative-caret-position="225">
+          <caret line="384" column="4" lean-forward="true" selection-start-line="384" selection-start-column="4" selection-end-line="384" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backEnd/ihotel/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3552">
+          <caret line="159" column="0" lean-forward="true" selection-start-line="159" selection-start-column="0" selection-end-line="159" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backEnd/login/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-632">
+          <caret line="30" column="34" lean-forward="false" selection-start-line="30" selection-start-column="34" selection-end-line="30" selection-end-column="34" />
           <folding>
-            <element signature="e#16#48#0" expanded="true" />
+            <element signature="e#55#109#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backEnd/manager/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="589">
+          <caret line="210" column="11" lean-forward="true" selection-start-line="210" selection-start-column="11" selection-end-line="210" selection-end-column="11" />
+          <folding>
+            <marker date="1525274017812" expanded="true" signature="3755:3852" ph="select mean(... missing_value" />
+            <marker date="1525274017812" expanded="true" signature="4414:4511" ph="select mean(... missing_value" />
+            <marker date="1525274017812" expanded="true" signature="5634:5731" ph="select mean(... missing_value" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backEnd/user/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="213">
+          <caret line="48" column="0" lean-forward="true" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

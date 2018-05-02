@@ -28,7 +28,7 @@ def home(request):  # 主页，需要登录
 #             user = auth.authenticate(request, username=username, password=password)
 #             if user is not None:  # 登录成功
 #                 auth.login(request, user)
-#                 if user.is_admin:
+#                 if user.is_staff:
 #                     return redirect(reverse('manager:home'))
 #                 else:
 #                     return redirect(reverse('login:home'))
@@ -50,7 +50,7 @@ def login(request):  # 登录页面
     if user is not None:  # 登录成功
         auth.login(request, user)
         # print('%s login successfully' % user.username)
-        if user.is_admin:  # 管理员登录
+        if user.is_staff:  # 管理员登录
             data = {"login_result": 0}
             response = JsonResponse(data)
             response = add_cors_headers(response)

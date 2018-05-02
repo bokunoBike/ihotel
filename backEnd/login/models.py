@@ -14,7 +14,7 @@ class Profile(models.Model):
     email = models.CharField(max_length=20)
 
     def __str__(self):
-        return str(self.user.id)
+        return str(self.user)
 
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):

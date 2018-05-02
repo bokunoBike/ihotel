@@ -49,7 +49,7 @@ def get_floor_rooms_id(request):
     user = auth.get_user(request)
     floor = int(request.GET.get('floor', '1'))
     rooms_id = []
-    if user is None or not user.is_admin:  # 管理员未登录或非管理员
+    if user is None or not user.is_staff:  # 管理员未登录或非管理员
         pass
     else:
         rooms = get_rooms_by_floor(floor)
@@ -70,7 +70,7 @@ def set_room_people_counts(request):  # 登录页面
     # print(people_counts)
     if people_counts < 0:
         people_counts = 0
-    if user is None or not user.is_admin:  # 用户未登录或不为管理员
+    if user is None or not user.is_staff:  # 用户未登录或不为管理员
         data = {"result": 1}
     else:
         room = get_room_by_id(room_id)
@@ -93,7 +93,7 @@ def get_room_signal(request):
     room = get_room_by_id(room_id)
     normal_distance = 170
     send_interval = 1
-    if user is None or not user.is_admin:  # 管理员未登录或非管理员
+    if user is None or not user.is_staff:  # 管理员未登录或非管理员
         room = None
     if room is None:  # 没有该房间
         room_data = {'signal1': [], 'signal2': []}
@@ -178,7 +178,7 @@ def get_room_people_counts(request):  # 获取房间内的房间人数
     # print('start')
     user = auth.get_user(request)
     room_id = request.GET.get('room_id')
-    if user is None or not user.is_admin:  # 管理员未登录或非管理员
+    if user is None or not user.is_staff:  # 管理员未登录或非管理员
         # print('not login')
         data = {"people_counts": 0}
         data = json.dumps(data).encode()
@@ -211,7 +211,7 @@ def get_room_people_counts_and_pattern(request):  # 获取房间内的房间人�
     # print('start')
     user = auth.get_user(request)
     room_id = request.GET.get('room_id')
-    if user is None or not user.is_admin:  # 管理员未登录或非管理员
+    if user is None or not user.is_staff:  # 管理员未登录或非管理员
         # print('not login')
         data = {"people_counts": 0, "pattern": 0}
         data = json.dumps(data).encode()
