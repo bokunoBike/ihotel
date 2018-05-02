@@ -152,7 +152,7 @@ CORS_ALLOW_HEADERS = (
     'Pragma',
 )
 
-WEBSOCKET_FACTORY_CLASS = 'dwebsocket.backends.uwsgi.factory.uWsgiWebSocketFactory'
+#WEBSOCKET_FACTORY_CLASS = 'dwebsocket.backends.uwsgi.factory.uWsgiWebSocketFactory'
 
 CORS_ALLOW_HOST = "localhost"
 #CORS_ALLOW_HOST = "127.0.0.1"
