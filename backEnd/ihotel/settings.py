@@ -83,7 +83,7 @@ DATABASES = {
     }
 }
 INFLUXDB = {
-    'NAME': 'test_db',
+    'NAME': 'ihotel',
     'USERNAME': 'root',
     'PASSWORD': '123456',
     'HOST': 'localhost',
